@@ -9,9 +9,11 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator(); // Create the Tab Navigator
 
 const MainTabNavigator = () => (
-    <Tab.Navigator>
+    <Tab.Navigator screenOptions={({ route }) => ({
+        tabBarLabelStyle: { fontSize: 16, }, // Set the desired font size here
+      })}>
       <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-      <Tab.Screen name="Tab2" component={Tab2} options={{ headerShown: false }} />
+      <Tab.Screen name="Profile" component={Tab2} options={{ headerShown: false}} />
     </Tab.Navigator>
   );
 const AppNavigator = () => {
