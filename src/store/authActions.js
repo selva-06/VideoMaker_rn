@@ -9,7 +9,7 @@ export const loginRequest = (email, password, navigation) => ({
     type: LOGIN_REQUEST,
     payload: { email, password, navigation },
   });
-  
+
 export const loginSuccess = (user) => ({
   type: LOGIN_SUCCESS,
   payload: user,

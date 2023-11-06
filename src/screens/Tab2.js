@@ -1,21 +1,26 @@
 /* eslint-disable prettier/prettier */
-// src/screens/Screen2.js
+// src/screens/Tab2.js
 
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import { View, Text, Button } from 'react-native';
+import { connect } from 'react-redux';
 
-const Tab2 = ({navigation}) => {
-    const styles = Tabstyles;
+const Tab2 = ({ navigation, user }) => {
+  const styles = Tabstyles;
   return (
     <View style={styles.container}>
       <Text style={styles.headText}>Screen 2 Content</Text>
-      <Button title='Logout' onPress={()=>{navigation.navigate('Login')}} st={styles.logout} />
-
+      {user && <Text style={styles.text}>Welcome, {user.name}</Text>}
+      <Button title='Logout' onPress={() => { navigation.navigate('Login')}} />
     </View>
   );
 };
 
-export default Tab2;
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+});
+
+export default connect(mapStateToProps)(Tab2);
 
 const Tabstyles ={
     container: {
@@ -28,6 +33,11 @@ const Tabstyles ={
       headText: {
         color:'black',
         fontSize: 20,
+        fontWeight: '800',
+      },
+      text: {
+        color:'black',
+        fontSize: 14,
         fontWeight: '800',
       },
 }

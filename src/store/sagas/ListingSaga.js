@@ -5,10 +5,10 @@ import { setListData } from '../actions/ListingActions';
 import { ListData } from '../../assets/data/Data';
 function* fetchListData() {
   try {
-    // Assuming you have some asynchronous operation to fetch data
-    // const data = yield call(/* Your API call to fetch data */);
+    //to fetch data
+    // const data = yield call(/* API call to fetch data */);
     yield put(setListData(ListData)); // Dispatch action to set list data
-    console.log('done fetching img from saga')
+    console.log('done fetching img from saga');
   } catch (error) {
     // Handle error
     console.log(error);
