@@ -1,5 +1,4 @@
 /* eslint-disable prettier/prettier */
-// src/reducers/authReducer.js
 
 import { LOGIN_SUCCESS, LOGIN_FAILURE } from "./authActions";
 

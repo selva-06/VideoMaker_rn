@@ -7,7 +7,8 @@ import createSagaMiddleware from 'redux-saga';
 import authReducer from './src/store/authReducer';
 import authSaga from './src/store/authSaga';
 import LoginScreen from './src/screens/LoginScreen';
-
+import AppNavigator from './src/navigation/Navigation';
+import {NavigationContainer} from '@react-navigation/native';
 const rootReducer = combineReducers({
   auth: authReducer,
 });
@@ -20,7 +21,9 @@ sagaMiddleware.run(authSaga);
 const App = () => {
   return (
     <Provider store={store}>
-      <LoginScreen />
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
     </Provider>
   );
 };

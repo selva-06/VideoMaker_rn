@@ -5,13 +5,12 @@ import React, {useState} from 'react';
 import {View, TextInput, Button, Text} from 'react-native';
 import {connect} from 'react-redux';
 import { loginRequest } from '../store/authActions';
-const LoginScreen = ({loginRequest, user, error}) => {
+const LoginScreen = ({loginRequest, user, error, navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
-    loginRequest(email, password);
-    // navigation.navigate('Home');
+    loginRequest(email, password, navigation);
   };
 
   return (
@@ -24,8 +23,8 @@ const LoginScreen = ({loginRequest, user, error}) => {
         onChangeText={setPassword}
       />
       <Button title="Login" onPress={handleLogin} />
-      {error && <Text>{error}</Text>}
-      {user && <Text>Welcome, {user.name}</Text>}
+      {error && <Text style={{color:'black'}}>{error}</Text>}
+      {user && <Text style={{color:'black'}}>Welcome, {user.name}</Text>}
     </View>
   );
 };

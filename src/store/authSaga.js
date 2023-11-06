@@ -12,10 +12,11 @@ function* loginUser(action) {
   try {
     const {email, password} = action.payload;
 
-    // Simulate a local authentication check (replace with your own logic)
+    //local
     if (email === 'abc@g.c' && password === 'password') {
       const user = {name: 'Leo Das', email: 'abc@g.c'};
       yield put(loginSuccess(user));
+      yield action.payload.navigation.navigate('Home');
     } else {
       throw new Error('Invalid credentials');
     }
