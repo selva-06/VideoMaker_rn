@@ -1,15 +1,25 @@
 /* eslint-disable prettier/prettier */
 // HomeScreen.js
 import React from 'react';
-import {View, Text, Button, ScrollView} from 'react-native';
+import { useState } from 'react';
+import {View, Text, Button, ScrollView, TouchableOpacity, Image, Dimensions} from 'react-native';
 import Listing from '../components/Listing';
+import Header from '../components/Header';
+
 const HomeScreen = ({navigation}) => {
+  const [showDropdowns, setShowDropdowns] = useState(false);
+
+  const toggleDropdowns = () => {
+    setShowDropdowns(!showDropdowns);
+  };
+
+
 
   const styles = homestyles;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headText}>Home Screen</Text>
+      <Header navigation={navigation}/>
       {/* <Button title='Logout' onPress={()=>{navigation.navigate('Login')}} st={styles.logout} /> */}
       <Listing />
     </View>
@@ -17,6 +27,7 @@ const HomeScreen = ({navigation}) => {
 };
 
 export default HomeScreen;
+const { width, height } = Dimensions.get('window');
 
 const homestyles =
  {
@@ -25,12 +36,16 @@ const homestyles =
         // justifyContent: 'center',
         // alignItems: 'center',
         padding: 5,
-        backgroundColor: 'skyblue',
+        backgroundColor: 'white',
       },
+      header: {
+        flexDirection:"row"
+      },
+      attach: { width: 0.0600 * width, height: 0.0250 * height, marginTop:3, marginHorizontal:5 },
       headText: {
         color:'black',
-        fontSize: 20,
-        fontWeight: '800',
+        fontSize: 16,
+        fontWeight: '300',
       },
       logout: {
         color: 'green',

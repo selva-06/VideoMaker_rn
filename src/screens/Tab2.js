@@ -28,7 +28,7 @@ const Tabstyles ={
         justifyContent: 'center',
         alignItems: 'center',
         padding: 16,
-        backgroundColor: 'skyblue',
+        backgroundColor: 'white',
       },
       headText: {
         color:'black',
