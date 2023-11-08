@@ -5,7 +5,9 @@ import { useState } from 'react';
 import {View, Text, Button, ScrollView, TouchableOpacity, Image, Dimensions} from 'react-native';
 import Listing from '../components/Listing';
 import Header from '../components/Header';
-
+import Err from '../components/Err';
+import MenuExample from '../components/Err';
+import { PaperProvider } from 'react-native-paper';
 const HomeScreen = ({navigation}) => {
   const [showDropdowns, setShowDropdowns] = useState(false);
 
@@ -19,8 +21,7 @@ const HomeScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Header navigation={navigation}/>
-      {/* <Button title='Logout' onPress={()=>{navigation.navigate('Login')}} st={styles.logout} /> */}
+
       <Listing />
     </View>
   );
@@ -35,7 +36,7 @@ const homestyles =
         flex: 1,
         // justifyContent: 'center',
         // alignItems: 'center',
-        padding: 5,
+        // padding: 5,
         backgroundColor: 'white',
       },
       header: {

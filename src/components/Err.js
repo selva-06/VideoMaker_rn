@@ -53,42 +53,69 @@
 
 // export default Err;
 
-import React, { useState } from 'react';
-import { View, Image, TouchableOpacity } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+// import * as React from 'react';
+// import { View } from 'react-native';
+// import { Button, Menu, Divider, PaperProvider } from 'react-native-paper';
 
-const Header = ({ navigation }) => {
-  const [selectedValue, setSelectedValue] = useState('upload');
+// const Err = () => {
+//   const [visible, setVisible] = React.useState(false);
+
+//   const openMenu = () => setVisible(true);
+
+//   const closeMenu = () => setVisible(false);
+
+//   return (
+//     <PaperProvider>
+//       <View>
+//         <Menu
+//           visible={visible}
+//           onDismiss={closeMenu}
+//           anchor={<Button onPress={openMenu}>Show menu</Button>}>
+//           <Menu.Item onPress={() => {}} title="Item 1" />
+//           <Menu.Item onPress={() => {}} title="Item 2" />
+//           <Divider />
+//           <Menu.Item onPress={() => {}} title="Item 3" />
+//         </Menu>
+//       </View>
+//     </PaperProvider>
+//   );
+// };
+
+// export default Err;
+
+import * as React from 'react';
+import { View } from 'react-native';
+import { Button, Menu, Divider, PaperProvider } from 'react-native-paper';
+
+const Err = () => {
+  const [visible, setVisible] = React.useState(false);
+
+  const openMenu = () => setVisible(true);
+
+  const closeMenu = () => setVisible(false);
 
   return (
-    <View>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <TouchableOpacity onPress={() => {}}>
-          <Image
-            source={require('../assets/images/attach.png')}
-            style={{ width: 50, height: 50 }}
-          />
-        </TouchableOpacity>
-        <Picker
-          selectedValue={selectedValue}
-          style={{ height: 50, width: 150 }}
-          onValueChange={(itemValue) => {
-            setSelectedValue(itemValue);
-            if (itemValue === 'upload') {
-              console.log('Upload selected');
-              navigation.navigate('Login');
-            } else if (itemValue === 'attach') {
-              console.log('Attach selected');
-            }
-          }}
-          itemStyle={{ color: 'black', fontSize: 20 }}
-        >
-          <Picker.Item label="Upload" value="upload" />
-          <Picker.Item label="Attach" value="attach" />
-        </Picker>
+    <PaperProvider>
+      <View
+        style={{
+          flexDirection: 'row',
+        }}>
+        <Menu
+          visible={visible}
+          onDismiss={closeMenu}
+          anchor={<Button onPress={openMenu}
+          style={{ marginTop: 10, marginRight: 10, height: 50,backgroundColor:'black' }}
+          >Show menu</Button>}
+          style={{ zIndex: 1,position:'absolute'}}
+          >
+          <Menu.Item onPress={() => {}} title="Item 1" />
+          <Menu.Item onPress={() => {}} title="Item 2" />
+          <Divider />
+          <Menu.Item onPress={() => {}} title="Item 3" />
+        </Menu>
       </View>
-    </View>
+    </PaperProvider>
   );
-}
+};
 
-export default Header;
+export default Err;
