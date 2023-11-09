@@ -154,10 +154,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchListData } from '../store/actions/ListingActions';
 import { Provider as PaperProvider, Menu } from 'react-native-paper';
 import DocumentPicker from 'react-native-document-picker';
-
+import { launchCamera } from 'react-native-image-picker';
 const Listing = () => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.list.listData);
+  const [videoUri, setVideoUri] = useState(null);
 
   useEffect(() => {
     dispatch(fetchListData()); // Dispatch action to fetch list data
@@ -205,6 +206,24 @@ const Listing = () => {
       }
     };
 
+    const startRecordingVideo = () => {
+      const options = {
+        mediaType: 'video',
+        videoQuality: 'high',
+      };
+
+      launchCamera(options, response => {
+        if (response.didCancel) {
+          console.log('User cancelled video recording');
+        } else if (response.error) {
+          console.log('Error recording video:', response.error);
+        } else if (response.assets && response.assets.length > 0) {
+          const uri = response.assets[0].uri;
+          console.log('Video recorded:', uri);
+          setVideoUri(uri); // Set the URI in state
+        }
+      });
+    };
   return (
     <PaperProvider>
       <View style={styles.container}>
@@ -221,7 +240,7 @@ const Listing = () => {
           }
           style={styles.menuItems}>
           <Menu.Item onPress={handleVideoUpload} title="Attach Files from Device" />
-          <Menu.Item onPress={() => {}} title="Capture Video" />
+          <Menu.Item onPress={startRecordingVideo} title="Capture Video" />
         </Menu>
         <FlatList
           data={data}
