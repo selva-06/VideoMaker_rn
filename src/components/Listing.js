@@ -99,7 +99,7 @@
 //                                 // requestPermission(); // Request permissions first
 //                                 handleVideoUpload(); // Then, proceed with picking the document
 //                               }}  title="Attach Files from Device" />
-//           <Menu.Item onPress={() => {}} title="Capture Video" /> 
+//           <Menu.Item onPress={() => {}} title="Capture Video" />
 //         </Menu>
 //         <FlatList
 //           data={data}
@@ -146,17 +146,14 @@ import {
   View,
   FlatList,
   Image,
-  Text,
   TouchableOpacity,
   StyleSheet,
   Dimensions,
-  Platform,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchListData } from '../store/actions/ListingActions';
 import { Provider as PaperProvider, Menu } from 'react-native-paper';
 import DocumentPicker from 'react-native-document-picker';
-import Video from 'react-native-video';
 
 const Listing = () => {
   const dispatch = useDispatch();
@@ -165,7 +162,6 @@ const Listing = () => {
   useEffect(() => {
     dispatch(fetchListData()); // Dispatch action to fetch list data
   }, [dispatch]);
-  const [videoUri, setVideoUri] = useState(null);
 
   const imageSize = (windowWidth - 50) / 2;
   const [menuVisible, setMenuVisible] = useState(false);
@@ -175,24 +171,39 @@ const Listing = () => {
   const closeMenu = () => setMenuVisible(false);
 
   const handleVideoUpload = async () => {
-   
+
       try {
         const result = await DocumentPicker.pickSingle({
           type: [DocumentPicker.types.video],
+          // allowMultiSelection: true,
         });
         console.log(result.uri, result.type, result.name, result.size);
-        setVideoUri(result.uri);
         // Implement logic to handle the selected video
+        const formData = new FormData();
+        formData.append('video', {
+          uri: result.uri,
+          type: result.type,
+          name: result.name,
+        });
+
+        const response = await fetch('http://localhost:3001/client/uploadVideo', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          console.log('Video uploaded successfully!');
+        } else {
+          console.error('Error uploading video:', response.statusText);
+        }
       } catch (err) {
         if (DocumentPicker.isCancel(err)) {
-          // User cancelled the picker
-          console.log(err);
+          console.log('User cancelled the picker');
         } else {
           throw err;
         }
       }
-
-  };
+    };
 
   return (
     <PaperProvider>
