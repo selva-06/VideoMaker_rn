@@ -4,24 +4,13 @@ import React from 'react';
 import { useState } from 'react';
 import {View, Text, Button, ScrollView, TouchableOpacity, Image, Dimensions} from 'react-native';
 import Listing from '../components/Listing';
-import Header from '../components/Header';
-import Err from '../components/Err';
-import MenuExample from '../components/Err';
-import { PaperProvider } from 'react-native-paper';
+
 const HomeScreen = ({navigation}) => {
-  const [showDropdowns, setShowDropdowns] = useState(false);
-
-  const toggleDropdowns = () => {
-    setShowDropdowns(!showDropdowns);
-  };
-
-
 
   const styles = homestyles;
 
   return (
     <View style={styles.container}>
-
       <Listing />
     </View>
   );
