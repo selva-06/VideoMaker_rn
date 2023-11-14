@@ -105,7 +105,7 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
- const loginstyle= 
+ const loginstyle =
  {
     container: {
         flex: 1,
@@ -165,4 +165,4 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
       error: {
         color: 'red',
       },
- }
+ };

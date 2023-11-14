@@ -2,16 +2,20 @@
 import {combineReducers} from 'redux';
 import {all} from 'redux-saga/effects';
 import authReducer from '../authReducer';
-import { watchLogin } from '../authSaga';
+import authSaga from '../authSaga';
 import watchFetchListData from '../sagas/ListingSaga';
 import listReducer from './ListingReducer';
+import { watchUploadVideo } from '../sagas/UploadSaga';
+import UploadReducer from './UploadReducer';
+
 function* rootSaga() {
-  yield all([watchLogin(),watchFetchListData]);
+  yield all([authSaga(),watchFetchListData()]);
 }
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  list: listReducer, // Add the new reducer
+  list: listReducer,
+  upload: UploadReducer, // Add the new reducer
 
 });
 

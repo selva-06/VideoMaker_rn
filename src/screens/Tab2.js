@@ -11,7 +11,7 @@ const Tab2 = ({ navigation, user }) => {
     <View style={styles.container}>
       <Text style={styles.headText}>Screen 2 Content</Text>
       {user && <Text style={styles.text}>Welcome, {user.name}</Text>}
-      <Button title='Logout' onPress={() => { navigation.navigate('Login')}} />
+      <Button title = "Logout" onPress={() => { navigation.navigate('Login');}} />
     </View>
   );
 };
@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps)(Tab2);
 
-const Tabstyles ={
+const Tabstyles = {
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -40,4 +40,4 @@ const Tabstyles ={
         fontSize: 14,
         fontWeight: '800',
       },
-}
+};

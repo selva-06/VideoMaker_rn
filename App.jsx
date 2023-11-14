@@ -11,7 +11,7 @@ import watchFetchListData from './src/store/sagas/ListingSaga';
 import LoginScreen from './src/screens/LoginScreen';
 import AppNavigator from './src/navigation/Navigation';
 import {NavigationContainer} from '@react-navigation/native';
-import rootReducer from './src/store/reducers/rindex';
+import rootReducer, {rootSaga} from './src/store/reducers/rindex';
 // const rootReducer = combineReducers({
 //   auth: authReducer,
 //   list: listReducer, // Add the new reducer
@@ -19,9 +19,10 @@ import rootReducer from './src/store/reducers/rindex';
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-
-sagaMiddleware.run(authSaga);
-sagaMiddleware.run(watchFetchListData);
+sagaMiddleware.run(rootSaga);
+// sagaMiddleware.run(authSaga);
+// sagaMiddleware.run(watchFetchListData);
+// sagaMiddleware.run(watchUploadVideo);
 
 const App = () => {
   return (
