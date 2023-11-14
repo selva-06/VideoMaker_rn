@@ -155,6 +155,7 @@ import { fetchListData } from '../store/actions/ListingActions';
 import { Provider as PaperProvider, Menu } from 'react-native-paper';
 import DocumentPicker from 'react-native-document-picker';
 import { launchCamera } from 'react-native-image-picker';
+import axios from 'axios';
 const Listing = () => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.list.listData);
@@ -171,40 +172,46 @@ const Listing = () => {
 
   const closeMenu = () => setMenuVisible(false);
 
-  const handleVideoUpload = async () => {
+    const handleVideoUpload = async () => {
+        try {
+          const result = await DocumentPicker.pickSingle({
+            type: [DocumentPicker.types.video],
+          });
 
-      try {
-        const result = await DocumentPicker.pickSingle({
-          type: [DocumentPicker.types.video],
-          // allowMultiSelection: true,
-        });
-        console.log(result.uri, result.type, result.name, result.size);
-        // Implement logic to handle the selected video
-        const formData = new FormData();
-        formData.append('video', {
-          uri: result.uri,
-          type: result.type,
-          name: result.name,
-        });
+          console.log(result.uri, result.type, result.name, result.size);
 
-        const response = await fetch('http://localhost:3001/client/uploadVideo', {
-          method: 'POST',
-          body: formData,
-        });
+          const formData = new FormData();
+          formData.append('video', {
+            uri: result.uri,
+            type: result.type,
+            name: result.name,
+          });
 
-        if (response.ok) {
-          console.log('Video uploaded successfully!');
-        } else {
-          console.error('Error uploading video:', response.statusText);
+          const url = 'http://172.20.10.5:3001/client/uploadVideo';
+          console.log('Sending request to:', url);
+
+          const response = await axios.post(url, formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+
+          if (response.status === 200) {
+            console.log('Video uploaded successfully!');
+          } else {
+            console.error('Error uploading video:', response.statusText);
+            console.log('Response data:', response.data);
+          }
+        } catch (err) {
+          if (DocumentPicker.isCancel(err)) {
+            console.log('User cancelled the picker');
+          } else {
+            console.error('Error:', err);
+          }
         }
-      } catch (err) {
-        if (DocumentPicker.isCancel(err)) {
-          console.log('User cancelled the picker');
-        } else {
-          throw err;
-        }
-      }
-    };
+      };
+
+
 
     const startRecordingVideo = () => {
       const options = {
@@ -212,15 +219,38 @@ const Listing = () => {
         videoQuality: 'high',
       };
 
-      launchCamera(options, response => {
+      launchCamera(options, async response => {
         if (response.didCancel) {
           console.log('User cancelled video recording');
         } else if (response.error) {
           console.log('Error recording video:', response.error);
         } else if (response.assets && response.assets.length > 0) {
           const uri = response.assets[0].uri;
+          const type = response.assets[0].type;
+          const fname = response.assets[0].fileName;
           console.log('Video recorded:', uri);
-          setVideoUri(uri); // Set the URI in state
+          console.log(type);
+          console.log(fname);
+          const form1 = new FormData();
+          form1.append('video',{
+            uri: uri,
+            type: type,
+            name: fname,
+          });
+          const url1 = 'http://172.20.10.5:3001/client/uploadVideo';
+          console.log('Sending request to:', url1);
+          const response1 = await axios.post(url1, form1, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+    
+          if (response1.status === 200) {
+            console.log('Video uploaded successfully!');
+          } else {
+            console.error('Error uploading video:', response1.statusText);
+            console.log('Response data:', response1.data);
+          }
         }
       });
     };
