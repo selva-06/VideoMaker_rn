@@ -2,7 +2,7 @@
 // src/LoginScreen.js
 
 import React, {useState} from 'react';
-import {View, TextInput, Button, Text} from 'react-native';
+import {View, TextInput, Button, Text,TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import { loginRequest } from '../store/authActions';
 const LoginScreen = ({loginRequest, user, error, navigation}) => {
@@ -51,7 +51,9 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
   const styles = loginstyle;
   return (
     <View style={styles.container}>
-      <Text style={styles.headText}>VideoMaker</Text>
+        <Text style={styles.welcomeText}>Welcome!</Text>
+        <Text style={styles.sideText}>Login to your account</Text>
+        <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -78,10 +80,15 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
           setPasswordError('');
         }}
       />
+      </View>
       {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
-      <Button title="Login" onPress={handleLogin} />
+      {/* <Button style={styles.button} title="Login" onPress={handleLogin} /> */}
+      <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
+      <Text style={styles.buttonText}>Login</Text>
+    </TouchableOpacity>
       {error && <Text style={styles.error}>{error}</Text>}
       {user && <Text style={{ color: 'black' }}>Welcome, {user.name}</Text>}
+     
     </View>
   );
 };
@@ -102,13 +109,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 16,
-        backgroundColor: 'white',
+        // padding: 16,
+        backgroundColor:'rgba(195, 232, 47, 0.4)',
       },
-      headText: {
-        color: 'black',
-        fontSize: 30,
-        marginBottom: 20,
+      welcomeText: {
+        fontSize:28,
+        fontWeight:"bold",
+        color:'#444444',
+        fontFamily:"PTSerif-Italic"
+      },
+      sideText: {
+        fontSize:15,
+      },
+      inputContainer:{
+        width:320,
+        height:150,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop:15,
       },
       input: {
         color: 'black',
@@ -116,11 +134,26 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
         paddingRight: 15,
         borderWidth: 2,
         borderRadius: 20,
-        width: '80%',
+        width: '90%',
         height: 50,
-        borderColor: '#dadae8',
+        borderColor: 'grey',
         paddingBottom: 10,
         marginBottom: 10,
+      },
+      buttonContainer:{
+        backgroundColor: '#444444', // Background color of the button
+        padding:10,
+        width:180,
+        borderRadius: 20, 
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop:7,
+      },
+      buttonText:{
+        color: '#C3E82F',
+        fontSize:17,
+        fontWeight:"bold"
+
       },
       error: {
         color: 'red',

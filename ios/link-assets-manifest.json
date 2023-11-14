@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/PTSerif-Italic.ttf",
+      "sha1": "ab129b4c762edcc4724d46ee655f461bfc98bdaa"
+    },
+    {
+      "path": "src/assets/fonts/RobotoMono-Italic-VariableFont_wght.ttf",
+      "sha1": "482fe6d50836d6dabe77d2810248e5dfb4f093e0"
+    }
+  ]
+}
