@@ -11,7 +11,7 @@ function* uploadVideo(action) {
   try {
     const response = yield call(
       axios.post,
-      'http://172.20.10.5:3001/client/uploadVideo',
+      'https://api.escuelajs.co/api/v1/files/upload',
       action.payload,
       {
         headers: {
@@ -20,13 +20,17 @@ function* uploadVideo(action) {
       },
     );
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       yield put(uploadVideoSuccess());
+      console.log('Uploaded successfully!');
+      console.log('Response data:', response.data);
     } else {
       yield put(uploadVideoFailure(response.statusText));
+      console.log('fail', response.statusText);
     }
   } catch (error) {
     yield put(uploadVideoFailure(error.message));
+    console.log('err', error.message);
   }
 }
 

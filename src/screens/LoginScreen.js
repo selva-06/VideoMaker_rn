@@ -51,10 +51,8 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
   const styles = loginstyle;
   return (
     <View style={styles.container}>
-      <View style={styles.container1}>
         <Text style={styles.welcomeText}>Welcome!</Text>
         <Text style={styles.sideText}>Login to your account</Text>
-        </View>
         <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
@@ -90,7 +88,7 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
     </TouchableOpacity>
       {error && <Text style={styles.error}>{error}</Text>}
       {user && <Text style={{ color: 'black' }}>Welcome, {user.name}</Text>}
-     
+
     </View>
   );
 };
@@ -114,19 +112,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
         // padding: 16,
         backgroundColor:'rgba(195, 232, 47, 0.4)',
       },
-      container1: {
-        justifyContent: 'center',
-        marginRight: 70,
-        marginBottom:30
-      },
       welcomeText: {
-        fontSize:35,
+        fontSize:28,
         fontWeight:"bold",
         color:'#444444',
+        fontFamily:"PTSerif-Italic"
       },
       sideText: {
         fontSize:15,
-        color:'grey'
       },
       inputContainer:{
         width:320,
@@ -151,7 +144,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
         backgroundColor: '#444444', // Background color of the button
         padding:10,
         width:180,
-        borderRadius: 20, 
+        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop:7,
