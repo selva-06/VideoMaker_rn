@@ -9,7 +9,7 @@ import { watchUploadVideo } from '../sagas/UploadSaga';
 import UploadReducer from './UploadReducer';
 
 function* rootSaga() {
-  yield all([authSaga(),watchFetchListData()]);
+  yield all([authSaga(),watchFetchListData(),watchUploadVideo()]);
 }
 
 const rootReducer = combineReducers({

@@ -51,10 +51,8 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
   const styles = loginstyle;
   return (
     <View style={styles.container}>
-      <View style={styles.container1}>
         <Text style={styles.welcomeText}>Welcome!</Text>
         <Text style={styles.sideText}>Login to your account</Text>
-        </View>
         <View style={styles.inputContainer}>
       <TextInput
         style={styles.input}
@@ -84,12 +82,13 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
       />
       </View>
       {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
+      {/* <Button style={styles.button} title="Login" onPress={handleLogin} /> */}
       <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
       <Text style={styles.buttonText}>Login</Text>
     </TouchableOpacity>
       {error && <Text style={styles.error}>{error}</Text>}
-      {/* {user && <Text style={{ color: 'black' }}>Welcome, {user.name}</Text>} */}
-     
+      {user && <Text style={{ color: 'black' }}>Welcome, {user.name}</Text>}
+
     </View>
   );
 };
@@ -113,21 +112,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
         // padding: 16,
         backgroundColor:'rgba(195, 232, 47, 0.4)',
       },
-      container1: {
-        justifyContent: 'center',
-        marginRight: 80,
-        marginBottom:30
-      },
       welcomeText: {
-        fontSize:35,
+        fontSize:28,
+        fontWeight:"bold",
         color:'#444444',
-        fontFamily:"Poppins",
+        fontFamily:"PTSerif-Italic"
       },
       sideText: {
         fontSize:15,
-        color:'grey',
-        fontFamily:"Poppins"
-    
       },
       inputContainer:{
         width:320,
@@ -152,7 +144,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
         backgroundColor: '#444444', // Background color of the button
         padding:10,
         width:180,
-        borderRadius: 20, 
+        borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop:7,
@@ -160,8 +152,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
       buttonText:{
         color: '#C3E82F',
         fontSize:17,
-        fontWeight:"bold",
-        // fontStyle:"italic",
+        fontWeight:"bold"
 
       },
       error: {
