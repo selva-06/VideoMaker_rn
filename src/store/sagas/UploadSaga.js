@@ -5,6 +5,7 @@ import {
   UPLOAD_VIDEO_REQUEST,
   uploadVideoSuccess,
   uploadVideoFailure,
+  setUploadProgress,
 } from '../actions/UploadActions';
 
 function* uploadVideo(action) {
@@ -16,6 +17,12 @@ function* uploadVideo(action) {
       {
         headers: {
           'Content-Type': 'multipart/form-data',
+        },
+        onUploadProgress: progressEvent => {
+          const {loaded, total} = progressEvent;
+          const percentCompleted = Math.round((loaded * 100) / total);
+          console.log('Progress:', percentCompleted); // Add this log
+          put(setUploadProgress(percentCompleted));
         },
       },
     );
