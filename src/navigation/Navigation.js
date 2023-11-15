@@ -17,8 +17,8 @@ const {width, height} = Dimensions.get('window');
 
 const MainTabNavigator = () => (
   <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
+    screenOptions={({route}) => ({
+      tabBarIcon: ({focused, color, size}) => {
         let iconName;
 
         // Set the appropriate icon based on the route name

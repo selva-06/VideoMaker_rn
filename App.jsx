@@ -12,6 +12,7 @@ import LoginScreen from './src/screens/LoginScreen';
 import AppNavigator from './src/navigation/Navigation';
 import {NavigationContainer} from '@react-navigation/native';
 import rootReducer, {rootSaga} from './src/store/reducers/rindex';
+import {PaperProvider} from 'react-native-paper';
 // const rootReducer = combineReducers({
 //   auth: authReducer,
 //   list: listReducer, // Add the new reducer
@@ -26,11 +27,13 @@ sagaMiddleware.run(rootSaga);
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
-    </Provider>
+    <PaperProvider>
+      <Provider store={store}>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </Provider>
+    </PaperProvider>
   );
 };
 
