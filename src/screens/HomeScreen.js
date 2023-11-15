@@ -23,22 +23,21 @@ const homestyles =
  {
     container: {
         flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // padding: 5,
-        backgroundColor: 'white',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor:'rgba(195, 232, 47, 0.4)',
       },
-      header: {
-        flexDirection:"row"
-      },
-      attach: { width: 0.0600 * width, height: 0.0250 * height, marginTop:3, marginHorizontal:5 },
-      headText: {
-        color:'black',
-        fontSize: 16,
-        fontWeight: '300',
-      },
-      logout: {
-        color: 'green',
+      // header: {
+      //   flexDirection:"row"
+      // },
+      // attach: { width: 0.0600 * width, height: 0.0250 * height, marginTop:3, marginHorizontal:5 },
+      // headText: {
+      //   color:'black',
+      //   fontSize: 16,
+      //   fontWeight: '300',
+      // },
+      // logout: {
+      //   color: 'green',
 
-      },
+      // },
     };

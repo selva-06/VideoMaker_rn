@@ -84,12 +84,11 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
       />
       </View>
       {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
-      {/* <Button style={styles.button} title="Login" onPress={handleLogin} /> */}
       <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
       <Text style={styles.buttonText}>Login</Text>
     </TouchableOpacity>
       {error && <Text style={styles.error}>{error}</Text>}
-      {user && <Text style={{ color: 'black' }}>Welcome, {user.name}</Text>}
+      {/* {user && <Text style={{ color: 'black' }}>Welcome, {user.name}</Text>} */}
      
     </View>
   );
@@ -116,17 +115,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
       },
       container1: {
         justifyContent: 'center',
-        marginRight: 70,
+        marginRight: 80,
         marginBottom:30
       },
       welcomeText: {
         fontSize:35,
-        fontWeight:"bold",
         color:'#444444',
+        fontFamily:"Poppins",
       },
       sideText: {
         fontSize:15,
-        color:'grey'
+        color:'grey',
+        fontFamily:"Poppins"
+    
       },
       inputContainer:{
         width:320,
@@ -159,7 +160,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
       buttonText:{
         color: '#C3E82F',
         fontSize:17,
-        fontWeight:"bold"
+        fontWeight:"bold",
+        // fontStyle:"italic",
 
       },
       error: {
