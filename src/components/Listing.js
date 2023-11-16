@@ -22,6 +22,7 @@ import {launchCamera} from 'react-native-image-picker';
 import {uploadVideoRequest} from '../store/actions/UploadActions';
 import {fetchListData} from '../store/actions/ListingActions';
 import UploadModal from './ProgressLoader';
+import MenuComponent from './MenuComponent';
 
 const Listing = () => {
   const dispatch = useDispatch();
@@ -35,88 +36,10 @@ const Listing = () => {
   }, [dispatch]);
 
   const imageSize = (windowWidth - 50) / 2;
-  const [menuVisible, setMenuVisible] = useState(false);
-
-  const openMenu = () => setMenuVisible(true);
-
-  const closeMenu = () => setMenuVisible(false);
-
-  const handleVideoUpload = async () => {
-    try {
-      const result = await DocumentPicker.pickSingle({
-        type: [DocumentPicker.types.video],
-      });
-
-      console.log(result.uri, result.type, result.name, result.size);
-
-      const formData = new FormData();
-      formData.append('file', {
-        uri: result.uri,
-        type: result.type,
-        name: result.name,
-      });
-
-      dispatch(uploadVideoRequest(formData)); // Updated action reference
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        console.log('User cancelled the picker');
-      } else {
-        console.error('Error:', err);
-      }
-    }
-    closeMenu();
-  };
-
-  const startRecordingVideo = () => {
-    const options = {
-      mediaType: 'video',
-      videoQuality: 'high',
-    };
-
-    launchCamera(options, async response => {
-      if (response.didCancel) {
-        console.log('User cancelled video recording');
-      } else if (response.error) {
-        console.log('Error recording video:', response.error);
-      } else if (response.assets && response.assets.length > 0) {
-        const uri = response.assets[0].uri;
-        const type = response.assets[0].type;
-        const fname = response.assets[0].fileName;
-        console.log('Video recorded:', uri);
-        console.log(type);
-        console.log(fname);
-        const form1 = new FormData();
-        form1.append('file', {
-          uri: uri,
-          type: type,
-          name: fname,
-        });
-        dispatch(uploadVideoRequest(form1)); // Updated action reference
-      }
-    });
-    closeMenu();
-  };
 
   return (
     <View style={styles.container}>
-      <Menu
-        visible={menuVisible}
-        onDismiss={closeMenu}
-        anchor={
-          <TouchableOpacity onPress={openMenu} style={styles.menuTO}>
-            <Image
-              source={require('../assets/images/attach.png')}
-              style={styles.menuAnchor}
-            />
-          </TouchableOpacity>
-        }
-        style={styles.menuItems}>
-        <Menu.Item
-          onPress={handleVideoUpload}
-          title="Attach Files from Device"
-        />
-        <Menu.Item onPress={startRecordingVideo} title="Capture Video" />
-      </Menu>
+      {/* <MenuComponent /> */}
       <UploadModal />
       <FlatList
         data={data}

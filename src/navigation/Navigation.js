@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import Tab2 from '../screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Dimensions, TouchableOpacity, Text} from 'react-native';
+import MenuComponent from '../components/MenuComponent';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -41,11 +42,7 @@ const MainTabNavigator = () => (
           backgroundColor: '#444444',
         },
         headerTintColor: '#C3E82F',
-        headerRight: () => (
-          <TouchableOpacity onPress={''}>
-            <Icon name="add" size={32} color="#C3E82F" />
-          </TouchableOpacity>
-        ),
+        headerRight: () => <MenuComponent />,
       }}
     />
     <Tab.Screen
