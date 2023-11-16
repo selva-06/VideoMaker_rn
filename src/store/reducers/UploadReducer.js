@@ -13,13 +13,19 @@ const initialState = {
 };
 
 const UploadReducer = (state = initialState, action) => {
+  console.log('hlo', action);
   switch (action.type) {
     case UPLOAD_VIDEO_REQUEST:
       return {...state, uploading: true, error: null};
     case UPLOAD_VIDEO_SUCCESS:
-      return {...state, uploading: false, error: null};
+      return {...state, uploading: false, error: null, uploadProgress: 0};
     case UPLOAD_VIDEO_FAILURE:
-      return {...state, uploading: false, error: action.payload};
+      return {
+        ...state,
+        uploading: false,
+        error: action.payload,
+        uploadProgress: 0,
+      };
     case SET_UPLOAD_PROGRESS:
       console.log('Action Payload:', action.payload);
       return {...state, uploadProgress: action.payload};

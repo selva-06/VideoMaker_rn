@@ -42,7 +42,7 @@ const Tab2 = ({ navigation, user }) => {
         <Text style={styles.userDetails}>Email:</Text>
         <Text style={styles.userInformation}>{user.email}</Text>
       </LinearGradient>
-       
+ 
       <TouchableOpacity style={styles.buttonContainer} onPress={() => { navigation.navigate('Login');}}>
       <Text style={styles.buttonText}>Logout</Text>
     </TouchableOpacity>

@@ -13,17 +13,18 @@ import AppNavigator from './src/navigation/Navigation';
 import {NavigationContainer} from '@react-navigation/native';
 import rootReducer, {rootSaga} from './src/store/reducers/rindex';
 import {PaperProvider} from 'react-native-paper';
-// const rootReducer = combineReducers({
-//   auth: authReducer,
-//   list: listReducer, // Add the new reducer
-// });
+import store from './src/store/Store';
+// // const rootReducer = combineReducers({
+// //   auth: authReducer,
+// //   list: listReducer, // Add the new reducer
+// // });
 
-const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-sagaMiddleware.run(rootSaga);
-// sagaMiddleware.run(authSaga);
-// sagaMiddleware.run(watchFetchListData);
-// sagaMiddleware.run(watchUploadVideo);
+// const sagaMiddleware = createSagaMiddleware();
+// const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
+// sagaMiddleware.run(rootSaga);
+// // sagaMiddleware.run(authSaga);
+// // sagaMiddleware.run(watchFetchListData);
+// // sagaMiddleware.run(watchUploadVideo);
 
 const App = () => {
   return (

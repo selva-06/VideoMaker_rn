@@ -20,6 +20,8 @@ import DocumentPicker from 'react-native-document-picker';
 import {launchCamera} from 'react-native-image-picker';
 import {uploadVideoRequest} from '../store/actions/UploadActions';
 import {fetchListData} from '../store/actions/ListingActions';
+import UploadModal from './ProgressLoader';
+import SnackbarC from './SnackBar';
 const Listing = () => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.list.listData); // Updated reducer reference
@@ -60,6 +62,7 @@ const Listing = () => {
         console.error('Error:', err);
       }
     }
+    closeMenu();
   };
 
   const startRecordingVideo = () => {
@@ -89,6 +92,7 @@ const Listing = () => {
         dispatch(uploadVideoRequest(form1)); // Updated action reference
       }
     });
+    closeMenu();
   };
 
   return (
@@ -111,14 +115,7 @@ const Listing = () => {
         />
         <Menu.Item onPress={startRecordingVideo} title="Capture Video" />
       </Menu>
-      {uploading ? (
-        <>
-          <ActivityIndicator animating={true} color={'red'} />
-          <Text style={{color: 'black'}}>{uploadProgress}%</Text>
-        </>
-      ) : (
-        <Text>No upload in progress</Text>
-      )}
+      <UploadModal />
       <FlatList
         data={data}
         numColumns={2}
@@ -147,7 +144,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     marginBottom: 10,
     marginHorizontal: 10,
-    borderRadius:8,
+    borderRadius: 8,
   },
   menuTO: {marginLeft: 10, marginBottom: 10},
   menuAnchor: {width: windowWidth * 0.08, height: windowWidth * 0.09},
