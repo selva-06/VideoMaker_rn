@@ -25,7 +25,7 @@ const homestyles =
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:'rgba(195, 232, 47, 0.4)',
+        backgroundColor:'white',
       },
       // header: {
       //   flexDirection:"row"
