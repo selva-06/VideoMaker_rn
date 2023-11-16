@@ -1,51 +1,33 @@
-// SnackbarC.js
-import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
 import {Snackbar} from 'react-native-paper';
-
-const SnackbarC = () => {
-  const uploading = useSelector(state => state.upload.uploading);
-  const uploadProgress = useSelector(state => state.upload.uploadProgress);
-  const error = useSelector(state => state.upload.error);
-
-  const [snackbarVisible, setSnackbarVisible] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [uploadCompleted, setUploadCompleted] = useState(false);
+import {useDispatch, useSelector} from 'react-redux';
+import {hideSnackbar} from '../store/actions/UploadActions';
+const SnackBarC = () => {
+  const dispatch = useDispatch();
+  const snackbar = useSelector(state => state.upload.snackbar);
 
   useEffect(() => {
-    if (!uploading && uploadCompleted && !error) {
-      setSnackbarMessage('Upload successful!');
-      setSnackbarVisible(true);
-      setUploadCompleted(false);
-    } else if (error) {
-      setSnackbarMessage('Upload failed. Please try again.');
-      setSnackbarVisible(true);
-      setUploadCompleted(false);
-    }
-  }, [uploading, uploadCompleted, error]);
+    if (snackbar.open) {
+      const timeout = setTimeout(() => {
+        dispatch(hideSnackbar());
+      }, 3000);
 
-  useEffect(() => {
-    if (uploadProgress === 100) {
-      setUploadCompleted(true);
+      return () => clearTimeout(timeout);
     }
-  }, [uploadProgress]);
-
-  const onDismissSnackbar = () => {
-    setSnackbarVisible(false);
-  };
+  }, [snackbar.open, dispatch]);
 
   return (
     <Snackbar
-      visible={snackbarVisible}
-      onDismiss={onDismissSnackbar}
+      visible={snackbar.open}
+      onDismiss={() => dispatch(hideSnackbar())}
       duration={3000}
-      action={{
-        label: 'Dismiss',
-        onPress: onDismissSnackbar,
-      }}>
-      {snackbarMessage}
+      //   style={{
+      //     backgroundColor: snackbar.type === 'success' ? 'green' : 'red',
+      //   }}>
+    >
+      {snackbar.message}
     </Snackbar>
   );
 };
 
-export default SnackbarC;
+export default SnackBarC;

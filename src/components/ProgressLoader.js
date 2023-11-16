@@ -25,7 +25,7 @@ const UploadModal = () => {
               <Text style={{color: 'white'}}>{uploadProgress}%</Text>
             </>
           ) : (
-            <Text>Uploading...</Text>
+            <Text>Unable to initialise Upload...</Text>
           )}
         </View>
       </View>

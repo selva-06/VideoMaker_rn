@@ -103,6 +103,8 @@ import {
   uploadVideoSuccess,
   uploadVideoFailure,
   setUploadProgress,
+  showSnackbar,
+  hideSnackbar,
 } from '../actions/UploadActions';
 import {uploadFile} from '../../api/ApiKit';
 import store from '../Store';
@@ -110,7 +112,7 @@ function* uploadVideo(action) {
   try {
     const {payload} = action;
 
-    yield put(setUploadProgress(0)); // Reset progress before upload starts
+    yield put(setUploadProgress(0));
 
     const {data} = yield call(uploadFile, payload, onUploadProgress);
 
@@ -118,8 +120,10 @@ function* uploadVideo(action) {
     console.log('Response Data:', data);
 
     yield put(uploadVideoSuccess(data));
+    yield put(showSnackbar('Uploaded Successfully', 'success'));
   } catch (error) {
     yield put(uploadVideoFailure(error.message));
+    yield put(showSnackbar('Upload failed', 'error'));
   }
 }
 

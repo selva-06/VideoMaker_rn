@@ -4,12 +4,19 @@ import {
   UPLOAD_VIDEO_SUCCESS,
   UPLOAD_VIDEO_FAILURE,
   SET_UPLOAD_PROGRESS,
+  SHOW_SNACKBAR,
+  HIDE_SNACKBAR,
 } from '../actions/UploadActions';
 
 const initialState = {
   uploading: false,
   error: null,
   uploadProgress: 0,
+  snackbar: {
+    open: false,
+    message: '',
+    type: 'success',
+  },
 };
 
 const UploadReducer = (state = initialState, action) => {
@@ -29,6 +36,24 @@ const UploadReducer = (state = initialState, action) => {
     case SET_UPLOAD_PROGRESS:
       console.log('Action Payload:', action.payload);
       return {...state, uploadProgress: action.payload};
+    case SHOW_SNACKBAR:
+      return {
+        ...state,
+        snackbar: {
+          open: true,
+          message: action.payload.message,
+          type: action.payload.type || 'success',
+        },
+      };
+    case HIDE_SNACKBAR:
+      return {
+        ...state,
+        snackbar: {
+          ...state.snackbar,
+          open: false,
+        },
+      };
+
     default:
       return state;
   }
