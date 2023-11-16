@@ -1,6 +1,3 @@
-/* eslint-disable prettier/prettier */
-// src/screens/Tab2.js
-
 import React from 'react';
 import { View, Text, Button ,TouchableOpacity} from 'react-native';
 import { connect } from 'react-redux';
@@ -13,7 +10,7 @@ const Tab2 = ({ navigation, user }) => {
       <Text style={styles.headText}>Welcome</Text>
       <Text style={styles.myProfileText}>My Profile:</Text>
       <LinearGradient
-        colors={['rgba(195, 232, 47, 0.6)', 'rgba(255, 255, 255, 0.4)']}
+        colors={['rgba(195, 232, 47, 0.5)', 'rgba(255, 255, 255, 0.4)']}
         start={{ x: 0, y: 0 }} // Left side of the container
         end={{ x: 1, y: 0 }}
         style={{
@@ -28,7 +25,7 @@ const Tab2 = ({ navigation, user }) => {
         <Text style={styles.userInformation}>{user.name}</Text>
       </LinearGradient>
         <LinearGradient
-        colors={['rgba(195, 232, 47, 0.6)', 'rgba(255, 255, 255, 0.4)']}
+        colors={['rgba(195, 232, 47, 0.5)', 'rgba(255, 255, 255, 0.4)']}
         start={{ x: 0, y: 0 }} // Left side of the container
         end={{ x: 1, y: 0 }}
         style={{
@@ -42,7 +39,7 @@ const Tab2 = ({ navigation, user }) => {
         <Text style={styles.userDetails}>Email:</Text>
         <Text style={styles.userInformation}>{user.email}</Text>
       </LinearGradient>
- 
+       
       <TouchableOpacity style={styles.buttonContainer} onPress={() => { navigation.navigate('Login');}}>
       <Text style={styles.buttonText}>Logout</Text>
     </TouchableOpacity>
