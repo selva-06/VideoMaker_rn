@@ -27,17 +27,5 @@ const homestyles =
         alignItems: 'center',
         backgroundColor:'white',
       },
-      // header: {
-      //   flexDirection:"row"
-      // },
-      // attach: { width: 0.0600 * width, height: 0.0250 * height, marginTop:3, marginHorizontal:5 },
-      // headText: {
-      //   color:'black',
-      //   fontSize: 16,
-      //   fontWeight: '300',
-      // },
-      // logout: {
-      //   color: 'green',
-
-      // },
+      
     };

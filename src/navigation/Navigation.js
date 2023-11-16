@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
-import Tab2 from '../screens/Tab2';
+import Tab2 from '../screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Dimensions, TouchableOpacity,Text} from 'react-native';
 
@@ -17,7 +17,6 @@ const MainTabNavigator = () => (
       tabBarIcon: ({focused, color, size}) => {
         let iconName;
 
-        // Set the appropriate icon based on the route name
         if (route.name === 'Home') {
           iconName = focused ? 'home' : 'home-outline'; // Adjust icon names as per the icon pack
           color='#C3E82F'
@@ -46,7 +45,6 @@ const MainTabNavigator = () => (
         },
         headerTintColor: '#C3E82F', 
         headerRight: () => (
-          // Custom component for the menu button that opens the side menu
           <TouchableOpacity onPress={("")}>
             <Icon name="add" size={32} color="#C3E82F" />
           </TouchableOpacity>

@@ -84,12 +84,10 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
       />
       </View>
       {passwordError ? <Text style={styles.error}>{passwordError}</Text> : null}
-      {/* <Button style={styles.button} title="Login" onPress={handleLogin} /> */}
       <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
       <Text style={styles.buttonText}>Login</Text>
     </TouchableOpacity>
       {error && <Text style={styles.error}>{error}</Text>}
-      {user && <Text style={{ color: 'black' }}>Welcome, {user.name}</Text>}
 
     </View>
   );
