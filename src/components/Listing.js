@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     marginBottom: 10,
     marginHorizontal: 10,
-    borderRadius:8,
+    borderRadius: 8,
   },
   menuTO: {marginLeft: 10, marginBottom: 10},
   menuAnchor: {width: windowWidth * 0.08, height: windowWidth * 0.09},

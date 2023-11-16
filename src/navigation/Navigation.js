@@ -6,7 +6,7 @@ import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
 import Tab2 from '../screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Dimensions, TouchableOpacity,Text} from 'react-native';
+import {Dimensions, TouchableOpacity, Text} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -19,33 +19,30 @@ const MainTabNavigator = () => (
 
         if (route.name === 'Home') {
           iconName = focused ? 'home' : 'home-outline'; // Adjust icon names as per the icon pack
-          color='#C3E82F'
-        } 
-        else if (route.name === 'Profile') {
+          color = '#C3E82F';
+        } else if (route.name === 'Profile') {
           iconName = focused ? 'person' : 'person-outline'; // Adjust icon names as per the icon pack
-          color='#C3E82F'
+          color = '#C3E82F';
         }
 
         // Return the vector icon component
         return <Icon name={iconName} size={size} color={color} />;
       },
-      tabBarActiveBackgroundColor:'#444444',
-      tabBarInactiveBackgroundColor:"grey",
-      tabBarActiveTintColor:'#C3E82F',
-      tabBarInactiveTintColor:'#C3E82F',
-    })}
-   
-  >
+      tabBarActiveBackgroundColor: '#444444',
+      tabBarInactiveBackgroundColor: 'grey',
+      tabBarActiveTintColor: '#C3E82F',
+      tabBarInactiveTintColor: '#C3E82F',
+    })}>
     <Tab.Screen
       name="Home"
       component={HomeScreen}
       options={{
         headerStyle: {
-          backgroundColor: '#444444', 
+          backgroundColor: '#444444',
         },
-        headerTintColor: '#C3E82F', 
+        headerTintColor: '#C3E82F',
         headerRight: () => (
-          <TouchableOpacity onPress={("")}>
+          <TouchableOpacity onPress={''}>
             <Icon name="add" size={32} color="#C3E82F" />
           </TouchableOpacity>
         ),
@@ -56,9 +53,9 @@ const MainTabNavigator = () => (
       component={Tab2}
       options={{
         headerStyle: {
-          backgroundColor: '#444444', 
+          backgroundColor: '#444444',
         },
-        headerTintColor: '#C3E82F', 
+        headerTintColor: '#C3E82F',
       }}
     />
   </Tab.Navigator>

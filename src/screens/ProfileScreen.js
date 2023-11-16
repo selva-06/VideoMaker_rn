@@ -12,7 +12,7 @@ const Tab2 = ({ navigation, user }) => {
       <Text style={styles.headText}>Welcome</Text>
       {user && <Text style={styles.text}>Name: {user.name}</Text>}
       {user && <Text style={styles.text}>Email: {user.email}</Text>}
-      
+
       <TouchableOpacity style={styles.buttonContainer} onPress={() => { navigation.navigate('Login');}}>
       <Text style={styles.buttonText}>Logout</Text>
     </TouchableOpacity>

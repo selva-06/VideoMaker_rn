@@ -22,7 +22,7 @@ function uploadFile(payload) {
     const config = {
       onUploadProgress: progressEvent => {
         const {loaded, total} = progressEvent;
-        const percentCompleted = Math.round((loaded * 100) / total);
+        const percentCompleted = Math.round((loaded / total) * 100);
         console.log('Progress:', percentCompleted);
         store.dispatch(setUploadProgress(percentCompleted));
       },
