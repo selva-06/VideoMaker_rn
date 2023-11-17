@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import {loginRequest} from '../store/authActions';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const LoginScreen = ({loginRequest, user, error, navigation}) => {
+const LoginScreen = ({loginRequest, user , error, navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -41,6 +41,9 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
     setHidePassword(!hidePassword);
   };
 
+  const withoutsignin = () => {
+    navigation.navigate("MainTab");
+  };
   const styles = loginstyle;
 
   return (
@@ -63,7 +66,7 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
           placeholderTextColor="black"
         />
         {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
-        <View style={styles.inputContainer1}>
+        {/* <View style={styles.inputContainer1}> */}
           <TextInput
             style={styles.input}
             placeholder="Password"
@@ -87,7 +90,7 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
               style={{paddingHorizontal: 10}}
             />
           </TouchableOpacity>
-        </View>
+        {/* </View> */}
         {passwordError ? (
           <Text style={styles.error}>{passwordError}</Text>
         ) : null}
@@ -95,6 +98,9 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         {error && <Text style={styles.error}>{error}</Text>}
+        <TouchableOpacity onPress={withoutsignin}>
+          <Text style={styles.wosignin}>Continue without signing in!!</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -117,11 +123,11 @@ const loginstyle = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(195, 232, 47, 0.4)',
-    paddingBottom: 40,
+    paddingBottom: 80,
   },
   container1: {
     marginRight: 30,
-    marginBottom: 75,
+    marginBottom: 120,
   },
   welcomeText: {
     fontSize: 50,
@@ -129,7 +135,7 @@ const loginstyle = {
     fontFamily: 'Poppins-Medium',
   },
   sideText: {
-    fontSize: 20,
+    fontSize: 19,
     fontFamily: 'Poppins-Medium',
     color: 'grey',
   },
@@ -150,7 +156,7 @@ const loginstyle = {
   password: {
     position: 'absolute',
     right: 20,
-    top: '40%', // Adjust the vertical position of the eye icon
+    top: '25%', // Adjust the vertical position of the eye icon
   },
   input: {
     color: 'black',
@@ -164,6 +170,7 @@ const loginstyle = {
     paddingBottom: 10,
     marginBottom: 10,
     fontFamily: 'Poppins-Medium',
+    marginTop: 10,
   },
   buttonContainer: {
     backgroundColor: '#444444', // Background color of the button
@@ -172,6 +179,7 @@ const loginstyle = {
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop:40,
   },
   buttonText: {
     color: '#C3E82F',
@@ -181,4 +189,5 @@ const loginstyle = {
   error: {
     color: 'red',
   },
+  wosignin: {color:'#444444', textDecorationLine: 'underline', fontSize: 16, marginTop:10},
 };

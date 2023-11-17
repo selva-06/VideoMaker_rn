@@ -21,7 +21,9 @@ const Tab2 = ({navigation, user}) => {
           marginTop: 15,
         }}>
         <Text style={styles.userDetails}>Name:</Text>
-        <Text style={styles.userInformation}>{user.name}</Text>
+        <Text style={styles.userInformation}>
+          {user && user.name ? user.name : 'Guest'}
+        </Text>
       </LinearGradient>
       <LinearGradient
         colors={['rgba(195, 232, 47, 0.5)', 'rgba(255, 255, 255, 0.4)']}
@@ -35,7 +37,9 @@ const Tab2 = ({navigation, user}) => {
           marginTop: 15,
         }}>
         <Text style={styles.userDetails}>Email:</Text>
-        <Text style={styles.userInformation}>{user.email}</Text>
+        <Text style={styles.userInformation}>
+          {user && user.email ? user.email : 'XX@g.c'}
+        </Text>
       </LinearGradient>
 
       <TouchableOpacity
