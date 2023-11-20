@@ -1,28 +1,14 @@
 // Listing.js
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   FlatList,
   Image,
-  TouchableOpacity,
-  StyleSheet,
   Dimensions,
-  Text,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  Provider as PaperProvider,
-  Menu,
-  ProgressBar,
-  ActivityIndicator,
-  Snackbar,
-} from 'react-native-paper';
-import DocumentPicker from 'react-native-document-picker';
-import {launchCamera} from 'react-native-image-picker';
-import {uploadVideoRequest} from '../store/actions/UploadActions';
 import {fetchListData} from '../store/actions/ListingActions';
 import UploadModal from './ProgressLoader';
-import MenuComponent from './MenuComponent';
 import {listingstyles} from './ComponentStyles';
 
 const Listing = () => {
@@ -37,6 +23,7 @@ const Listing = () => {
   }, [dispatch]);
 
   const imageSize = (windowWidth - 50) / 2;
+  const styles = listingstyles;
 
   return (
     <View style={styles.container}>
@@ -58,5 +45,4 @@ const Listing = () => {
 };
 
 const windowWidth = Dimensions.get('window').width;
-const styles = listingstyles;
 export default Listing;

@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import { strings } from '../../util/Strings';
 
-const LoginScreen = ({loginRequest, user, error, navigation}) => {
+const LoginScreen = ({loginRequest, error, navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -68,7 +68,6 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
           placeholderTextColor="black"
         />
         {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
-        {/* <View style={styles.inputContainer1}> */}
         <TextInput
           style={styles.input}
           placeholder={strings.loginScreen.placeholderText.password}
@@ -92,7 +91,6 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
             style={{paddingHorizontal: 15}}
           />
         </TouchableOpacity>
-        {/* </View> */}
         {passwordError ? (
           <Text style={styles.error}>{passwordError}</Text>
         ) : null}
