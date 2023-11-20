@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {uploadVideoRequest} from '../store/actions/UploadActions';
 import {launchCamera} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { strings } from '../util/Strings';
 
 const MenuComponent = ({style}) => {
     const dispatch = useDispatch();
@@ -98,9 +99,9 @@ const MenuComponent = ({style}) => {
         /> */}
         <Menu.Item
           onPress={handleVideoUpload}
-          title="Attach Files from Device"
+          title={strings.menu.attachText}
         />
-        <Menu.Item onPress={startRecordingVideo} title="Capture Video" />
+        <Menu.Item onPress={startRecordingVideo} title={strings.menu.captureText} />
       </Menu>
     </>
   );

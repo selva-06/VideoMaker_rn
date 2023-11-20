@@ -1,6 +1,7 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {ActivityIndicator, Modal, Text, View} from 'react-native';
+import {strings} from '../util/Strings';
 
 const UploadModal = () => {
   const uploading = useSelector(state => state.upload.uploading);
@@ -25,7 +26,7 @@ const UploadModal = () => {
               <Text style={{color: 'white'}}>{uploadProgress}%</Text>
             </>
           ) : (
-            <Text>Unable to initialise Upload...</Text>
+            <Text>{strings.uploadModel.uploadError}</Text>
           )}
         </View>
       </View>

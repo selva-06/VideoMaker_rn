@@ -4,6 +4,7 @@ import {View, TextInput, Button, Text, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {loginRequest} from '../store/authActions';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { strings } from '../util/Strings';
 
 const LoginScreen = ({loginRequest, user , error, navigation}) => {
   const [email, setEmail] = useState('');
@@ -19,15 +20,15 @@ const LoginScreen = ({loginRequest, user , error, navigation}) => {
 
   const handleLogin = () => {
     if (!email) {
-      setEmailError('Email is required');
+      setEmailError(strings.loginScreen.emailError.required);
       return;
     } else if (!validateEmail(email)) {
-      setEmailError('Invalid email address');
+      setEmailError(strings.loginScreen.emailError.invalid);
       return;
     }
 
     if (!password) {
-      setPasswordError('Password is required');
+      setPasswordError(strings.loginScreen.passwordError.requiredpwd);
       return;
     }
 
@@ -42,20 +43,20 @@ const LoginScreen = ({loginRequest, user , error, navigation}) => {
   };
 
   const withoutsignin = () => {
-    navigation.navigate("MainTab");
+    navigation.navigate('MainTab');
   };
   const styles = loginstyle;
 
   return (
     <View style={styles.container}>
       <View style={styles.container1}>
-        <Text style={styles.welcomeText}>Welcome!</Text>
-        <Text style={styles.sideText}>Login to your account</Text>
+        <Text style={styles.welcomeText}>{strings.loginScreen.welcomeMessage}</Text>
+        <Text style={styles.sideText}>{strings.loginScreen.loginMessage}</Text>
       </View>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder= {strings.loginScreen.placeholderText.email}
           value={email}
           onChangeText={text => {
             setEmail(text);
@@ -69,7 +70,7 @@ const LoginScreen = ({loginRequest, user , error, navigation}) => {
         {/* <View style={styles.inputContainer1}> */}
           <TextInput
             style={styles.input}
-            placeholder="Password"
+            placeholder={strings.loginScreen.placeholderText.password}
             secureTextEntry={hidePassword}
             value={password}
             placeholderTextColor="black"
@@ -95,11 +96,11 @@ const LoginScreen = ({loginRequest, user , error, navigation}) => {
           <Text style={styles.error}>{passwordError}</Text>
         ) : null}
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>{strings.loginScreen.button.loginbtn}</Text>
         </TouchableOpacity>
         {error && <Text style={styles.error}>{error}</Text>}
         <TouchableOpacity onPress={withoutsignin}>
-          <Text style={styles.wosignin}>Continue without signing in!!</Text>
+          <Text style={styles.wosignin}>{strings.loginScreen.button.wosignin}</Text>
         </TouchableOpacity>
       </View>
     </View>
