@@ -14,7 +14,7 @@ function* loginUser(action) {
 
     //local
     if (email === 'abc@g.c' && password === 'password') {
-      const user = {name: 'Leo Das', email: 'abc@g.c'};
+      const user = {name: 'ABC DEF', email: 'abc@g.c'};
       yield put(loginSuccess(user));
       yield action.payload.navigation.navigate('MainTab');
     } else {

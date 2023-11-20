@@ -104,7 +104,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   menuTO: {marginLeft: 0, marginBottom: 0, marginRight: 10},
-  menuAnchor: {width: windowWidth * 0.08, height: windowWidth * 0.09},
+//   menuAnchor: {width: windowWidth * 0.08, height: windowWidth * 0.09},
   menuItems: {marginTop: 30},
 });
 
