@@ -8,7 +8,7 @@ import authReducer from './src/store/authReducer';
 import authSaga from './src/store/authSaga';
 import listReducer from './src/store/reducers/ListingReducer';
 import watchFetchListData from './src/store/sagas/ListingSaga';
-import LoginScreen from './src/screens/LoginScreen';
+import LoginScreen from './src/screens/Login';
 import AppNavigator from './src/navigation/Navigation';
 import {NavigationContainer} from '@react-navigation/native';
 import rootReducer, {rootSaga} from './src/store/reducers/rindex';

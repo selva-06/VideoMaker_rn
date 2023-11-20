@@ -2,9 +2,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import LoginScreen from '../screens/LoginScreen';
-import HomeScreen from '../screens/HomeScreen';
-import Tab2 from '../screens/ProfileScreen';
+import LoginScreen from '../screens/Login';
+import HomeScreen from '../screens/Home';
+import Tab2 from '../screens/Profile';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Dimensions, TouchableOpacity, Text} from 'react-native';
 import MenuComponent from '../components/MenuComponent';
