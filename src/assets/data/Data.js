@@ -11,7 +11,4 @@ export const ListData = [
   {id: 10, source: require('../images/b.jpg')},
   {id: 11, source: require('../images/b.jpg')},
   {id: 12, source: require('../images/b.jpg')},
-
-
-  // Add more images as needed
 ];

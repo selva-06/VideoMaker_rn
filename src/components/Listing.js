@@ -23,6 +23,7 @@ import {uploadVideoRequest} from '../store/actions/UploadActions';
 import {fetchListData} from '../store/actions/ListingActions';
 import UploadModal from './ProgressLoader';
 import MenuComponent from './MenuComponent';
+import {listingstyles} from './ComponentStyles';
 
 const Listing = () => {
   const dispatch = useDispatch();
@@ -39,7 +40,6 @@ const Listing = () => {
 
   return (
     <View style={styles.container}>
-      {/* <MenuComponent /> */}
       <UploadModal />
       <FlatList
         data={data}
@@ -58,22 +58,5 @@ const Listing = () => {
 };
 
 const windowWidth = Dimensions.get('window').width;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: 10,
-    zIndex: 0,
-  },
-  image: {
-    aspectRatio: 1,
-    marginBottom: 10,
-    marginHorizontal: 10,
-    borderRadius: 8,
-  },
-  menuTO: {marginLeft: 10, marginBottom: 10},
-  menuAnchor: {width: windowWidth * 0.08, height: windowWidth * 0.09},
-  menuItems: {marginTop: 30},
-});
-
+const styles = listingstyles;
 export default Listing;

@@ -20,11 +20,7 @@ const SnackBarC = () => {
     <Snackbar
       visible={snackbar.open}
       onDismiss={() => dispatch(hideSnackbar())}
-      duration={3000}
-      //   style={{
-      //     backgroundColor: snackbar.type === 'success' ? 'green' : 'red',
-      //   }}>
-    >
+      duration={3000}>
       {snackbar.message}
     </Snackbar>
   );

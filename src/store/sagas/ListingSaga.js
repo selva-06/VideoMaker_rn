@@ -10,7 +10,6 @@ function* fetchListData() {
     yield put(setListData(ListData)); // Dispatch action to set list data
     console.log('done fetching img from saga');
   } catch (error) {
-    // Handle error
     console.log(error);
   }
 }

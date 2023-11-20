@@ -1,32 +1,28 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {ActivityIndicator, Modal, Text, View} from 'react-native';
 import {strings} from '../util/Strings';
-
+import {modalStyles} from './ComponentStyles';
 const UploadModal = () => {
   const uploading = useSelector(state => state.upload.uploading);
   const uploadProgress = useSelector(state => state.upload.uploadProgress);
   const error = useSelector(state => state.upload.error);
   const uploadSuccess = !uploading && !error;
-  console.log(uploadSuccess, 'is it??');
 
   return (
     <Modal visible={uploading} transparent={true} animationType="fade">
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(0,0,0,0.5)',
-        }}>
-        <View style={{backgroundColor: 'black', padding: 20, borderRadius: 10}}>
+      <View style={modalStyles.container}>
+        <View style={modalStyles.content}>
           {uploading ? (
             <>
               <ActivityIndicator animating={true} color={'red'} />
-              <Text style={{color: 'white'}}>{uploadProgress}%</Text>
+              <Text style={modalStyles.progressText}>{uploadProgress}%</Text>
             </>
           ) : (
-            <Text>{strings.uploadModel.uploadError}</Text>
+            <Text style={modalStyles.errorText}>
+              {strings.uploadModel.uploadError}
+            </Text>
           )}
         </View>
       </View>

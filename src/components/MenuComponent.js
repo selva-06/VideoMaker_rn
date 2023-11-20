@@ -8,6 +8,7 @@ import {uploadVideoRequest} from '../store/actions/UploadActions';
 import {launchCamera} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { strings } from '../util/Strings';
+import { menuStyles } from './ComponentStyles';
 
 const MenuComponent = ({style}) => {
     const dispatch = useDispatch();
@@ -81,10 +82,6 @@ const MenuComponent = ({style}) => {
         }}
         anchor={
           <TouchableOpacity onPress={openMenu} style={styles.menuTO}>
-            {/* <Image
-              source={require('../assets/images/attach.png')}
-              style={styles.menuAnchor}
-            /> */}
             <Icon name="add" size={32} color="#C3E82F" />
           </TouchableOpacity>
         }
@@ -98,12 +95,7 @@ const MenuComponent = ({style}) => {
     </>
   );
 };
-const windowWidth = Dimensions.get('window').width;
 
-const styles = StyleSheet.create({
-  menuTO: {marginLeft: 0, marginBottom: 0, marginRight: 10},
-//   menuAnchor: {width: windowWidth * 0.08, height: windowWidth * 0.09},
-  menuItems: {marginTop: 30},
-});
+const styles = menuStyles;
 
 export default MenuComponent;
