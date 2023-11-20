@@ -50,6 +50,7 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
         <Text style={styles.sideText}>Login to your account</Text>
       </View>
       <View style={styles.inputContainer}>
+        
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -63,7 +64,7 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
           placeholderTextColor="black"
         />
         {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
-        <View style={styles.inputContainer1}>
+        
           <TextInput
             style={styles.input}
             placeholder="Password"
@@ -82,12 +83,12 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
             style={styles.password}>
             <Icon
               name={hidePassword ? 'eye-off' : 'eye'}
-              size={24}
+              size={20}
               color="black"
-              style={{paddingHorizontal: 10}}
+              style={{paddingHorizontal: 15}}
             />
           </TouchableOpacity>
-        </View>
+          </View>
         {passwordError ? (
           <Text style={styles.error}>{passwordError}</Text>
         ) : null}
@@ -95,7 +96,7 @@ const LoginScreen = ({loginRequest, user, error, navigation}) => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         {error && <Text style={styles.error}>{error}</Text>}
-      </View>
+       
     </View>
   );
 };
@@ -121,15 +122,15 @@ const loginstyle = {
   },
   container1: {
     marginRight: 30,
-    marginBottom: 75,
+    marginBottom: 60,
   },
   welcomeText: {
-    fontSize: 50,
+    fontSize: 48,
     color: '#444444',
     fontFamily: 'Poppins-Medium',
   },
   sideText: {
-    fontSize: 20,
+    fontSize: 19,
     fontFamily: 'Poppins-Medium',
     color: 'grey',
   },
@@ -138,19 +139,12 @@ const loginstyle = {
     height: 150,
     justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom:20,
-  },
-  inputContainer1: {
-    width: 320,
-    height: 150,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // marginBottom:20,
+     
   },
   password: {
     position: 'absolute',
     right: 20,
-    top: '40%', // Adjust the vertical position of the eye icon
+    top: '72%', // Adjust the vertical position of the eye icon
   },
   input: {
     color: 'black',
@@ -161,9 +155,9 @@ const loginstyle = {
     width: '90%',
     height: 50,
     borderColor: 'grey',
-    paddingBottom: 10,
-    marginBottom: 10,
+    paddingBottom: 5,
     fontFamily: 'Poppins-Medium',
+    marginTop:20,
   },
   buttonContainer: {
     backgroundColor: '#444444', // Background color of the button
@@ -172,6 +166,7 @@ const loginstyle = {
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop:60,
   },
   buttonText: {
     color: '#C3E82F',

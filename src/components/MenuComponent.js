@@ -88,19 +88,14 @@ const MenuComponent = ({style}) => {
           </TouchableOpacity>
         }
         style={styles.menuItems}>
-        {/* <Menu.Item
-          onPress={() => handleMenuPress(handleVideoUpload)}
-          title="Attach Files from Device"
-        />
-        <Menu.Item
-          onPress={() => handleMenuPress(startRecordingVideo)}
-          title="Capture Video"
-        /> */}
+          
         <Menu.Item
           onPress={handleVideoUpload}
           title="Attach Files from Device"
         />
-        <Menu.Item onPress={startRecordingVideo} title="Capture Video" />
+        <Menu.Item 
+        onPress={startRecordingVideo} 
+        title="Capture Video" />
       </Menu>
     </>
   );
