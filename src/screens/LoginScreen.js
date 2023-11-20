@@ -54,6 +54,7 @@ const LoginScreen = ({loginRequest, user , error, navigation}) => {
         <Text style={styles.sideText}>{strings.loginScreen.loginMessage}</Text>
       </View>
       <View style={styles.inputContainer}>
+        
         <TextInput
           style={styles.input}
           placeholder= {strings.loginScreen.placeholderText.email}
@@ -86,9 +87,9 @@ const LoginScreen = ({loginRequest, user , error, navigation}) => {
             style={styles.password}>
             <Icon
               name={hidePassword ? 'eye-off' : 'eye'}
-              size={24}
+              size={20}
               color="black"
-              style={{paddingHorizontal: 10}}
+              style={{paddingHorizontal: 15}}
             />
           </TouchableOpacity>
         {/* </View> */}
@@ -131,7 +132,7 @@ const loginstyle = {
     marginBottom: 120,
   },
   welcomeText: {
-    fontSize: 50,
+    fontSize: 48,
     color: '#444444',
     fontFamily: 'Poppins-Medium',
   },
@@ -145,14 +146,7 @@ const loginstyle = {
     height: 150,
     justifyContent: 'center',
     alignItems: 'center',
-    // marginBottom:20,
-  },
-  inputContainer1: {
-    width: 320,
-    height: 150,
-    justifyContent: 'center',
-    alignItems: 'center',
-    // marginBottom:20,
+     
   },
   password: {
     position: 'absolute',
@@ -168,8 +162,7 @@ const loginstyle = {
     width: '90%',
     height: 50,
     borderColor: 'grey',
-    paddingBottom: 10,
-    marginBottom: 10,
+    paddingBottom: 5,
     fontFamily: 'Poppins-Medium',
     marginTop: 10,
   },
