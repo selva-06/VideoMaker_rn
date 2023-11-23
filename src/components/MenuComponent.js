@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
-import {TouchableOpacity, Image, StyleSheet, Dimensions} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {Menu} from 'react-native-paper';
 import DocumentPicker from 'react-native-document-picker';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {uploadVideoRequest} from '../store/actions/UploadActions';
 import {launchCamera} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
