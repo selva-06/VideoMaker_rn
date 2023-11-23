@@ -7,11 +7,12 @@ import HomeScreen from '../screens/Home';
 import Tab2 from '../screens/Profile';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MenuComponent from '../components/MenuComponent';
-
+import Cameraa from '../screens/Cameraa';
+import RecordedVideoScreen from '../screens/Recorded';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const MainTabNavigator = () => (
+const MainTabNavigator = ({navigation}) => (
   <Tab.Navigator
     screenOptions={({route}) => ({
       tabBarIcon: ({focused, color, size}) => {
@@ -41,7 +42,7 @@ const MainTabNavigator = () => (
           backgroundColor: '#444444',
         },
         headerTintColor: '#C3E82F',
-        headerRight: () => <MenuComponent />,
+        headerRight: () => <MenuComponent navigation={navigation} />,
       }}
     />
     <Tab.Screen
@@ -67,6 +68,16 @@ const AppNavigator = () => {
       <Stack.Screen
         name="MainTab"
         component={MainTabNavigator}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Cameraa"
+        component={Cameraa}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Recorded"
+        component={RecordedVideoScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

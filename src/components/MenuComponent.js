@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { strings } from '../util/Strings';
 import { menuStyles } from './ComponentStyles';
 
-const MenuComponent = ({style}) => {
+const MenuComponent = ({navigation}) => {
     const dispatch = useDispatch();
   const [menuVisible, setMenuVisible] = useState(false);
   const closeMenu = () => setMenuVisible(false);
@@ -45,12 +45,21 @@ const MenuComponent = ({style}) => {
     const options = {
       mediaType: 'video',
       videoQuality: 'high',
+      durationLimit: 120,
+      customButtons: [
+        {
+          name: 'customOptionKey',
+          title: 'Choose Photo from Custom Option'
+        },
+      ],
+
     };
 
     launchCamera(options, async response => {
       if (response.didCancel) {
         console.log('User cancelled video recording');
-      } else if (response.error) {
+      }
+      else if (response.error) {
         console.log('Error recording video:', response.error);
       } else if (response.assets && response.assets.length > 0) {
         const uri = response.assets[0].uri;
@@ -70,7 +79,10 @@ const MenuComponent = ({style}) => {
     });
     closeMenu();
   };
-
+  const navigateToCameraScreen = () => {
+    navigation.navigate('Cameraa'); // Navigate to the Cameraa screen
+    closeMenu();
+  };
 
   return (
     <>
@@ -90,7 +102,7 @@ const MenuComponent = ({style}) => {
           onPress={handleVideoUpload}
           title={strings.menu.attachText}
         />
-        <Menu.Item onPress={startRecordingVideo} title={strings.menu.captureText} />
+        <Menu.Item onPress={navigateToCameraScreen  } title={strings.menu.captureText} />
       </Menu>
     </>
   );
