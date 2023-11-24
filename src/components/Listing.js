@@ -1,11 +1,6 @@
 // Listing.js
 import React, {useEffect} from 'react';
-import {
-  View,
-  FlatList,
-  Image,
-  Dimensions,
-} from 'react-native';
+import {View, FlatList, Image, Dimensions} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchListData} from '../store/actions/ListingActions';
 import UploadModal from './ProgressLoader';
