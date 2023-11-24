@@ -7,14 +7,17 @@ import {useDispatch} from 'react-redux';
 import {uploadVideoRequest} from '../store/actions/UploadActions';
 import {launchCamera} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { strings } from '../util/Strings';
-import { menuStyles } from './ComponentStyles';
+import {strings} from '../util/Strings';
+import {menuStyles} from './ComponentStyles';
+import RecordingScreen from './RecordingScreen';
 
-const MenuComponent = () => {
-    const dispatch = useDispatch();
+
+const MenuComponent = ({navigation}) => {
+  const dispatch = useDispatch();
   const [menuVisible, setMenuVisible] = useState(false);
   const closeMenu = () => setMenuVisible(false);
   const openMenu = () => setMenuVisible(true);
+
   const handleVideoUpload = async () => {
     try {
       const result = await DocumentPicker.pickSingle({
@@ -69,8 +72,8 @@ const MenuComponent = () => {
       }
     });
     closeMenu();
+    // <RecordingScreen />;
   };
-
 
   return (
     <>
@@ -90,7 +93,10 @@ const MenuComponent = () => {
           onPress={handleVideoUpload}
           title={strings.menu.attachText}
         />
-        <Menu.Item onPress={startRecordingVideo} title={strings.menu.captureText} />
+        <Menu.Item
+          onPress={startRecordingVideo}
+          title={strings.menu.captureText}
+        />
       </Menu>
     </>
   );

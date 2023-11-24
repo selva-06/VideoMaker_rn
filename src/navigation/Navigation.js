@@ -7,6 +7,7 @@ import HomeScreen from '../screens/Home';
 import Tab2 from '../screens/Profile';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MenuComponent from '../components/MenuComponent';
+import RecordingScreen from '../components/RecordingScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -69,6 +70,9 @@ const AppNavigator = () => {
         component={MainTabNavigator}
         options={{headerShown: false}}
       />
+      <Stack.Screen name="RecordingScreen" component={RecordingScreen} />
+
+      <Stack.Screen name="MenuComponent" component={MenuComponent} />
     </Stack.Navigator>
   );
 };
