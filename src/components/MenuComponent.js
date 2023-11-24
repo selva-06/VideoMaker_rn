@@ -7,14 +7,17 @@ import {useDispatch} from 'react-redux';
 import {uploadVideoRequest} from '../store/actions/UploadActions';
 import {launchCamera} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { strings } from '../util/Strings';
-import { menuStyles } from './ComponentStyles';
+import {strings} from '../util/Strings';
+import {menuStyles} from './ComponentStyles';
+import RecordingScreen from './RecordingScreen';
+
 
 const MenuComponent = ({navigation}) => {
     const dispatch = useDispatch();
   const [menuVisible, setMenuVisible] = useState(false);
   const closeMenu = () => setMenuVisible(false);
   const openMenu = () => setMenuVisible(true);
+
   const handleVideoUpload = async () => {
     try {
       const result = await DocumentPicker.pickSingle({
@@ -78,6 +81,7 @@ const MenuComponent = ({navigation}) => {
       }
     });
     closeMenu();
+    // <RecordingScreen />;
   };
   const navigateToCameraScreen = () => {
     navigation.navigate('Cameraa'); // Navigate to the Cameraa screen
