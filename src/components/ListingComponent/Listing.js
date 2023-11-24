@@ -2,9 +2,9 @@
 import React, {useEffect} from 'react';
 import {View, FlatList, Image, Dimensions} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchListData} from '../store/actions/ListingActions';
-import UploadModal from './ProgressLoader';
-import {listingstyles} from './ComponentStyles';
+import {fetchListData} from '../../store/actions/ListingActions';
+import UploadModal from '../ProgressLoaderComponent/ProgressLoader';
+import {listingstyles} from './styles';
 
 const Listing = () => {
   const dispatch = useDispatch();

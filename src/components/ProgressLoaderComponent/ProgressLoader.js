@@ -2,8 +2,8 @@
 import React from 'react';
 import {useSelector} from 'react-redux';
 import {ActivityIndicator, Modal, Text, View} from 'react-native';
-import {strings} from '../util/Strings';
-import {modalStyles} from './ComponentStyles';
+import {strings} from '../../util/Strings';
+import {modalStyles} from './styles';
 const UploadModal = () => {
   const uploading = useSelector(state => state.upload.uploading);
   const uploadProgress = useSelector(state => state.upload.uploadProgress);

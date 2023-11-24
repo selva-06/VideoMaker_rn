@@ -2,11 +2,7 @@
 // src/sagas/authSaga.js
 
 import {put, takeLatest} from 'redux-saga/effects';
-import {
-  LOGIN_REQUEST,
-  loginSuccess,
-  loginFailure,
-} from './authActions';
+import {LOGIN_REQUEST, loginSuccess, loginFailure} from './authActions';
 
 function* loginUser(action) {
   try {

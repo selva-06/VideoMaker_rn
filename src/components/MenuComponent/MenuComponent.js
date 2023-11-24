@@ -4,12 +4,11 @@ import {TouchableOpacity} from 'react-native';
 import {Menu} from 'react-native-paper';
 import DocumentPicker from 'react-native-document-picker';
 import {useDispatch} from 'react-redux';
-import {uploadVideoRequest} from '../store/actions/UploadActions';
+import {uploadVideoRequest} from '../../store/actions/UploadActions';
 import {launchCamera} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {strings} from '../util/Strings';
-import {menuStyles} from './ComponentStyles';
-import RecordingScreen from './RecordingScreen';
+import {strings} from '../../util/Strings';
+import { menuStyles } from './styles';
 
 
 const MenuComponent = ({navigation}) => {

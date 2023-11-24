@@ -1,11 +1,11 @@
-/* eslint-disable prettier/prettier */
+/* eslint-disable no-shadow */
 import React, {useState} from 'react';
 import {View, TextInput, Button, Text, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {loginRequest} from '../../store/authActions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
-import { strings } from '../../util/Strings';
+import {strings} from '../../util/Strings';
 
 const LoginScreen = ({loginRequest, error, navigation}) => {
   const [email, setEmail] = useState('');
@@ -47,11 +47,12 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
     navigation.navigate('MainTab');
   };
 
-
   return (
     <View style={styles.container}>
       <View style={styles.container1}>
-        <Text style={styles.welcomeText}>{strings.loginScreen.welcomeMessage}</Text>
+        <Text style={styles.welcomeText}>
+          {strings.loginScreen.welcomeMessage}
+        </Text>
         <Text style={styles.sideText}>{strings.loginScreen.loginMessage}</Text>
       </View>
       <View style={styles.inputContainer}>
@@ -68,7 +69,7 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
           placeholderTextColor="black"
         />
         <View style={styles.errorContainer}>
-        {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
+          {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
         </View>
         <TextInput
           style={styles.input}
@@ -90,22 +91,26 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
             name={hidePassword ? 'eye-off' : 'eye'}
             size={20}
             color="black"
-            style={{paddingHorizontal: 15}}
+            style={styles.eyepassword}
           />
         </TouchableOpacity>
         <View style={styles.errorContainer}>
-        {passwordError ? (
-          <Text style={styles.error}>{passwordError}</Text>
-        ) : null}
+          {passwordError ? (
+            <Text style={styles.error}>{passwordError}</Text>
+          ) : null}
         </View>
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
-          <Text style={styles.buttonText}>{strings.loginScreen.button.loginbtn}</Text>
+          <Text style={styles.buttonText}>
+            {strings.loginScreen.button.loginbtn}
+          </Text>
         </TouchableOpacity>
         <View style={styles.errorContainer}>
-        {error && <Text style={styles.error}>{error}</Text>}
+          {error && <Text style={styles.error}>{error}</Text>}
         </View>
         <TouchableOpacity onPress={withoutsignin}>
-          <Text style={styles.wosignin}>{strings.loginScreen.button.wosignin}</Text>
+          <Text style={styles.wosignin}>
+            {strings.loginScreen.button.wosignin}
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

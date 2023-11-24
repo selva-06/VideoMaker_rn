@@ -1,6 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React, {useEffect, useState, useRef} from 'react';
-import {View, StyleSheet, TouchableOpacity, Text, Platform} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Platform,
+  Image,
+  Dimensions,
+} from 'react-native';
 import {
   Camera,
   useCameraDevices,
@@ -9,6 +17,8 @@ import {
 import {PERMISSIONS, request} from 'react-native-permissions';
 import Video from 'react-native-video';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/Ionicons';
+import styles from './styles';
 
 async function requestPermissions() {
   try {
@@ -54,7 +64,7 @@ function Cameraa({navigation}) {
   // const backCameras = devices.filter(device => device.position === 'back');
   // const device = backCameras[0];
   const [selectedDevice, setSelectedDevice] = useState(null);
-  const [torch,setTorch] = useState('off');
+  const [torch, setTorch] = useState('off');
   const [timer, setTimer] = useState(0);
   const [timerInterval, setTimerInterval] = useState(null);
   const [isStopButtonDisabled, setIsStopButtonDisabled] = useState(false); // State to disable the stop button initially
@@ -81,10 +91,9 @@ function Cameraa({navigation}) {
     setShowCamera(prevState => !prevState);
   };
   const toggletorch = () => {
-    if (torch === 'on'){
+    if (torch === 'on') {
       setTorch('off');
-    }
-    else {
+    } else {
       setTorch('on');
     }
     console.log(torch);
@@ -100,18 +109,16 @@ function Cameraa({navigation}) {
   };
   const navigateToHomeScreen = () => {
     if (isRecording) {
-        toggleRecording();
-        setForceStop(true); // Set the flag to indicate forced stop
-        navigation.navigate('MainTab'); // Navigate to the Cameraa screen
+      toggleRecording();
+      setForceStop(true); // Set the flag to indicate forced stop
+      navigation.navigate('MainTab'); // Navigate to the Cameraa screen
 
-        console.log('stopped recording moving to home',forceStop); // Stop recording if it's in progress
-    console.log('moved to home from camera');
-    }
-    else{
-        navigation.navigate('MainTab'); // Navigate to the Cameraa screen
+      console.log('stopped recording moving to home', forceStop); // Stop recording if it's in progress
+      console.log('moved to home from camera');
+    } else {
+      navigation.navigate('MainTab'); // Navigate to the Cameraa screen
     }
   };
-
 
   const toggleRecording = async () => {
     if (!isRecording) {
@@ -148,12 +155,13 @@ function Cameraa({navigation}) {
           },
           onRecordingFinished: video => {
             setIsRecording(false);
-            setVideoSource('file://'+video.path);
+            setVideoSource('file://' + video.path);
             setShowRecordedVideo(true);
             console.log('Finished recording:', video);
             clearTimeout(recordingTimeout); // Clear the automatic stop timeout on manual stop
-            navigation.navigate('Recorded', { videoSource: 'file://' + video.path });
-            
+            navigation.navigate('Recorded', {
+              videoSource: 'file://' + video.path,
+            });
 
             //   clearTimeout(recordingTimeout);
           },
@@ -187,53 +195,60 @@ function Cameraa({navigation}) {
 
   return (
     <View style={styles.container}>
-      {showCamera ? (
+      {selectedDevice !== null && (
         <Camera
           ref={camera}
           style={StyleSheet.absoluteFill}
           device={selectedDevice}
-          isActive={showCamera}
+          isActive={true}
           video={true}
           format={format}
           enableZoomGesture={true}
           torch={torch}
         />
-      ) : (
-        <Text></Text>
       )}
-      {isRecording && <Text style={styles.timerText}>{formatTime(timer)}</Text>}
       <View style={styles.buttonContainer}>
-        {!showCamera ? (
-          <TouchableOpacity style={styles.button} onPress={toggleCameraView}>
-            <Text style={styles.buttonText}>Open Camera</Text>
-          </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonrec} onPress={toggletorch}>
+          <Icon
+            name={torch === 'on' ? 'flash-off-outline' : 'flash-outline'}
+            size={30}
+            color="white"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.buttonrec,
+            isRecording && isStopButtonDisabled && {opacity: 0.5},
+          ]}
+          onPress={toggleRecording}
+          disabled={isStopButtonDisabled}>
+          <Image
+            source={
+              isRecording
+                ? require('../../assets/images/recordstop.png')
+                : require('../../assets/images/record.png')
+            }
+            style={styles.imageStyle}
+          />
+        </TouchableOpacity>
+        <View style={styles.bottombuttonContainer} />
+      </View>
+      <View style={styles.closeContainer}>
+        <TouchableOpacity
+          style={styles.buttonrec}
+          onPress={navigateToHomeScreen}>
+          <Image
+            source={require('../../assets/images/close.png')}
+            style={styles.imageStyleClose}
+          />
+        </TouchableOpacity>
+        {isRecording ? (
+          <Text style={styles.timerText}>{formatTime(timer)}</Text>
         ) : (
-          <View>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                isRecording && isStopButtonDisabled && {opacity: 0.5},
-              ]}
-              onPress={toggleRecording}
-              disabled={isStopButtonDisabled} // Disable the button based on the state
-            >
-              <Text style={styles.buttonText}>
-                {isRecording ? 'Stop Recording' : 'Start Recording'}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={switchCamera}>
-              <Text style={styles.buttonText}>Switch Camera</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={toggletorch}>
-        <Text style={styles.buttonText}>
-          {torch === 'on' ? 'Turn Off Torch' : 'Turn On Torch'}
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={navigateToHomeScreen}>
-              <Text style={styles.buttonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
+          <View />
         )}
+
+        <View style={styles.topbuttonContainer} />
       </View>
     </View>
   );
@@ -246,33 +261,5 @@ const formatTime = seconds => {
   }${remainingSeconds}`;
   return formattedTime;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonContainer: {
-    position: 'absolute',
-    bottom: 20,
-  },
-  timerText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
-  button: {
-    backgroundColor: '#77c3ec',
-    padding: 10,
-    borderRadius: 8,
-    margin: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
 
 export default Cameraa;

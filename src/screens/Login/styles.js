@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.143,
     right: windowWidth * 0.06,
   },
+  eyepassword: {paddingHorizontal: 15},
   input: {
     color: 'black',
     paddingLeft: windowWidth * 0.04,

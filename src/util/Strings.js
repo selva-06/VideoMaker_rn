@@ -35,4 +35,7 @@ export const strings = {
     attachText: 'Attach Files from Device',
     captureText: 'Capture Video',
   },
+  recordedScreen: {
+    cancelText: 'Cancel',
+  },
 };

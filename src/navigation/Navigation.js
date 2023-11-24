@@ -6,9 +6,9 @@ import LoginScreen from '../screens/Login';
 import HomeScreen from '../screens/Home';
 import Tab2 from '../screens/Profile';
 import Icon from 'react-native-vector-icons/Ionicons';
-import MenuComponent from '../components/MenuComponent';
-import Cameraa from '../screens/Cameraa';
-import RecordedVideoScreen from '../screens/Recorded';
+import MenuComponent from '../components/MenuComponent/MenuComponent';
+import Cameraa from '../screens/CameraScreen/VisionCameraScreen';
+import RecordedVideoScreen from '../screens/RecordedScreen/Recorded';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -30,7 +30,7 @@ const MainTabNavigator = ({navigation}) => (
         return <Icon name={iconName} size={size} color={color} />;
       },
       tabBarActiveBackgroundColor: '#444444',
-      tabBarInactiveBackgroundColor: 'grey',
+      tabBarInactiveBackgroundColor: '#444444',
       tabBarActiveTintColor: '#C3E82F',
       tabBarInactiveTintColor: '#C3E82F',
     })}>

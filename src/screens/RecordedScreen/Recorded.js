@@ -85,15 +85,23 @@
 
 // export default RecordedVideoScreen;
 
-import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { uploadVideoRequest } from '../store/actions/UploadActions';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Image,
+  Dimensions,
+} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {uploadVideoRequest} from '../../store/actions/UploadActions';
 import Video from 'react-native-video';
-import SnackBarC from '../components/SnackBar';
-
-function RecordedVideoScreen({ route, navigation }) {
-  const { videoSource } = route.params;
+import SnackBarC from '../../components/SnackBarComponent/SnackBar';
+import styles from './styles';
+import {strings} from '../../util/Strings';
+function RecordedVideoScreen({route, navigation}) {
+  const {videoSource} = route.params;
   const [uploading, setUploading] = useState(false);
   const dispatch = useDispatch();
 
@@ -111,57 +119,37 @@ function RecordedVideoScreen({ route, navigation }) {
     navigation.navigate('MainTab');
   };
   const navigateToHomeScreen = () => {
-    navigation.navigate('MainTab'); // Navigate to the Cameraa screen
+    navigation.navigate('MainTab'); // Navigate to the Main screen
   };
   return (
     <View style={styles.container}>
       <Video
-        source={{ uri: videoSource }}
+        source={{uri: videoSource}}
         style={styles.video}
         controls={true}
         resizeMode="cover"
       />
-      <TouchableOpacity
-        style={styles.button}
-        onPress={uploadVideo}
-        disabled={uploading}
-      >
-        <Text style={styles.buttonText}>
-          Upload Video
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}
-        onPress={navigateToHomeScreen}>
-        <Text style={styles.buttonText}>
-          CLose 
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.bottombuttonContainer}>
+        <TouchableOpacity
+          style={styles.buttonrec}
+          onPress={navigateToHomeScreen}>
+          <Text style={styles.buttonText}>
+            {strings.recordedScreen.cancelText}
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={uploadVideo}
+          disabled={uploading}>
+          <Image
+            source={require('../../assets/images/uploadTick.png')}
+            style={styles.imageStyleClose}
+          />
+        </TouchableOpacity>
+      </View>
       <SnackBarC />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-  },
-  video: {
-    width: '100%',
-    height: '80%',
-  },
-  button: {
-    backgroundColor: '#77c3ec',
-    padding: 10,
-    borderRadius: 8,
-    marginTop: 20,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
 
 export default RecordedVideoScreen;

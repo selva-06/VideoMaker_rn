@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 // listingSaga.js
 import {put, takeLatest, call} from 'redux-saga/effects';
-import { setListData } from '../actions/ListingActions';
-import { ListData } from '../../assets/data/Data';
+import {setListData} from '../actions/ListingActions';
+import {ListData} from '../../assets/data/Data';
 function* fetchListData() {
   try {
     //to fetch data

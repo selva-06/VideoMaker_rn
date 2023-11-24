@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { LOGIN_SUCCESS, LOGIN_FAILURE } from "./authActions";
+import {LOGIN_SUCCESS, LOGIN_FAILURE} from './authActions';
 
 const initialState = {
   user: null,
@@ -27,4 +27,3 @@ const authReducer = (state = initialState, action) => {
 };
 
 export default authReducer;
-

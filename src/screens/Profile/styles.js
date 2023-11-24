@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(195, 232, 47, 0.4)',
     justifyContent: 'center',
     paddingBottom: 40,
   },
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   buttonContainer: {
-    backgroundColor: '#444444', // Background color of the button
+    backgroundColor: '#444444',
     padding: 10,
     width: windowWidth * 0.5,
     borderRadius: 20,
