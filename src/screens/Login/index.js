@@ -67,7 +67,9 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
           color="black"
           placeholderTextColor="black"
         />
+        <View style={styles.errorContainer}>
         {emailError ? <Text style={styles.error}>{emailError}</Text> : null}
+        </View>
         <TextInput
           style={styles.input}
           placeholder={strings.loginScreen.placeholderText.password}
@@ -91,13 +93,17 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
             style={{paddingHorizontal: 15}}
           />
         </TouchableOpacity>
+        <View style={styles.errorContainer}>
         {passwordError ? (
           <Text style={styles.error}>{passwordError}</Text>
         ) : null}
+        </View>
         <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
           <Text style={styles.buttonText}>{strings.loginScreen.button.loginbtn}</Text>
         </TouchableOpacity>
+        <View style={styles.errorContainer}>
         {error && <Text style={styles.error}>{error}</Text>}
+        </View>
         <TouchableOpacity onPress={withoutsignin}>
           <Text style={styles.wosignin}>{strings.loginScreen.button.wosignin}</Text>
         </TouchableOpacity>

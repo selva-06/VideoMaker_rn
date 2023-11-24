@@ -1,5 +1,5 @@
-import {StyleSheet,Dimensions} from 'react-native';
-import {  RFValue } from 'react-native-responsive-fontsize';
+import {StyleSheet, Dimensions} from 'react-native';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -10,8 +10,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     backgroundColor: 'white',
-    justifyContent:"center",
-    paddingBottom:40,    },
+    justifyContent: 'center',
+    paddingBottom: 40,
+  },
   headText: {
     fontSize: RFValue(35),
     color: '#444444',
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: '#444444', // Background color of the button
     padding: 10,
-    width: windowWidth*0.5,
+    width: windowWidth * 0.5,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 15,
     borderRadius: 10,
-    width: windowWidth*0.8,
-    height:windowHeight*0.09,
+    width: windowWidth * 0.8,
+    height: windowHeight * 0.09,
     marginTop: 15,
     alignItems: 'center',
   },
