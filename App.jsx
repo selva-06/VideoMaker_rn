@@ -14,14 +14,23 @@ import {NavigationContainer} from '@react-navigation/native';
 import rootReducer, {rootSaga} from './src/store/reducers/rindex';
 import {PaperProvider} from 'react-native-paper';
 import store from './src/store/Store';
-
+import {StatusBar, SafeAreaView} from 'react-native';
 const App = () => {
   return (
     <PaperProvider>
       <Provider store={store}>
-        <NavigationContainer>
-          <AppNavigator />
-        </NavigationContainer>
+        <SafeAreaView
+          style={{
+            flex: 1,
+            paddingTop: 0,
+            paddingBottom: 0,
+            backgroundColor: 'white',
+          }}>
+          <StatusBar backgroundColor="transparent" barStyle="default" />
+          <NavigationContainer>
+            <AppNavigator />
+          </NavigationContainer>
+        </SafeAreaView>
       </Provider>
     </PaperProvider>
   );

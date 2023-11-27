@@ -111,12 +111,12 @@ function Cameraa({navigation}) {
     if (isRecording) {
       toggleRecording();
       setForceStop(true); // Set the flag to indicate forced stop
-      navigation.navigate('MainTab'); // Navigate to the Cameraa screen
+      // navigation.navigate('MainTab'); // Navigate to the Cameraa screen
 
       console.log('stopped recording moving to home', forceStop); // Stop recording if it's in progress
       console.log('moved to home from camera');
     } else {
-      navigation.navigate('MainTab'); // Navigate to the Cameraa screen
+      navigation.replace('MainTab'); // Navigate to the Cameraa screen
     }
   };
 
@@ -157,10 +157,12 @@ function Cameraa({navigation}) {
             setIsRecording(false);
             setVideoSource('file://' + video.path);
             setShowRecordedVideo(true);
-            console.log('Finished recording:', video);
+            console.log('Finished recording:', video,video.duration);
             clearTimeout(recordingTimeout); // Clear the automatic stop timeout on manual stop
-            navigation.navigate('Recorded', {
+            const videoDuration = video.duration; // Assuming video.duration gives the duration
+            navigation.replace('Recorded', {
               videoSource: 'file://' + video.path,
+              videoDuration: videoDuration, // Pass video duration as a parameter
             });
 
             //   clearTimeout(recordingTimeout);

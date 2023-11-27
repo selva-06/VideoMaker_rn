@@ -83,7 +83,7 @@ const MenuComponent = ({navigation}) => {
     // <RecordingScreen />;
   };
   const navigateToCameraScreen = () => {
-    navigation.navigate('Cameraa'); // Navigate to the Cameraa screen
+    navigation.replace('Cameraa'); // Navigate to the Cameraa screen
     closeMenu();
   };
 

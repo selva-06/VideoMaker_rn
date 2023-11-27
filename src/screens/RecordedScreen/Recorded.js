@@ -101,12 +101,20 @@ import SnackBarC from '../../components/SnackBarComponent/SnackBar';
 import styles from './styles';
 import {strings} from '../../util/Strings';
 function RecordedVideoScreen({route, navigation}) {
-  const {videoSource} = route.params;
+  const {videoSource, videoDuration} = route.params;
   const [uploading, setUploading] = useState(false);
   const dispatch = useDispatch();
+  console.log('rec is', videoDuration);
 
   const uploadVideo = () => {
     setUploading(true);
+
+    if (videoDuration < 10 || videoDuration > 26) {
+      // Show alert and return without uploading
+      alert('Please record a video between 10 and 25 seconds.');
+      setUploading(false);
+      return;
+    }
 
     const formData = new FormData();
     formData.append('file', {
@@ -116,10 +124,10 @@ function RecordedVideoScreen({route, navigation}) {
     });
 
     dispatch(uploadVideoRequest(formData));
-    navigation.navigate('MainTab');
+    navigation.replace('MainTab');
   };
   const navigateToHomeScreen = () => {
-    navigation.navigate('MainTab'); // Navigate to the Main screen
+    navigation.replace('MainTab'); // Navigate to the Main screen
   };
   return (
     <View style={styles.container}>
