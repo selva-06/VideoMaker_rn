@@ -8,6 +8,7 @@ import {
   Platform,
   Image,
   Dimensions,
+  Modal,
 } from 'react-native';
 import {
   Camera,
@@ -73,6 +74,7 @@ function Cameraa({navigation}) {
   const [isRecording, setIsRecording] = useState(false);
   const [videoSource, setVideoSource] = useState('');
   const [showRecordedVideo, setShowRecordedVideo] = useState(false);
+  const [showModal, setShowModal] = useState(false); // State to control the modal visibility
 
   useEffect(() => {
     async function setup() {
@@ -82,10 +84,15 @@ function Cameraa({navigation}) {
       }
     }
     setup();
+    setShowModal(true);
+
   }, [devices]);
   const format = useCameraFormat(selectedDevice, [
     {videoResolution: {width: 640, height: 480}, pixelFormat: 'native'},
   ]);
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const toggleCameraView = () => {
     setShowCamera(prevState => !prevState);
@@ -252,6 +259,43 @@ function Cameraa({navigation}) {
 
         <View style={styles.topbuttonContainer} />
       </View>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={showModal}
+        onRequestClose={closeModal}
+      >
+        <View style={{
+    flex: 1,
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 15,
+  }}>
+          <View style={{
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  }}>
+            <Text style={styles1.modalTitle}>Hello!</Text>
+            <View style={styles1.bulletPoints}>
+              <Text style={styles1.bulletItem}>- The video should be recorded in portrait only</Text>
+              <Text style={styles1.bulletItem}>- The recorded video's duration should be minimum 40seconds and maximum 2minutes</Text>
+              <Text style={styles1.bulletItem}>- Should not close while recording in progress</Text>
+            </View>
+            <TouchableOpacity onPress={closeModal}>
+              <Text style={{
+    fontSize: 16,
+    color: 'red',
+    marginTop: 10,
+  }}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+
     </View>
   );
 }
@@ -264,4 +308,51 @@ const formatTime = seconds => {
   return formattedTime;
 };
 
+const styles1 = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // Styles for your camera container
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: 'white',
+  },
+  bulletPoints: {
+    alignSelf: 'flex-start',
+    marginLeft: 20,
+    color: 'white',
+
+  },
+  bulletItem: {
+    fontSize: 16,
+    marginBottom: 5,
+    color: 'white',
+  },
+  closeText: {
+    fontSize: 18,
+    color: 'red',
+    marginTop: 10,
+  },
+  // Other styles for your camera UI
+  // ...
+});
+
 export default Cameraa;
+
+
