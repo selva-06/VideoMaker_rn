@@ -9,6 +9,7 @@ import {
   Image,
   Dimensions,
   Modal,
+  SafeAreaView,
 } from 'react-native';
 import {
   Camera,
@@ -84,8 +85,7 @@ function Cameraa({navigation}) {
       }
     }
     setup();
-    setShowModal(true);
-
+    // setShowModal(true);
   }, [devices]);
   const format = useCameraFormat(selectedDevice, [
     {videoResolution: {width: 640, height: 480}, pixelFormat: 'native'},
@@ -117,13 +117,15 @@ function Cameraa({navigation}) {
   const navigateToHomeScreen = () => {
     if (isRecording) {
       toggleRecording();
-      setForceStop(true); // Set the flag to indicate forced stop
+      setForceStop(true);
+      // Set the flag to indicate forced stop
       // navigation.navigate('MainTab'); // Navigate to the Cameraa screen
 
       console.log('stopped recording moving to home', forceStop); // Stop recording if it's in progress
       console.log('moved to home from camera');
     } else {
-      navigation.replace('MainTab'); // Navigate to the Cameraa screen
+      setSelectedDevice(null);
+      navigation.navigate('Home'); // Navigate to the Cameraa screen
     }
   };
 
@@ -164,7 +166,7 @@ function Cameraa({navigation}) {
             setIsRecording(false);
             setVideoSource('file://' + video.path);
             setShowRecordedVideo(true);
-            console.log('Finished recording:', video,video.duration);
+            console.log('Finished recording:', video, video.duration);
             clearTimeout(recordingTimeout); // Clear the automatic stop timeout on manual stop
             const videoDuration = video.duration; // Assuming video.duration gives the duration
             navigation.replace('Recorded', {
@@ -205,47 +207,58 @@ function Cameraa({navigation}) {
   return (
     <View style={styles.container}>
       {selectedDevice !== null && (
-        <Camera
-          ref={camera}
-          style={StyleSheet.absoluteFill}
-          device={selectedDevice}
-          isActive={true}
-          video={true}
-          format={format}
-          enableZoomGesture={true}
-          torch={torch}
-        />
+        <View style={styles.buttonContainer1}>
+          {selectedDevice !== null && (
+            <Camera
+              ref={camera}
+              style={StyleSheet.absoluteFill}
+              device={selectedDevice}
+              isActive={true}
+              video={true}
+              format={format}
+              enableZoomGesture={true}
+              torch={torch}
+            />
+          )}
+          <View style={styles.buttonContainer}>
+            <View style={styles.buttonContainer3}>
+              <TouchableOpacity style={styles.buttonrec} onPress={toggletorch}>
+                <Icon
+                  name={torch === 'on' ? 'flash-off-outline' : 'flash-outline'}
+                  size={30}
+                  color="white"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.buttonrec,
+                  isRecording && isStopButtonDisabled && {opacity: 0.5},
+                ]}
+                onPress={toggleRecording}
+                disabled={isStopButtonDisabled}>
+                <Image
+                  source={
+                    isRecording
+                      ? require('../../assets/images/recordstop.png')
+                      : require('../../assets/images/record.png')
+                  }
+                  style={styles.imageStyle}
+                />
+              </TouchableOpacity>
+              <View style={styles.bottombuttonContainer} />
+            </View>
+          </View>
+          {/* <View style={{backgroundColor:'red',bottom:20}} /> */}
+        </View>
       )}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.buttonrec} onPress={toggletorch}>
-          <Icon
-            name={torch === 'on' ? 'flash-off-outline' : 'flash-outline'}
-            size={30}
-            color="white"
-          />
-        </TouchableOpacity>
+      <View style={styles.closeContainer}>
         <TouchableOpacity
           style={[
             styles.buttonrec,
-            isRecording && isStopButtonDisabled && {opacity: 0.5},
+            isRecording && {opacity: isRecording ? 0.5 : 1},
           ]}
-          onPress={toggleRecording}
-          disabled={isStopButtonDisabled}>
-          <Image
-            source={
-              isRecording
-                ? require('../../assets/images/recordstop.png')
-                : require('../../assets/images/record.png')
-            }
-            style={styles.imageStyle}
-          />
-        </TouchableOpacity>
-        <View style={styles.bottombuttonContainer} />
-      </View>
-      <View style={styles.closeContainer}>
-        <TouchableOpacity
-          style={styles.buttonrec}
-          onPress={navigateToHomeScreen}>
+          onPress={navigateToHomeScreen}
+          disabled={isRecording}>
           <Image
             source={require('../../assets/images/close.png')}
             style={styles.imageStyleClose}
@@ -259,46 +272,57 @@ function Cameraa({navigation}) {
 
         <View style={styles.topbuttonContainer} />
       </View>
+
       <Modal
         animationType="fade"
         transparent={true}
         visible={showModal}
-        onRequestClose={closeModal}
-      >
-        <View style={{
-    flex: 1,
-    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginHorizontal: 15,
-  }}>
-          <View style={{
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    padding: 20,
-    borderRadius: 10,
-    alignItems: 'center',
-  }}>
+        onRequestClose={closeModal}>
+        <View
+          style={{
+            flex: 1,
+            // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 15,
+          }}>
+          <View
+            style={{
+              backgroundColor: 'white',
+              padding: 20,
+              borderRadius: 10,
+              alignItems: 'center',
+            }}>
             <Text style={styles1.modalTitle}>Hello!</Text>
             <View style={styles1.bulletPoints}>
-              <Text style={styles1.bulletItem}>- The video should be recorded in portrait only</Text>
-              <Text style={styles1.bulletItem}>- The recorded video's duration should be minimum 40seconds and maximum 2minutes</Text>
-              <Text style={styles1.bulletItem}>- Should not close while recording in progress</Text>
+              <Text style={styles1.bulletItem}>
+                - The video should be recorded in portrait only
+              </Text>
+              <Text style={styles1.bulletItem}>
+                - The recorded video's duration should be minimum 40seconds and
+                maximum 2minutes
+              </Text>
+              <Text style={styles1.bulletItem}>
+                - Should not close while recording in progress
+              </Text>
             </View>
             <TouchableOpacity onPress={closeModal}>
-              <Text style={{
-    fontSize: 16,
-    color: 'red',
-    marginTop: 10,
-  }}>Close</Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: 'blue',
+                  marginTop: 10,
+                }}>
+                Close
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-
-
     </View>
   );
 }
+
 const formatTime = seconds => {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
@@ -317,7 +341,7 @@ const styles1 = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -331,18 +355,17 @@ const styles1 = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: 'white',
+    color: 'black',
   },
   bulletPoints: {
     alignSelf: 'flex-start',
     marginLeft: 20,
-    color: 'white',
-
+    color: 'black',
   },
   bulletItem: {
     fontSize: 16,
     marginBottom: 5,
-    color: 'white',
+    color: 'black',
   },
   closeText: {
     fontSize: 18,
@@ -354,5 +377,3 @@ const styles1 = StyleSheet.create({
 });
 
 export default Cameraa;
-
-

@@ -1,23 +1,43 @@
 /* eslint-disable prettier/prettier */
 import {StyleSheet, Dimensions} from 'react-native';
+import { green100 } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 let {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        // flex: 1,
+        // justifyContent: 'center',
+        // alignItems: 'center',
       },
       buttonContainer: {
+        position: 'relative',
+        backgroundColor:'transparent',
+        height:'100%',
+      },
+      buttonContainer3:{
         position: 'absolute',
-        bottom: 20,
+        bottom:0,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flex: 1,
-        flexGrow: 1,
+        backgroundColor:'transparent',
+        borderColor: 'grey',
         width: width,
-        paddingHorizontal: 20,
+        padding:0,
+        margin:0,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        // borderWidth: 1
+
+      },
+      buttonContainer1: {
+        position: 'relative',
+        // bottom: -35,
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        // justifyContent: 'space-between',
+        // flex: 1,
+        // flexGrow: 1,
+        width: width,
+        height:'100%',
       },
       bottombuttonContainer: {width: width * 0.21},
       topbuttonContainer: {width: width * 0.18},

@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(195, 232, 47, 0.4)',
+    height: '100%',
   },
 });
 export default styles;

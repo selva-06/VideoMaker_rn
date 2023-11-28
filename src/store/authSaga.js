@@ -12,7 +12,7 @@ function* loginUser(action) {
     if (email === 'abc@g.c' && password === 'password') {
       const user = {name: 'ABC DEF', email: 'abc@g.c'};
       yield put(loginSuccess(user));
-      yield action.payload.navigation.navigate('MainTab');
+      yield action.payload.navigation.navigate('Home');
     } else {
       throw new Error('Invalid credentials');
     }

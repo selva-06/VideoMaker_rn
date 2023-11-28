@@ -124,10 +124,10 @@ function RecordedVideoScreen({route, navigation}) {
     });
 
     dispatch(uploadVideoRequest(formData));
-    navigation.replace('MainTab');
+    navigation.replace('Home');
   };
   const navigateToHomeScreen = () => {
-    navigation.replace('MainTab'); // Navigate to the Main screen
+    navigation.replace('Home'); // Navigate to the Main screen
   };
   return (
     <View style={styles.container}>

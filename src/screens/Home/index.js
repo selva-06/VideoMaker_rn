@@ -5,10 +5,10 @@ import Listing from '../../components/ListingComponent/Listing';
 import SnackbarC from '../../components/SnackBarComponent/SnackBar';
 import styles from './styles';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Listing />
+      <Listing navigation={navigation} />
       <SnackbarC />
     </View>
   );
