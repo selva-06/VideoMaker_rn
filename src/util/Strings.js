@@ -24,7 +24,7 @@ export const strings = {
   },
   profileScreen: {
     welcomeText: 'Welcome',
-    profileText: 'My Profile:',
+    profileText: 'My Profile',
     nameText: 'Name:',
     defName: 'Guest',
     mailText: 'Mobile:',
