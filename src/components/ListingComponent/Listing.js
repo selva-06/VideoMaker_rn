@@ -45,7 +45,6 @@ const Listing = ({navigation}) => {
               marginBottom: 10,
               marginHorizontal: 10,
             }} // Set width, height, and margin
-            // Set width, height, and margin
           >
             <Image
               source={item.source}

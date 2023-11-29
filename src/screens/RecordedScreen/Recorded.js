@@ -117,7 +117,7 @@ function RecordedVideoScreen({route, navigation}) {
     }
 
     const formData = new FormData();
-    formData.append('file', {
+    formData.append('video', {
       uri: videoSource,
       type: 'video/mp4',
       name: 'recorded_video.mp4',

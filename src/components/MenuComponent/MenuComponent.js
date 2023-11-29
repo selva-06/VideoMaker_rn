@@ -26,7 +26,7 @@ const MenuComponent = ({navigation}) => {
       console.log(result.uri, result.type, result.name, result.size);
 
       const formData = new FormData();
-      formData.append('file', {
+      formData.append('video', {
         uri: result.uri,
         type: result.type,
         name: result.name,

@@ -21,6 +21,7 @@ import Video from 'react-native-video';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 async function requestPermissions() {
   try {
@@ -85,7 +86,7 @@ function Cameraa({navigation}) {
       }
     }
     setup();
-    // setShowModal(true);
+    setShowModal(true);
   }, [devices]);
   const format = useCameraFormat(selectedDevice, [
     {videoResolution: {width: 640, height: 480}, pixelFormat: 'native'},
@@ -279,21 +280,10 @@ function Cameraa({navigation}) {
         visible={showModal}
         onRequestClose={closeModal}>
         <View
-          style={{
-            flex: 1,
-            // backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginHorizontal: 15,
-          }}>
+          style={styles1.modalContainer}>
           <View
-            style={{
-              backgroundColor: 'white',
-              padding: 20,
-              borderRadius: 10,
-              alignItems: 'center',
-            }}>
-            <Text style={styles1.modalTitle}>Hello!</Text>
+            style={styles1.modalContentContainer}>
+            <Text style={styles1.modalTitle}>Note!</Text>
             <View style={styles1.bulletPoints}>
               <Text style={styles1.bulletItem}>
                 - The video should be recorded in portrait only
@@ -308,11 +298,7 @@ function Cameraa({navigation}) {
             </View>
             <TouchableOpacity onPress={closeModal}>
               <Text
-                style={{
-                  fontSize: 16,
-                  color: 'blue',
-                  marginTop: 10,
-                }}>
+                style={styles1.closeText}>
                 Close
               </Text>
             </TouchableOpacity>
@@ -337,14 +323,20 @@ const styles1 = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // Styles for your camera container
   },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  modalContainer:
+    {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginHorizontal: 15,
+    },
+    modalContentContainer: {
+      backgroundColor: 'white',
+      padding: 20,
+      borderRadius: 10,
+      alignItems: 'center',
+    },
   modalContent: {
     backgroundColor: 'white',
     padding: 20,
@@ -352,7 +344,7 @@ const styles1 = StyleSheet.create({
     alignItems: 'center',
   },
   modalTitle: {
-    fontSize: 22,
+    fontSize: RFValue(20),
     fontWeight: 'bold',
     marginBottom: 10,
     color: 'black',
@@ -363,17 +355,16 @@ const styles1 = StyleSheet.create({
     color: 'black',
   },
   bulletItem: {
-    fontSize: 16,
+    fontSize: RFValue(15),
     marginBottom: 5,
     color: 'black',
+    fontFamily: 'EBGaramond-VariableFont_wght'
   },
-  closeText: {
-    fontSize: 18,
-    color: 'red',
+  closeText:{
+    fontSize: RFValue(15),
+    color: 'blue',
     marginTop: 10,
   },
-  // Other styles for your camera UI
-  // ...
 });
 
 export default Cameraa;

@@ -1,21 +1,31 @@
-// src/App.js
-
-import React from 'react';
-import {Provider} from 'react-redux';
-import {createStore, applyMiddleware, combineReducers} from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import authReducer from './src/store/authReducer';
-import authSaga from './src/store/authSaga';
-import listReducer from './src/store/reducers/ListingReducer';
-import watchFetchListData from './src/store/sagas/ListingSaga';
-import LoginScreen from './src/screens/Login';
-import AppNavigator from './src/navigation/Navigation';
+import React, {useEffect, useRef} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import rootReducer, {rootSaga} from './src/store/reducers/rindex';
+import {Provider} from 'react-redux';
 import {PaperProvider} from 'react-native-paper';
-import store from './src/store/Store';
 import {StatusBar, SafeAreaView} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import store from './src/store/Store';
+import AppNavigator from './src/navigation/Navigation';
+
 const App = () => {
+  const navigationRef = useRef(null);
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const token = await AsyncStorage.getItem('token');
+        console.log('HIAPP', token);
+        const initialRoute = token ? 'Home' : 'Login';
+        navigationRef.current?.navigate(initialRoute);
+      } catch (error) {
+        console.error('Error retrieving token:', error);
+        navigationRef.current?.navigate('Login');
+      }
+    };
+
+    checkToken();
+  }, []);
+
   return (
     <PaperProvider>
       <Provider store={store}>
@@ -27,7 +37,7 @@ const App = () => {
             backgroundColor: 'white',
           }}>
           <StatusBar backgroundColor="transparent" barStyle="default" />
-          <NavigationContainer>
+          <NavigationContainer ref={navigationRef}>
             <AppNavigator />
           </NavigationContainer>
         </SafeAreaView>

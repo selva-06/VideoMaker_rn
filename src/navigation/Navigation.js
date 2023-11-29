@@ -96,11 +96,12 @@ import Cameraa from '../screens/CameraScreen/VisionCameraScreen';
 import RecordedVideoScreen from '../screens/RecordedScreen/Recorded';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {View, Text, TouchableOpacity} from 'react-native';
+import LoadingScreen from '../screens/Loading';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Loading" headerMode="none">
       <Stack.Screen
         name="Login"
         component={LoginScreen}

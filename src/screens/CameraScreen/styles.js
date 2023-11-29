@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
       buttonContainer: {
         position: 'relative',
         backgroundColor:'transparent',
-        height:'100%',
+        height:height,
       },
       buttonContainer3:{
         position: 'absolute',
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         // flex: 1,
         // flexGrow: 1,
         width: width,
-        height:'100%',
+        height:height,
       },
       bottombuttonContainer: {width: width * 0.21},
       topbuttonContainer: {width: width * 0.18},
