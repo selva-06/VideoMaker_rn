@@ -9,45 +9,57 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding: 16,
-    backgroundColor: 'rgba(195, 232, 47, 0.4)',
+    backgroundColor: 'white',
     justifyContent: 'center',
     paddingBottom: 40,
   },
-  headText: {
-    fontSize: RFValue(35),
-    color: '#444444',
-    fontFamily: 'Poppins-Medium',
-    marginBottom: 40,
+  containerTop: {
+    alignItems:'center',
+    backgroundColor: 'rgba(195, 232, 47, 0.4)',
+    width: windowWidth * 1.3,
+    height: windowHeight*0.54,
+    borderRadius:200,
+    marginBottom:40,
+    marginTop:-60,
+  },
+  profile:{
+    justifyContent:"center",
+    alignItems:"center",
+    // marginTop:160,
+    height:windowHeight*0.75
+  },
+  profileImage:{
+    height:windowHeight*0.2,
+    width:windowWidth*0.4
   },
   myProfileText: {
-    fontSize: RFValue(18),
-    color: '#9d9e9d',
+    fontSize: RFValue(20),
+    color: '#444444',
     fontFamily: 'Poppins-SemiBold',
-    marginRight: 180,
-    marginTop: 0,
-    marginBottom: 10,
+    paddingTop:10,
   },
 
   userDetails: {
-    fontSize: RFValue(17),
+    fontSize: RFValue(18),
     color: '#444444',
     fontFamily: 'Poppins-SemiBold',
-    marginLeft: 4,
+    // marginLeft: 4,
+    marginRight:20,
   },
   userInformation: {
-    fontSize: RFValue(16),
+    fontSize: RFValue(18),
     color: '#444444',
     fontFamily: 'Poppins-Medium',
-    marginLeft: 20,
   },
   buttonContainer: {
     backgroundColor: '#444444',
     padding: 10,
     width: windowWidth * 0.5,
     borderRadius: 20,
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 60,
+    marginBottom:140,
+   justifyContent:"center"
   },
   buttonText: {
     color: '#C3E82F',
@@ -56,12 +68,13 @@ const styles = StyleSheet.create({
   },
   lineargradient: {
     flexDirection: 'row',
-    padding: 15,
     borderRadius: 10,
     width: windowWidth * 0.8,
     height: windowHeight * 0.09,
-    marginTop: 15,
     alignItems: 'center',
+    marginLeft:70,
+    // justifyContent:"center"
+    
   },
 });
 export default styles;
