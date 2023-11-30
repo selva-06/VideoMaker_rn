@@ -22,7 +22,7 @@ import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import {RFValue} from 'react-native-responsive-fontsize';
-
+import RNFS from 'react-native-fs'; // Import react-native-fs
 async function requestPermissions() {
   try {
     if (Platform.OS === 'android') {
@@ -163,21 +163,49 @@ function Cameraa({navigation}) {
             setIsRecording(false);
             clearTimeout(recordingTimeout); // Clear the automatic stop timeout on error
           },
-          onRecordingFinished: video => {
+          onRecordingFinished: async video => {
             setIsRecording(false);
             setVideoSource('file://' + video.path);
             setShowRecordedVideo(true);
             console.log('Finished recording:', video, video.duration);
             clearTimeout(recordingTimeout); // Clear the automatic stop timeout on manual stop
             const videoDuration = video.duration; // Assuming video.duration gives the duration
-            navigation.replace('Recorded', {
-              videoSource: 'file://' + video.path,
-              videoDuration: videoDuration, // Pass video duration as a parameter
-            });
+        //     if (videoDuration < 10) {
+        //       // Delete the video if duration is less than 10 seconds
+        //       try {
+        //         await deleteVideo('file://' + video.path);
+        //         console.log('Video deleted as duration was less than 10 seconds');
+        //       } catch (error) {
+        //         console.error('Error deleting video:', error);
+        //       }
+        //     }
+        //     navigation.replace('Recorded', {
+        //       videoSource: 'file://' + video.path,
+        //       videoDuration: videoDuration, // Pass video duration as a parameter
+        //     });
 
-            //   clearTimeout(recordingTimeout);
-          },
-        });
+        //     //   clearTimeout(recordingTimeout);
+        //   },
+        // });
+        if (videoDuration < 10) {
+          try {
+            await deleteVideo('file://' + video.path);
+            console.log('Video deleted as duration was less than 10 seconds');
+            navigation.replace('Home'); // Navigate to HomeScreen if video is deleted
+          } catch (error) {
+            console.error('Error deleting video:', error);
+            navigation.replace('Recorded', {
+                    videoSource: 'file://' + video.path,
+                    videoDuration: videoDuration, // Pass video duration as a parameter
+                  });          }
+        } else {
+          navigation.replace('Recorded', {
+                  videoSource: 'file://' + video.path,
+                  videoDuration: videoDuration, // Pass video duration as a parameter
+                }); // Proceed with original function if video duration is not less than 10 seconds
+        }
+      },
+    });
 
         setIsRecording(true);
         setIsStopButtonDisabled(true); // Disable the stop button when recording starts
@@ -202,6 +230,16 @@ function Cameraa({navigation}) {
         console.error('Error stopping recording:', error);
         setIsRecording(false);
       }
+    }
+  };
+  const deleteVideo = async (videoPath) => {
+    try {
+      const deleted = await RNFS.unlink(videoPath); // Assuming RNFS (React Native File System) is used
+      console.log(`Deleted video at ${videoPath}`);
+      return deleted;
+    } catch (error) {
+      console.error('Error deleting video:', error);
+      throw error;
     }
   };
 
@@ -253,13 +291,20 @@ function Cameraa({navigation}) {
         </View>
       )}
       <View style={styles.closeContainer}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={[
             styles.buttonrec,
             isRecording && {opacity: isRecording ? 0.5 : 1},
           ]}
           onPress={navigateToHomeScreen}
-          disabled={isRecording}>
+          disabled={isRecording}> */}
+          <TouchableOpacity
+          style={[
+            styles.buttonrec,
+            
+          ]}
+          onPress={navigateToHomeScreen}
+          >
           <Image
             source={require('../../assets/images/close.png')}
             style={styles.imageStyleClose}

@@ -49,7 +49,6 @@ api.interceptors.request.use(
         config.headers['x-auth-token'] = token;
       }
     } catch (error) {
-      // Handle AsyncStorage retrieval errors here
       console.log('API FETCH ERROR', error);
     }
     return config;
@@ -65,6 +64,43 @@ export const uploadFile = (payload, onUploadProgress) => {
   };
 
   return api.post('assets/uploadVideo', payload, config);
+};
+
+export const loginAPI = async (username, password) => {
+  try {
+    const response = await api.post(
+      'auth/login',
+      {username, password},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (response.status === 200 && response.data.success) {
+      return response.data;
+    }
+
+    throw new Error(response.data.message || 'Login failed');
+  } catch (error) {
+    throw new Error(error.message || 'Login failed');
+  }
+};
+
+export const getUploadedFiles = async () => {
+  try {
+    const response = await api.post('assets/getUploadedFiles');
+
+    if (response.status === 200 && response.data.success) {
+      console.log('API FETCHED ', response.data);
+      return response.data;
+    }
+
+    throw new Error(response.data.message || 'Failed to fetch uploaded files');
+  } catch (error) {
+    throw new Error(error.message || 'Failed to fetch uploaded files');
+  }
 };
 
 export default api;

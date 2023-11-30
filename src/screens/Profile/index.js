@@ -5,13 +5,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
 import {strings} from '../../util/Strings';
 import {logout} from '../../store/authActions';
-import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab2 = ({navigation, data, dispatch}) => {
   console.log('hlo', data);
-  const [userData, setUserData] = useState(null); // State to hold user data
+  const [userData, setUserData] = useState(null);
 
-  // Function to fetch and set user data from AsyncStorage
   const fetchUserData = async () => {
     try {
       const storedUserData = await AsyncStorage.getItem('userData');
@@ -25,7 +24,7 @@ const Tab2 = ({navigation, data, dispatch}) => {
   };
 
   useEffect(() => {
-    fetchUserData(); // Fetch user data on component mount
+    fetchUserData();
   }, []);
 
   return (

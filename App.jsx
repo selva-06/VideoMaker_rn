@@ -10,21 +10,21 @@ import AppNavigator from './src/navigation/Navigation';
 const App = () => {
   const navigationRef = useRef(null);
 
-  useEffect(() => {
-    const checkToken = async () => {
-      try {
-        const token = await AsyncStorage.getItem('token');
-        console.log('HIAPP', token);
-        const initialRoute = token ? 'Home' : 'Login';
-        navigationRef.current?.navigate(initialRoute);
-      } catch (error) {
-        console.error('Error retrieving token:', error);
-        navigationRef.current?.navigate('Login');
-      }
-    };
+  // useEffect(() => {
+  //   const checkToken = async () => {
+  //     try {
+  //       const token = await AsyncStorage.getItem('token');
+  //       console.log('HIAPP', token);
+  //       const initialRoute = token ? 'Home' : 'Login';
+  //       navigationRef.current?.navigate(initialRoute);
+  //     } catch (error) {
+  //       console.error('Error retrieving token:', error);
+  //       navigationRef.current?.navigate('Login');
+  //     }
+  //   };
 
-    checkToken();
-  }, []);
+  //   checkToken();
+  // }, []);
 
   return (
     <PaperProvider>
@@ -37,7 +37,7 @@ const App = () => {
             backgroundColor: 'white',
           }}>
           <StatusBar backgroundColor="transparent" barStyle="default" />
-          <NavigationContainer ref={navigationRef}>
+          <NavigationContainer>
             <AppNavigator />
           </NavigationContainer>
         </SafeAreaView>

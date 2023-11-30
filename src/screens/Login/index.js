@@ -195,8 +195,10 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
     setEmailError('');
     setPasswordError('');
 
-    // Dispatch the loginRequest action with entered email and password
+    // Dispatch the loginRequest action with entered username and password
     loginRequest(username, password, navigation);
+    setUsername('');
+    setPassword('');
   };
 
   const togglePasswordVisibility = () => {

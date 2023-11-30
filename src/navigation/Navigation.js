@@ -97,11 +97,17 @@ import RecordedVideoScreen from '../screens/RecordedScreen/Recorded';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {View, Text, TouchableOpacity} from 'react-native';
 import LoadingScreen from '../screens/Loading';
+import VideoPlayerScreen from '../screens/VideoPlayerScreen';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Loading" headerMode="none">
+      <Stack.Screen
+        name="Loading"
+        component={LoadingScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -163,6 +169,11 @@ const AppNavigator = () => {
       <Stack.Screen
         name="Recorded"
         component={RecordedVideoScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="VideoPlayerScreen"
+        component={VideoPlayerScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

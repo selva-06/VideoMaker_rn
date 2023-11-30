@@ -3,7 +3,7 @@ export const strings = {
     welcomeMessage: 'Welcome!',
     loginMessage: 'Login to your account',
     placeholderText: {
-      email: 'Email',
+      email: 'Username',
       password: 'Password',
     },
     button: {
@@ -11,7 +11,7 @@ export const strings = {
       wosignin: 'Continue without signing in!!',
     },
     emailError: {
-      required: 'Email is required',
+      required: 'Username is required',
       invalid: 'Invalid email address',
     },
     passwordError: {
