@@ -18,7 +18,7 @@ function* uploadVideo(action) {
     const {data} = yield call(uploadFile, payload, onUploadProgress);
 
     console.log('Uploaded Successfully');
-    console.log('Response Data:', data);
+    console.log('Response Data:1111111111', data);
 
     yield put(uploadVideoSuccess(data));
     yield put(showSnackbar('Uploaded Successfully', 'success'));

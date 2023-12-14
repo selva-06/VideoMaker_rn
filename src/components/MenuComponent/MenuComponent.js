@@ -8,11 +8,10 @@ import {uploadVideoRequest} from '../../store/actions/UploadActions';
 import {launchCamera} from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {strings} from '../../util/Strings';
-import { menuStyles } from './styles';
-
+import {menuStyles} from './styles';
 
 const MenuComponent = ({navigation}) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [menuVisible, setMenuVisible] = useState(false);
   const closeMenu = () => setMenuVisible(false);
   const openMenu = () => setMenuVisible(true);
@@ -26,11 +25,15 @@ const MenuComponent = ({navigation}) => {
       console.log(result.uri, result.type, result.name, result.size);
 
       const formData = new FormData();
-      formData.append('video', {
+      formData.append('video',{
         uri: result.uri,
         type: result.type,
         name: result.name,
       });
+      // formData.append('name',{
+      //   name: result.name[0],
+      // });
+      formData.append("name", 'test');
 
       dispatch(uploadVideoRequest(formData)); // Updated action reference
     } catch (err) {
@@ -51,17 +54,15 @@ const MenuComponent = ({navigation}) => {
       customButtons: [
         {
           name: 'customOptionKey',
-          title: 'Choose Photo from Custom Option'
+          title: 'Choose Photo from Custom Option',
         },
       ],
-
     };
 
     launchCamera(options, async response => {
       if (response.didCancel) {
         console.log('User cancelled video recording');
-      }
-      else if (response.error) {
+      } else if (response.error) {
         console.log('Error recording video:', response.error);
       } else if (response.assets && response.assets.length > 0) {
         const uri = response.assets[0].uri;
@@ -105,7 +106,10 @@ const MenuComponent = ({navigation}) => {
           onPress={handleVideoUpload}
           title={strings.menu.attachText}
         />
-        <Menu.Item onPress={navigateToCameraScreen  } title={strings.menu.captureText} />
+        <Menu.Item
+          onPress={navigateToCameraScreen}
+          title={strings.menu.captureText}
+        />
       </Menu>
     </>
   );

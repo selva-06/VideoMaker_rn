@@ -1,15 +1,29 @@
 /* eslint-disable prettier/prettier */
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   ActivityIndicator,
   Text,
   TouchableOpacity,
   Image,
+  Dimensions,
+  BackHandler,
 } from 'react-native';
 import Video from 'react-native-video';
+import {RFValue} from 'react-native-responsive-fontsize';
 
 const VideoPlayerScreen = ({route, navigation}) => {
+  useEffect(() => {
+    const handleBackDevice = () => {
+      navigation.navigate('Home');
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackDevice,
+    );
+    return () => backHandler.remove();
+  }, [navigation]);
   const {videoPath} = route.params;
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,24 +39,41 @@ const VideoPlayerScreen = ({route, navigation}) => {
   };
 
   return (
-    <View style={{flex: 1, backgroundColor: 'black'}}>
+    <View
+      style={{
+        flex: 1,
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width,
+        backgroundColor: 'black',
+      }}>
       {isLoading && (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: Dimensions.get('window').height * 0.25,
+          }}>
           <ActivityIndicator size="large" color="white" />
           <Text
             style={{
               color: 'white',
-              fontSize: 20,
+              fontSize: RFValue(20),
               alignSelf: 'center',
-              marginTop: 20,
+              margin: '20%',
+              fontFamily: 'EBGaramond-VariableFont_wght',
             }}>
-            Loading...Please Wait
+            Loading...
           </Text>
         </View>
       )}
       <Video
-        source={{uri: `http://34.203.231.237/${videoPath}`}}
-        style={{flex: 1, height: '100%', width: '100%'}}
+        source={{uri: `http://34.234.122.64/${videoPath}`}}
+        style={{
+          flex: 1,
+          height: Dimensions.get('window').height,
+          width: Dimensions.get('window').width,
+        }}
         resizeMode="contain"
         controls
         paused={false}
@@ -52,14 +83,13 @@ const VideoPlayerScreen = ({route, navigation}) => {
       <TouchableOpacity
         style={{
           position: 'absolute',
-          top: 20,
-          right: 20,
-          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          top: '2%',
+          left: '7%',
+          backgroundColor: 'rgba(195, 232, 47,0.7)',
           padding: 10,
           borderRadius: 5,
         }}
-        onPress={navigateToHome} // On press, navigate back to the previous screen
-      >
+        onPress={navigateToHome}>
         <Image
           source={require('../assets/images/close.png')}
           style={{
@@ -73,7 +103,3 @@ const VideoPlayerScreen = ({route, navigation}) => {
 };
 
 export default VideoPlayerScreen;
-
-{
-  /* <Text style={{ color: 'white', fontSize: 20, alignSelf: 'center', marginTop: 20 }}>Loading...</Text></View>}  */
-}

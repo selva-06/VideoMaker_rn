@@ -85,7 +85,7 @@
 
 // export default RecordedVideoScreen;
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -93,6 +93,7 @@ import {
   Text,
   Image,
   Dimensions,
+  BackHandler,
 } from 'react-native';
 import {useDispatch} from 'react-redux';
 import {uploadVideoRequest} from '../../store/actions/UploadActions';
@@ -101,6 +102,17 @@ import SnackBarC from '../../components/SnackBarComponent/SnackBar';
 import styles from './styles';
 import {strings} from '../../util/Strings';
 function RecordedVideoScreen({route, navigation}) {
+  useEffect(() => {
+    const handleBackDevice = () => {
+      navigation.navigate('Home');
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackDevice,
+    );
+    return () => backHandler.remove();
+  }, [navigation]);
   const {videoSource, videoDuration} = route.params;
   const [uploading, setUploading] = useState(false);
   const dispatch = useDispatch();
@@ -122,6 +134,7 @@ function RecordedVideoScreen({route, navigation}) {
       type: 'video/mp4',
       name: 'recorded_video.mp4',
     });
+    formData.append('name', 'test');
 
     dispatch(uploadVideoRequest(formData));
     navigation.replace('Home');

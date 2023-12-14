@@ -2,7 +2,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 import { green100 } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 let {height, width} = Dimensions.get('window');
-
+console.log("SCRENNNNNNN-11-", height,width);
 const styles = StyleSheet.create({
     container: {
         // flex: 1,
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         // flexGrow: 1,
         width: width,
         height:height,
+        backgroundColor: 'black',
       },
       bottombuttonContainer: {width: width * 0.21},
       topbuttonContainer: {width: width * 0.18},
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
       },
       closeContainer: {
         position: 'absolute',
-        top: 20,
+        top: '1%',
         width: width,
         flexDirection: 'row',
         justifyContent: 'space-between',

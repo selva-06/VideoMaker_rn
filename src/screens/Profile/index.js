@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, BackHandler} from 'react-native';
 import {connect} from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from './styles';
@@ -8,6 +8,17 @@ import {logout} from '../../store/authActions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab2 = ({navigation, data, dispatch}) => {
+  useEffect(() => {
+    const handleBackDevice = () => {
+      navigation.navigate('Home');
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackDevice,
+    );
+    return () => backHandler.remove();
+  }, [navigation]);
   console.log('hlo', data);
   const [userData, setUserData] = useState(null);
 
@@ -55,6 +66,7 @@ const Tab2 = ({navigation, data, dispatch}) => {
             ? userData.mobile
             : strings.profileScreen.defMail}
         </Text>
+        {/* <Text style={styles.userInformation}>{userData}</Text> */}
       </View>
 
       <TouchableOpacity

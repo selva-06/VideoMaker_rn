@@ -145,7 +145,7 @@ const AppNavigator = () => {
           headerStyle: {
             backgroundColor: '#444444',
           },
-          headerLeft: () => '',
+          // headerLeft: () => '',
           headerTintColor: '#C3E82F',
           headerRight: () => (
             <View style={{flexDirection: 'row', alignItems: 'center'}}>

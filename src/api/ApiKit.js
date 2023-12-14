@@ -34,7 +34,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const api = axios.create({
-  baseURL: 'http://34.203.231.237/api/v1/',
+  baseURL: 'http://34.234.122.64/api/v1/',
   headers: {
     'Content-Type': 'multipart/form-data',
   },
@@ -58,15 +58,40 @@ api.interceptors.request.use(
   },
 );
 
+// export const uploadFile = (payload, onUploadProgress) => {
+//   const config = {
+//     headers: {
+//       platform: 'react',
+//     },
+//     onUploadProgress,
+//   };
+
+//   return api.post('assets/uploadVideo', payload, config);
+// };
 export const uploadFile = (payload, onUploadProgress) => {
   const config = {
+    headers: {
+      platform: 'react',
+    },
     onUploadProgress,
   };
 
-  return api.post('assets/uploadVideo', payload, config);
+  console.log('Preparing to upload...');
+
+  return api
+    .post('assets/uploadVideo', payload, config)
+    .then(response => {
+      console.log('Upload successful! Response:', response.data);
+      return response;
+    })
+    .catch(error => {
+      console.error('Upload failed. Error:', error);
+      throw error;
+    });
 };
 
 export const loginAPI = async (username, password) => {
+  console.log('LOGINAPI triggered');
   try {
     const response = await api.post(
       'auth/login',
@@ -77,8 +102,8 @@ export const loginAPI = async (username, password) => {
         },
       },
     );
-
-    if (response.status === 200 && response.data.success) {
+    console.log('response.data', response.data);
+    if (response.status === 200 && response.data.user.success) {
       return response.data;
     }
 
@@ -90,11 +115,18 @@ export const loginAPI = async (username, password) => {
 
 export const getUploadedFiles = async () => {
   try {
-    const response = await api.post('assets/getUploadedFiles');
-
+    const config = {
+      headers: {
+        platform: 'react',
+      },
+    };
+    const response = await api.post('assets/getUploadedFiles', null, config);
+    console.log('UploadingFILES', response);
+    const responseData = response.data;
+    console.log('ResponseData', responseData);
     if (response.status === 200 && response.data.success) {
-      console.log('API FETCHED ', response.data);
-      return response.data;
+      console.log('API FETCHED ', responseData);
+      return responseData;
     }
 
     throw new Error(response.data.message || 'Failed to fetch uploaded files');

@@ -10,6 +10,7 @@ import {
   Dimensions,
   Modal,
   SafeAreaView,
+  BackHandler,
 } from 'react-native';
 import {
   Camera,
@@ -79,6 +80,28 @@ function Cameraa({navigation}) {
   const [showModal, setShowModal] = useState(false); // State to control the modal visibility
 
   useEffect(() => {
+    const handleBackButton = () => {
+      if (isRecording) {
+        toggleRecording();
+        setForceStop(true);
+        return true; // Prevent default behavior
+      } else {
+        setSelectedDevice(null);
+        navigation.navigate('Home');
+        return true; // Prevent default behavior
+      }
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackButton,
+    );
+
+    return () => backHandler.remove(); // Cleanup the event listener on unmount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation, isRecording]);
+
+  useEffect(() => {
     async function setup() {
       await requestPermissions();
       if (devices && devices.length > 0) {
@@ -89,8 +112,9 @@ function Cameraa({navigation}) {
     setShowModal(true);
   }, [devices]);
   const format = useCameraFormat(selectedDevice, [
-    {videoResolution: {width: 640, height: 480}, pixelFormat: 'native'},
+    {videoResolution: {width: 1280, height: 720}, pixelFormat: 'native'},
   ]);
+  // const format = useCameraFormat(selectedDevice, [   { videoResolution: { width: 1920, height: 1080 }, pixelFormat: 'native' },  { videoResolution: { width: 1280, height: 720 }, pixelFormat: 'native' },   { videoResolution: { width: 640, height: 480 }, pixelFormat: 'native' }, ]);
   const closeModal = () => {
     setShowModal(false);
   };
@@ -170,42 +194,48 @@ function Cameraa({navigation}) {
             console.log('Finished recording:', video, video.duration);
             clearTimeout(recordingTimeout); // Clear the automatic stop timeout on manual stop
             const videoDuration = video.duration; // Assuming video.duration gives the duration
-        //     if (videoDuration < 10) {
-        //       // Delete the video if duration is less than 10 seconds
-        //       try {
-        //         await deleteVideo('file://' + video.path);
-        //         console.log('Video deleted as duration was less than 10 seconds');
-        //       } catch (error) {
-        //         console.error('Error deleting video:', error);
-        //       }
-        //     }
-        //     navigation.replace('Recorded', {
-        //       videoSource: 'file://' + video.path,
-        //       videoDuration: videoDuration, // Pass video duration as a parameter
-        //     });
+            //     if (videoDuration < 10) {
+            //       // Delete the video if duration is less than 10 seconds
+            //       try {
+            //         await deleteVideo('file://' + video.path);
+            //         console.log('Video deleted as duration was less than 10 seconds');
+            //       } catch (error) {
+            //         console.error('Error deleting video:', error);
+            //       }
+            //     }
+            //     navigation.replace('Recorded', {
+            //       videoSource: 'file://' + video.path,
+            //       videoDuration: videoDuration, // Pass video duration as a parameter
+            //     });
 
-        //     //   clearTimeout(recordingTimeout);
-        //   },
-        // });
-        if (videoDuration < 10) {
-          try {
-            await deleteVideo('file://' + video.path);
-            console.log('Video deleted as duration was less than 10 seconds');
-            navigation.replace('Home'); // Navigate to HomeScreen if video is deleted
-          } catch (error) {
-            console.error('Error deleting video:', error);
-            navigation.replace('Recorded', {
-                    videoSource: 'file://' + video.path,
-                    videoDuration: videoDuration, // Pass video duration as a parameter
-                  });          }
-        } else {
-          navigation.replace('Recorded', {
+            //     //   clearTimeout(recordingTimeout);
+            //   },
+            // });
+            if (videoDuration < 10) {
+              try {
+                await deleteVideo('file://' + video.path);
+                console.log(
+                  'Video deleted as duration was less than 10 seconds',
+                );
+                navigation.replace('Home'); // Navigate to HomeScreen if video is deleted
+                alert(
+                  'Video deleted as minimum duration of 40seconds was not met',
+                );
+              } catch (error) {
+                console.error('Error deleting video:', error);
+                navigation.replace('Recorded', {
                   videoSource: 'file://' + video.path,
                   videoDuration: videoDuration, // Pass video duration as a parameter
-                }); // Proceed with original function if video duration is not less than 10 seconds
-        }
-      },
-    });
+                });
+              }
+            } else {
+              navigation.replace('Recorded', {
+                videoSource: 'file://' + video.path,
+                videoDuration: videoDuration, // Pass video duration as a parameter
+              }); // Proceed with original function if video duration is not less than 10 seconds
+            }
+          },
+        });
 
         setIsRecording(true);
         setIsStopButtonDisabled(true); // Disable the stop button when recording starts
@@ -232,7 +262,7 @@ function Cameraa({navigation}) {
       }
     }
   };
-  const deleteVideo = async (videoPath) => {
+  const deleteVideo = async videoPath => {
     try {
       const deleted = await RNFS.unlink(videoPath); // Assuming RNFS (React Native File System) is used
       console.log(`Deleted video at ${videoPath}`);
@@ -250,7 +280,13 @@ function Cameraa({navigation}) {
           {selectedDevice !== null && (
             <Camera
               ref={camera}
-              style={StyleSheet.absoluteFill}
+              style={{
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                top: '8%',
+                bottom: '17%',
+              }}
               device={selectedDevice}
               isActive={true}
               video={true}
@@ -268,13 +304,16 @@ function Cameraa({navigation}) {
                   color="white"
                 />
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={[
                   styles.buttonrec,
                   isRecording && isStopButtonDisabled && {opacity: 0.5},
                 ]}
                 onPress={toggleRecording}
-                disabled={isStopButtonDisabled}>
+                disabled={isStopButtonDisabled}> */}
+              <TouchableOpacity
+                style={[styles.buttonrec]}
+                onPress={toggleRecording}>
                 <Image
                   source={
                     isRecording
@@ -298,13 +337,9 @@ function Cameraa({navigation}) {
           ]}
           onPress={navigateToHomeScreen}
           disabled={isRecording}> */}
-          <TouchableOpacity
-          style={[
-            styles.buttonrec,
-            
-          ]}
-          onPress={navigateToHomeScreen}
-          >
+        <TouchableOpacity
+          style={[styles.buttonrec]}
+          onPress={navigateToHomeScreen}>
           <Image
             source={require('../../assets/images/close.png')}
             style={styles.imageStyleClose}
@@ -324,10 +359,8 @@ function Cameraa({navigation}) {
         transparent={true}
         visible={showModal}
         onRequestClose={closeModal}>
-        <View
-          style={styles1.modalContainer}>
-          <View
-            style={styles1.modalContentContainer}>
+        <View style={styles1.modalContainer}>
+          <View style={styles1.modalContentContainer}>
             <Text style={styles1.modalTitle}>Note!</Text>
             <View style={styles1.bulletPoints}>
               <Text style={styles1.bulletItem}>
@@ -342,10 +375,7 @@ function Cameraa({navigation}) {
               </Text>
             </View>
             <TouchableOpacity onPress={closeModal}>
-              <Text
-                style={styles1.closeText}>
-                Close
-              </Text>
+              <Text style={styles1.closeText}>Close</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -369,19 +399,18 @@ const styles1 = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalContainer:
-    {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginHorizontal: 15,
-    },
-    modalContentContainer: {
-      backgroundColor: 'white',
-      padding: 20,
-      borderRadius: 10,
-      alignItems: 'center',
-    },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 15,
+  },
+  modalContentContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
   modalContent: {
     backgroundColor: 'white',
     padding: 20,
@@ -403,9 +432,9 @@ const styles1 = StyleSheet.create({
     fontSize: RFValue(15),
     marginBottom: 5,
     color: 'black',
-    fontFamily: 'EBGaramond-VariableFont_wght'
+    fontFamily: 'EBGaramond-VariableFont_wght',
   },
-  closeText:{
+  closeText: {
     fontSize: RFValue(15),
     color: 'blue',
     marginTop: 10,

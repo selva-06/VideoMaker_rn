@@ -1,10 +1,10 @@
 /* eslint-disable prettier/prettier */
-import React, { useEffect } from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import React, {useEffect} from 'react';
+import {View, ActivityIndicator, StyleSheet, Dimensions} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
-const LoadingScreen = ({ navigation }) => {
+const LoadingScreen = ({navigation}) => {
   useEffect(() => {
     const checkToken = async () => {
       try {
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    height: Dimensions.get('window').height,
   },
 });
 

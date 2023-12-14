@@ -174,15 +174,15 @@ function* loginUser(action) {
     const { username, password, navigation } = action.payload;
 
     const data = yield call(loginAPI, username, password);
-
+    console.log('FAILEDATA',data);
     console.log('Success');
     yield put(loginSuccess(data));
     console.log('Success');
-    yield put(setToken(data.token));
-    console.log("TOKEN PRESENt", data.token);
+    yield put(setToken(data.user.token));
+    console.log("TOKEN PRESENt", data.user.token);
     yield call(() => navigation.navigate('Home'));
-    yield AsyncStorage.setItem('token', data.token);
-    yield AsyncStorage.setItem('userData', JSON.stringify(data));
+    yield AsyncStorage.setItem('token', data.user.token);
+    yield AsyncStorage.setItem('userData', JSON.stringify(data.user));
     // Check if the token is stored in AsyncStorage
     const storedToken = yield AsyncStorage.getItem('token');
     const storedUser = yield AsyncStorage.getItem('userData');

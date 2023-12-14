@@ -166,8 +166,15 @@
 // export default LoginScreen;
 
 /* eslint-disable no-shadow */
-import React, {useState} from 'react';
-import {View, TextInput, Button, Text, TouchableOpacity} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  TextInput,
+  Button,
+  Text,
+  TouchableOpacity,
+  BackHandler,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {loginRequest} from '../../store/authActions';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -175,6 +182,20 @@ import styles from './styles';
 import {strings} from '../../util/Strings';
 
 const LoginScreen = ({loginRequest, error, navigation}) => {
+  useEffect(() => {
+    const handleBackDevice = () => {
+      if (navigation.isFocused()) {
+        BackHandler.exitApp();
+        return true;
+      }
+      return false;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackDevice,
+    );
+    return () => backHandler.remove();
+  }, [navigation]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
