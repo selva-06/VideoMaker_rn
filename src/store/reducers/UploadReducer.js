@@ -1,4 +1,4 @@
-// listingReducer.js
+// UploadReducer.js
 import {
   UPLOAD_VIDEO_REQUEST,
   UPLOAD_VIDEO_SUCCESS,

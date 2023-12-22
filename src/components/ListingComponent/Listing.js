@@ -8,14 +8,12 @@ import {
   Text,
   TouchableOpacity,
   RefreshControl,
-  ScrollView,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchListData} from '../../store/actions/ListingActions';
 import UploadModal from '../ProgressLoaderComponent/ProgressLoader';
 import {listingstyles} from './styles';
 import {RFValue} from 'react-native-responsive-fontsize';
-
 const Listing = ({navigation}) => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.list.listData); // Updated reducer reference
@@ -24,20 +22,22 @@ const Listing = ({navigation}) => {
   const [refreshing, setRefreshing] = useState(false);
 
   console.log('hi', uploadProgress, uploading);
-
-  // useEffect(() => {
-
-  //   dispatch(fetchListData());
-  //   alert('hi');
-  //   console.log('USEEFFECTFETCHING');
-  // }, [dispatch, navigation]);
-
   useEffect(() => {
     if (!uploading) {
       dispatch(fetchListData());
-      // alert('hi');
     }
   }, [dispatch, uploading]);
+  // useEffect(() => {
+  //   console.log('TDATA RESPONSE CODE_err---------------', data.error);
+
+  //   // Check for a 401 error in data (assuming 401 triggers logout)
+  //   if (data && !data.error) {
+  //     // Dispatch the logout action with navigation
+  //     console.log('tDATA IN LISTIN RESPONSE CODE,', data.response);
+  //     // dispatch(logout({navigation}));
+  //     // navigation.navigate('Login'); // Navigate to the login screen
+  //   }
+  // }, [data, dispatch, navigation]);
 
   const handleRefresh = () => {
     setRefreshing(true);
@@ -62,61 +62,24 @@ const Listing = ({navigation}) => {
   };
 
   return (
-    // <View style={{flex: 1}}>
-    //   <ScrollView
-    //     refreshControl={
-    //       <RefreshControl
-    //         refreshing={refreshing}
-    //         onRefresh={onSwipeDown}
-    //         colors={['black']} // Change the color of the loader
-    //       />
-    //     }>
     <View style={styles.container}>
       <UploadModal />
-      {/* <RefreshControl
-        refreshing={refreshing}
-        onRefresh={onSwipeDown}
-        color={'black'} // Change the color of the loader
-      /> */}
-
-      {/* <FlatList
-            data={data}
-            numColumns={2}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                onPress={() => handleItemPress(item)}
-                style={{
-                  width: imageSize,
-                  height: imageSize,
-                  margin: 5,
-                  marginBottom: 10,
-                  marginHorizontal: 10,
-                }} // Set width, height, and margin
-              >
-                <Image
-                  source={{uri: `http://34.203.231.237/${item.thumbnail}`}} // Prepending the base URL
-                  style={{
-                    height: imageSize,
-                    width: imageSize,
-                    borderRadius: 8,
-                  }} // Take full width and height inside TouchableOpacity
-                  resizeMode="cover"
-                />
-              </TouchableOpacity>
-            )}
-            // keyExtractor={item => item.id.toString()}
-          /> */}
       {(data && data.length === 0) || data === null ? (
-        <Text
-          style={{
-            color: 'black',
-            fontSize: RFValue(20),
-            alignSelf: 'center',
-            margin: '20%',
-            fontFamily: 'EBGaramond-VariableFont_wght',
-          }}>
-          No data present
-        </Text>
+        <View>
+          <Text
+            style={{
+              color: 'black',
+              fontSize: RFValue(20),
+              alignSelf: 'center',
+              margin: '20%',
+              fontFamily: 'EBGaramond-VariableFont_wght',
+            }}>
+            No data present
+          </Text>
+          <TouchableOpacity onPress={handleRefresh}>
+            <Text style={{color: 'black'}}>Refresh Data</Text>
+          </TouchableOpacity>
+        </View>
       ) : (
         <FlatList
           data={data}
@@ -170,18 +133,12 @@ const Listing = ({navigation}) => {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={onSwipeDown}
-              color={'black'} // Change the color of the loader
+              color={'black'}
             />
           }
         />
       )}
-
-      {/* <TouchableOpacity onPress={handleRefresh}>
-        <Text style={{color: 'black'}}>Refresh Data</Text>
-      </TouchableOpacity> */}
     </View>
-    //   </ScrollView>
-    // </View>
   );
 };
 

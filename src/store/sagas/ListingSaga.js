@@ -1,68 +1,57 @@
-/* eslint-disable prettier/prettier */
-// /* eslint-disable prettier/prettier */
-// // listingSaga.js
-// import {put, takeLatest, call} from 'redux-saga/effects';
-// import {setListData} from '../actions/ListingActions';
-// import {ListData} from '../../assets/data/Data';
-// import { getUploadedFiles } from '../../api/ApiKit';
-// function* fetchListData() {
-//   try {
-//     const response = yield call(getUploadedFiles);
-//     // const uploadedFiles = response.data.map(item => item.thumbnail); // Extracting thumbnails
-//     const uploadedFiles = response.data; // Extracting thumbnails
-//     console.log('THE UPLOADED ARE ______ ',uploadedFiles);
-//     yield put(setListData(uploadedFiles)); // Dispatch action to set list data
-//     console.log('done fetching img from saga');
-//   } catch (error) {
-//     console.log('IS',error.response);
-//   }
-// }
+import {put, takeLatest, call} from 'redux-saga/effects';
+import {setListData} from '../actions/ListingActions';
+import api, {getUploadedFiles} from '../../api/ApiKit';
+// import {logout} from '../authActions';
 
-// function* watchFetchListData() {
-//   yield takeLatest('FETCH_LIST_DATA', fetchListData);
-// }
-
-// export default watchFetchListData;
-
-import { put, takeLatest, call } from 'redux-saga/effects';
-import { setListData } from '../actions/ListingActions';
-import { getUploadedFiles } from '../../api/ApiKit';
-
-// function* fetchListData() {
-//   try {
-//     const response = yield call(getUploadedFiles);
-//     if (response.data && response.data.length > 0) {
-//       // Sort the data based on the 'updatedAt' field in descending order
-//       const sortedData = response.data.sort(
-//         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-//       );
-
-//       // Reverse the sorted array to have the latest uploaded item first
-//       const latestFirst = sortedData.reverse();
-      
-//       yield put(setListData(latestFirst)); // Dispatch action to set sorted list data
-
-
-
-//     }
-//   } catch (error) {
-//     console.log('Error fetching uploaded files:', error);
-//   }
-// }
-
-// function* watchFetchListData() {
-//   yield takeLatest('FETCH_LIST_DATA', fetchListData);
-// }
-
-// export { fetchListData }; // Export the fetchListData function for integration
-// export default watchFetchListData;
-
-
-//----------------------------------------------------------
 function* fetchListData() {
   try {
+    const getUploadedFiles = async () => {
+      try {
+        const config = {
+          headers: {
+            platform: 'react',
+          },
+        };
+
+        const response = await api.post(
+          'assets/getUploadedFiles',
+          null,
+          config,
+        );
+        console.log('UploadingFILES', response);
+        const responseData = response.data;
+        console.log('ResponseData', responseData);
+
+        if (response.status === 200 && response.data.success) {
+          console.log('API FETCHED ', responseData);
+          return responseData;
+        } else {
+          throw new Error(
+            response.data.message || 'Failed to fetch uploaded files',
+          );
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          console.log('Unauthorized access - error code 401,,,selva');
+          // Perform actions for unauthorized access, e.g., logout or redirect to login
+          // Example: throw a specific error to handle it outside this function
+          throw new Error('Unauthorized access - error code 401 in list');
+        } else if (error.response) {
+          console.error('Error in getUploadedFiles:', error.response.status);
+          console.error('Axios error details:', error.response.data);
+          throw new Error(error.message || 'Failed to fetch uploaded files');
+        } else {
+          console.error('Non-Axios error occurred:', error);
+          throw new Error(error.message || 'Failed to fetch uploaded files');
+        }
+      }
+    };
+
     const response = yield call(getUploadedFiles);
-    console.log('GET_UPLOAD_FILES',response);
+
+    // const response = yield call(api.post,'assets/getUploadedFiles', {});
+
+    console.log('GET_UPLOAD_FILES', response);
     if (response.data && response.data.length > 0) {
       // Check if 'createdAt' is present for all items in response.data
       const isCreatedAtPresent = response.data.every(item => !!item.createdAt);
@@ -79,12 +68,23 @@ function* fetchListData() {
         console.log('Done fetching and sorting data from saga');
       } else {
         console.log('createdAt is not present for all items');
-        // Handle the case where 'createdAt' is not present for all items
-        // You can dispatch an action, show a message, or handle it based on your requirements
+        // case where 'createdAt' is not present for all items
       }
     }
   } catch (error) {
-    console.log('Error fetching uploaded files:', error);
+    console.log('Error fetching uploaded files:', error.response);
+    if (error.message.includes('401')) {
+      console.log('EROOR BOSS');
+      // yield put(logout(navigation)); // Dispatch the logout action with navigation
+      // navigation.navigate('Login');
+      // eslint-disable-next-line no-undef
+      // yield put({type: 'LOGOUT_SUCCESS'});
+      // navigation.navigate('Login');
+    } else {
+      alert(error.message);
+
+      console.log('eroor mam', error);
+    }
   }
 }
 

@@ -30,10 +30,7 @@ const MenuComponent = ({navigation}) => {
         type: result.type,
         name: result.name,
       });
-      // formData.append('name',{
-      //   name: result.name[0],
-      // });
-      formData.append("name", 'test');
+      formData.append('name', 'test'); //Append another key
 
       dispatch(uploadVideoRequest(formData)); // Updated action reference
     } catch (err) {

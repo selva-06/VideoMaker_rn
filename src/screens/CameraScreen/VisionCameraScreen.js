@@ -98,7 +98,7 @@ function Cameraa({navigation}) {
     );
 
     return () => backHandler.remove(); // Cleanup the event listener on unmount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation, isRecording]);
 
   useEffect(() => {
@@ -142,10 +142,7 @@ function Cameraa({navigation}) {
   const navigateToHomeScreen = () => {
     if (isRecording) {
       toggleRecording();
-      setForceStop(true);
-      // Set the flag to indicate forced stop
-      // navigation.navigate('MainTab'); // Navigate to the Cameraa screen
-
+      setForceStop(true); // Set the flag to indicate forced stop
       console.log('stopped recording moving to home', forceStop); // Stop recording if it's in progress
       console.log('moved to home from camera');
     } else {
@@ -194,23 +191,6 @@ function Cameraa({navigation}) {
             console.log('Finished recording:', video, video.duration);
             clearTimeout(recordingTimeout); // Clear the automatic stop timeout on manual stop
             const videoDuration = video.duration; // Assuming video.duration gives the duration
-            //     if (videoDuration < 10) {
-            //       // Delete the video if duration is less than 10 seconds
-            //       try {
-            //         await deleteVideo('file://' + video.path);
-            //         console.log('Video deleted as duration was less than 10 seconds');
-            //       } catch (error) {
-            //         console.error('Error deleting video:', error);
-            //       }
-            //     }
-            //     navigation.replace('Recorded', {
-            //       videoSource: 'file://' + video.path,
-            //       videoDuration: videoDuration, // Pass video duration as a parameter
-            //     });
-
-            //     //   clearTimeout(recordingTimeout);
-            //   },
-            // });
             if (videoDuration < 10) {
               try {
                 await deleteVideo('file://' + video.path);
@@ -264,7 +244,7 @@ function Cameraa({navigation}) {
   };
   const deleteVideo = async videoPath => {
     try {
-      const deleted = await RNFS.unlink(videoPath); // Assuming RNFS (React Native File System) is used
+      const deleted = await RNFS.unlink(videoPath);
       console.log(`Deleted video at ${videoPath}`);
       return deleted;
     } catch (error) {
@@ -304,13 +284,6 @@ function Cameraa({navigation}) {
                   color="white"
                 />
               </TouchableOpacity>
-              {/* <TouchableOpacity
-                style={[
-                  styles.buttonrec,
-                  isRecording && isStopButtonDisabled && {opacity: 0.5},
-                ]}
-                onPress={toggleRecording}
-                disabled={isStopButtonDisabled}> */}
               <TouchableOpacity
                 style={[styles.buttonrec]}
                 onPress={toggleRecording}>
@@ -326,17 +299,9 @@ function Cameraa({navigation}) {
               <View style={styles.bottombuttonContainer} />
             </View>
           </View>
-          {/* <View style={{backgroundColor:'red',bottom:20}} /> */}
         </View>
       )}
       <View style={styles.closeContainer}>
-        {/* <TouchableOpacity
-          style={[
-            styles.buttonrec,
-            isRecording && {opacity: isRecording ? 0.5 : 1},
-          ]}
-          onPress={navigateToHomeScreen}
-          disabled={isRecording}> */}
         <TouchableOpacity
           style={[styles.buttonrec]}
           onPress={navigateToHomeScreen}>

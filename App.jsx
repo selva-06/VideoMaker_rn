@@ -6,10 +6,9 @@ import {StatusBar, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import store from './src/store/Store';
 import AppNavigator from './src/navigation/Navigation';
+import {navigationRef} from './src/navigation/navFunctions';
 
 const App = () => {
-  const navigationRef = useRef(null);
-
   // useEffect(() => {
   //   const checkToken = async () => {
   //     try {
@@ -37,7 +36,7 @@ const App = () => {
             backgroundColor: 'white',
           }}>
           <StatusBar backgroundColor="transparent" barStyle="default" />
-          <NavigationContainer>
+          <NavigationContainer ref={navigationRef}>
             <AppNavigator />
           </NavigationContainer>
         </SafeAreaView>

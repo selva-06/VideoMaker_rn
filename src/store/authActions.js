@@ -1,30 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable eol-last */
-// /* eslint-disable prettier/prettier */
-// // src/actions/authActions.js
-
-// export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-// export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-// export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-
-// export const loginRequest = (email, password) => ({
-//   type: LOGIN_REQUEST,
-//   payload: {email, password},
-// });
-
-// export const loginSuccess = user => ({
-//   type: LOGIN_SUCCESS,
-//   payload: user,
-// });
-
-// export const loginFailure = error => ({
-//   type: LOGIN_FAILURE,
-//   payload: error,
-// eslint-disable-next-line prettier/prettier
-// });
-
-// src/actions/authActions.js
-
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -33,7 +6,7 @@ export const LOGOUT = 'LOGOUT';
 
 export const loginRequest = (username, password, navigation) => ({
   type: LOGIN_REQUEST,
-  payload: { username, password, navigation },
+  payload: {username, password, navigation},
 });
 
 export const loginSuccess = data => ({
@@ -51,7 +24,7 @@ export const setToken = token => ({
   payload: token,
 });
 
-export const logout = (navigation) => ({
+export const logout = navigation => ({
   type: LOGOUT,
   navigation,
 });

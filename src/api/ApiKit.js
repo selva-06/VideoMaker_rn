@@ -1,38 +1,6 @@
-// import axios from 'axios';
-
-// const api = axios.create({
-//   baseURL: 'https://api.escuelajs.co/api/v1/',
-//   headers: {
-//     'Content-Type': 'multipart/form-data',
-//   },
-// });
-
-// // api.interceptors.request.use((config) => {
-// //   // const token = getTokenFromRoot(); token func
-// //   if (token) {
-// //     if (token) {
-
-// //     } else {
-// //       // clearStorage();
-// //     }
-
-// //   }
-// //   return config;
-// // });
-
-// export const uploadFile = (payload, onUploadProgress) => {
-//   const config = {
-//     onUploadProgress,
-//   };
-
-//   return api.post('files/upload', payload, config);
-// };
-
-// export default api;
-
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {navigate} from '../navigation/navFunctions';
 const api = axios.create({
   baseURL: 'http://34.234.122.64/api/v1/',
   headers: {
@@ -44,6 +12,7 @@ api.interceptors.request.use(
   async config => {
     try {
       const token = await AsyncStorage.getItem('token');
+      config.headers['platform'] = 'react';
       console.log('API TOKEN', token);
       if (token) {
         config.headers['x-auth-token'] = token;
@@ -58,6 +27,26 @@ api.interceptors.request.use(
   },
 );
 
+api.interceptors.response.use(
+  response => {
+    if (response.status === 200) {
+      // navigate('Profile', {});
+      alert('status code is 200');
+    } else if (response.status === 401) {
+      navigate('Profile', {});
+      alert('status code is 401');
+    }
+
+    return response;
+  },
+  error => {
+    if (error.response && error.response.data) {
+      return Promise.reject(error.response.data);
+    }
+    return Promise.reject(error.message);
+  },
+);
+
 // export const uploadFile = (payload, onUploadProgress) => {
 //   const config = {
 //     headers: {
@@ -66,73 +55,107 @@ api.interceptors.request.use(
 //     onUploadProgress,
 //   };
 
-//   return api.post('assets/uploadVideo', payload, config);
+//   console.log('Preparing to upload...');
+
+//   return api
+//     .post('assets/uploadVideo', payload, config)
+//     .then(response => {
+//       console.log('Upload successful! Response:', response.data);
+//       return response;
+//     })
+//     .catch(error => {
+//       console.error('Upload failed. Error:', error);
+//       throw error;
+//     });
 // };
-export const uploadFile = (payload, onUploadProgress) => {
-  const config = {
-    headers: {
-      platform: 'react',
-    },
-    onUploadProgress,
-  };
 
-  console.log('Preparing to upload...');
+// export const loginAPI = async (username, password) => {
+//   console.log('LOGINAPI triggered');
+//   try {
+//     const response = await api.post(
+//       'auth/login',
+//       {username, password},
+//       {
+//         headers: {
+//           'Content-Type': 'application/json',
+//         },
+//       },
+//     );
+//     console.log('response.data', response.data);
+//     if (response.status === 200 && response.data.user.success) {
+//       return response.data;
+//     }
 
-  return api
-    .post('assets/uploadVideo', payload, config)
-    .then(response => {
-      console.log('Upload successful! Response:', response.data);
-      return response;
-    })
-    .catch(error => {
-      console.error('Upload failed. Error:', error);
-      throw error;
-    });
-};
+//     throw new Error(response.data.message || 'Login failed');
+//   } catch (error) {
+//     throw new Error(error.message || 'Login failed');
+//   }
+// };
 
-export const loginAPI = async (username, password) => {
-  console.log('LOGINAPI triggered');
-  try {
-    const response = await api.post(
-      'auth/login',
-      {username, password},
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      },
-    );
-    console.log('response.data', response.data);
-    if (response.status === 200 && response.data.user.success) {
-      return response.data;
-    }
+// export const getUploadedFiles = async () => {
+//   try {
+//     const config = {
+//       headers: {
+//         platform: 'react',
+//       },
+//     };
+//     const response = await api.post('assets/getUploadedFiles', null, config);
+//     console.log('UploadingFILES', response);
+//     const responseData = response.data;
+//     console.log('ResponseData', responseData);
+//     if (response.status === 200 && response.data.success) {
+//       console.log('API FETCHED ', responseData);
+//       return responseData;
+//     } else if (response.status === 401) {
+//       // Handle the 401 unauthorized access here (e.g., redirect to login or logout)
+//       console.log('Unauthorized access - error code 401');
+//       // Example: You can throw a custom error to handle it in the calling function
+//       throw new Error('Unauthorized access - error code 401');
+//     }
 
-    throw new Error(response.data.message || 'Login failed');
-  } catch (error) {
-    throw new Error(error.message || 'Login failed');
-  }
-};
+//     throw new Error(response.data.message || 'Failed to fetch uploaded files');
+//   } catch (error) {
+//     console.error('Error in getUploadedFiles:', error);
 
-export const getUploadedFiles = async () => {
-  try {
-    const config = {
-      headers: {
-        platform: 'react',
-      },
-    };
-    const response = await api.post('assets/getUploadedFiles', null, config);
-    console.log('UploadingFILES', response);
-    const responseData = response.data;
-    console.log('ResponseData', responseData);
-    if (response.status === 200 && response.data.success) {
-      console.log('API FETCHED ', responseData);
-      return responseData;
-    }
+//     throw new Error(error.message || 'Failed to fetch uploaded files');
+//   }
+// };
+// export const getUploadedFiles = async () => {
+//   try {
+//     const config = {
+//       headers: {
+//         platform: 'react',
+//       },
+//     };
 
-    throw new Error(response.data.message || 'Failed to fetch uploaded files');
-  } catch (error) {
-    throw new Error(error.message || 'Failed to fetch uploaded files');
-  }
-};
+//     const response = await api.post('assets/getUploadedFiles', null, config);
+//     console.log('UploadingFILES', response);
+//     const responseData = response.data;
+//     console.log('ResponseData', responseData);
+
+//     if (response.status === 200 && response.data.success) {
+//       console.log('API FETCHED ', responseData);
+//       return responseData;
+//     } else {
+//       throw new Error(
+//         response.data.message || 'Failed to fetch uploaded files',
+//       );
+//     }
+//   } catch (error) {
+//     if (error.response && error.response.status === 401) {
+//       console.log('Unauthorized access - error code 401,,,selva');
+//       // Perform actions for unauthorized access, e.g., logout or redirect to login
+//       // Example: throw a specific error to handle it outside this function
+//       throw new Error('Unauthorized access - error code 401 in list');
+//     } else if (error.response) {
+//       console.error('Error in getUploadedFiles:', error.response.status);
+//       console.error('Axios error details:', error.response.data);
+//       throw new Error(error.message || 'Failed to fetch uploaded files');
+//     } else {
+//       console.error('Non-Axios error occurred:', error);
+//       throw new Error(error.message || 'Failed to fetch uploaded files');
+//     }
+//   }
+// };
 
 export default api;

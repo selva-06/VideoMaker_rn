@@ -66,7 +66,6 @@ const Tab2 = ({navigation, data, dispatch}) => {
             ? userData.mobile
             : strings.profileScreen.defMail}
         </Text>
-        {/* <Text style={styles.userInformation}>{userData}</Text> */}
       </View>
 
       <TouchableOpacity

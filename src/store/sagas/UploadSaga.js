@@ -9,8 +9,31 @@ import {
 } from '../actions/UploadActions';
 import {uploadFile} from '../../api/ApiKit';
 import store from '../Store';
+import api from '../../api/ApiKit';
 function* uploadVideo(action) {
   try {
+    const uploadFile = (payload, onUploadProgress) => {
+      const config = {
+        headers: {
+          platform: 'react',
+        },
+        onUploadProgress,
+      };
+
+      console.log('Preparing to upload...');
+
+      return api
+        .post('assets/uploadVideo', payload, config)
+        .then(response => {
+          console.log('Upload successful! Response:', response.data);
+          return response;
+        })
+        .catch(error => {
+          console.error('Upload failed. Error:', error);
+          throw error;
+        });
+    };
+
     const {payload} = action;
 
     yield put(setUploadProgress(0));
