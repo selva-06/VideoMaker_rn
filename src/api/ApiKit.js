@@ -29,20 +29,58 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   response => {
+    console.log('APIINTERCEPTORSRESPONSE', response.status);
     if (response.status === 200) {
       // navigate('Profile', {});
       alert('status code is 200');
-    } else if (response.status === 401) {
+    } else {
+      console.log('response-------------401', response);
       navigate('Profile', {});
       alert('status code is 401');
+      console.log('response-------------401', response);
     }
 
     return response;
   },
   error => {
+    if (error.response && error.response.status === 401) {
+      alert('status code is 401');
+      console.log('response-------------401', error.response);
+      // navigate('Profile', {});
+      console.log('aSYNC', AsyncStorage.getItem('token'));
+      console.log('ASYNC USER', AsyncStorage.getItem('userData'));
+      AsyncStorage.removeItem('token');
+      AsyncStorage.removeItem('userData');
+      AsyncStorage.getItem('token')
+        .then(token => {
+          if (token === null) {
+            console.log('Token has been removed from AsyncStorage');
+          } else {
+            console.log('Token still exists in AsyncStorage:', token);
+          }
+        })
+        .catch(error => {
+          console.error('Error checking token:', error);
+        });
+      AsyncStorage.getItem('userData')
+        .then(userData => {
+          if (userData === null) {
+            console.log('UserData has been removed from AsyncStorage');
+          } else {
+            console.log('UserData still exists in AsyncStorage:', userData);
+          }
+        })
+        .catch(error => {
+          console.error('Error checking userData:', error);
+        });
+      navigate('Profile', {});
+    }
     if (error.response && error.response.data) {
+      console.log('rrrrrrrrrrrrrrrrrrr', error.response);
+      alert('status code is 401');
       return Promise.reject(error.response.data);
     }
+    console.log('E111111111111111111rror:', error);
     return Promise.reject(error.message);
   },
 );

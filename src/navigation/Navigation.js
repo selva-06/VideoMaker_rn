@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {View, Text, TouchableOpacity} from 'react-native';
 import LoadingScreen from '../screens/Loading';
 import VideoPlayerScreen from '../screens/VideoPlayerScreen';
+import ModelVideoScreen from '../screens/ModelVideoScreen';
 const Stack = createNativeStackNavigator();
 
 const AppNavigator = () => {
@@ -82,6 +83,11 @@ const AppNavigator = () => {
       <Stack.Screen
         name="Recorded"
         component={RecordedVideoScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ModelVideoScreen"
+        component={ModelVideoScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen

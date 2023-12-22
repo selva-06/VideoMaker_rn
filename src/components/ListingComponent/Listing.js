@@ -56,8 +56,9 @@ const Listing = ({navigation}) => {
   const imageSize = (windowWidth - 50) / 2;
   const styles = listingstyles;
   const handleItemPress = item => {
-    navigation.navigate('VideoPlayerScreen', {
+    navigation.navigate('ModelVideoScreen', {
       videoPath: item.videoPath,
+      thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
     });
   };
 
@@ -89,7 +90,7 @@ const Listing = ({navigation}) => {
             if (item && item.thumbnail) {
               console.log(
                 'Thumbnail URI:',
-                `http://34.203.231.237/${item.thumbnail}`,
+                `http://34.234.122.64/${item.thumbnail}`,
               );
             }
             return (
@@ -114,7 +115,7 @@ const Listing = ({navigation}) => {
                   resizeMode="cover"
                   onError={error => console.log('Image load error:', error)}
                 />
-                <Image
+                {/* <Image
                   source={require('../../assets/images/play.png')}
                   style={{
                     position: 'absolute',
@@ -124,7 +125,7 @@ const Listing = ({navigation}) => {
                     marginLeft: 50,
                   }}
                   resizeMode="contain"
-                />
+                /> */}
               </TouchableOpacity>
             );
           }}
