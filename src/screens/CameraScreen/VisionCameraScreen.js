@@ -87,7 +87,9 @@ function Cameraa({navigation}) {
         return true; // Prevent default behavior
       } else {
         setSelectedDevice(null);
-        navigation.navigate('Home');
+        navigation.navigate('MainTab', {
+          screen: 'Home',
+        });
         return true; // Prevent default behavior
       }
     };
@@ -102,10 +104,14 @@ function Cameraa({navigation}) {
   }, [navigation, isRecording]);
 
   useEffect(() => {
+    console.log('Devices:', devices);
+  console.log('Selected Device:', selectedDevice);
     async function setup() {
       await requestPermissions();
       if (devices && devices.length > 0) {
         setSelectedDevice(devices[0]); // Set default camera on load
+        console.log('Selected Device1111:', selectedDevice);
+
       }
     }
     setup();
@@ -147,7 +153,10 @@ function Cameraa({navigation}) {
       console.log('moved to home from camera');
     } else {
       setSelectedDevice(null);
-      navigation.navigate('Home'); // Navigate to the Cameraa screen
+      // navigation.navigate('MainTab'); // Navigate to the Cameraa screen
+      navigation.navigate('MainTab', {
+        screen: 'Home',
+      });
     }
   };
 
@@ -197,7 +206,9 @@ function Cameraa({navigation}) {
                 console.log(
                   'Video deleted as duration was less than 10 seconds',
                 );
-                navigation.replace('Home'); // Navigate to HomeScreen if video is deleted
+                navigation.replace('MainTab', {
+                  screen: 'Home',
+                });// Navigate to HomeScreen if video is deleted
                 alert(
                   'Video deleted as minimum duration of 40seconds was not met',
                 );
@@ -246,6 +257,9 @@ function Cameraa({navigation}) {
     try {
       const deleted = await RNFS.unlink(videoPath);
       console.log(`Deleted video at ${videoPath}`);
+      navigation.replace('MainTab', {
+        screen: 'Home',
+      });
       return deleted;
     } catch (error) {
       console.error('Error deleting video:', error);

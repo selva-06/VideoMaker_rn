@@ -66,6 +66,7 @@ api.interceptors.response.use(
         .then(userData => {
           if (userData === null) {
             console.log('UserData has been removed from AsyncStorage');
+            alert('UserData has been removed from AsyncStorage');
           } else {
             console.log('UserData still exists in AsyncStorage:', userData);
           }
@@ -73,7 +74,7 @@ api.interceptors.response.use(
         .catch(error => {
           console.error('Error checking userData:', error);
         });
-      navigate('Profile', {});
+      navigate('Login', {});
     }
     if (error.response && error.response.data) {
       console.log('rrrrrrrrrrrrrrrrrrr', error.response);

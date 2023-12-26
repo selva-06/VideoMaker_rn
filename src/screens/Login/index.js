@@ -60,7 +60,7 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
   };
 
   const withoutsignin = () => {
-    navigation.navigate('Home');
+    navigation.navigate('MainTab');
   };
 
   return (

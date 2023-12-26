@@ -10,7 +10,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Tab2 = ({navigation, data, dispatch}) => {
   useEffect(() => {
     const handleBackDevice = () => {
-      navigation.navigate('Home');
+      // navigation.navigate('MainTab');
+      navigation.navigate('MainTab', {
+        screen: 'Home',
+      });
       return true;
     };
     const backHandler = BackHandler.addEventListener(

@@ -1,11 +1,12 @@
 /* eslint-disable prettier/prettier */
 
 import React from 'react';
-import {View, Button, TouchableOpacity, Image} from 'react-native';
+import {View, Button, TouchableOpacity, Image, Text} from 'react-native';
 
 const ModelVideoScreen = ({navigation, route}) => {
-  const {videoPath, thumbnailPath} = route.params;
+  const {videoPath, thumbnailPath, originalName} = route.params;
 console.log('t',thumbnailPath);
+console.log('originalNameL', originalName);
   const handleButtonClick = () => {
     navigation.navigate('VideoPlayerScreen', {
       videoPath: videoPath,
@@ -13,7 +14,7 @@ console.log('t',thumbnailPath);
   };
 
   return (
-    <View>
+    <View style={{flex: 1, backgroundColor:'black'}}>
       <TouchableOpacity onPress={handleButtonClick}>
         <Image
           source={{uri: thumbnailPath}}
@@ -33,6 +34,7 @@ console.log('t',thumbnailPath);
                   resizeMode="contain"
                 />
       </TouchableOpacity>
+      <Text style={{color: 'white'}}>{originalName}</Text>
     </View>
   );
 };

@@ -59,6 +59,7 @@ const Listing = ({navigation}) => {
     navigation.navigate('ModelVideoScreen', {
       videoPath: item.videoPath,
       thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
+      originalName: item.originalName,
     });
   };
 
@@ -126,6 +127,8 @@ const Listing = ({navigation}) => {
                   }}
                   resizeMode="contain"
                 /> */}
+                <Text style={{ color: 'black', marginTop: 0, textAlign: 'center' }}>
+                {item.originalName}        </Text>
               </TouchableOpacity>
             );
           }}

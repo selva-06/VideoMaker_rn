@@ -15,7 +15,7 @@ import {RFValue} from 'react-native-responsive-fontsize';
 const VideoPlayerScreen = ({route, navigation}) => {
   useEffect(() => {
     const handleBackDevice = () => {
-      navigation.navigate('Home');
+      navigation.navigate('MainTab');
       return true;
     };
     const backHandler = BackHandler.addEventListener(
@@ -35,7 +35,7 @@ const VideoPlayerScreen = ({route, navigation}) => {
     setIsLoading(false);
   };
   const navigateToHome = () => {
-    navigation.replace('Home');
+    navigation.replace('MainTab');
   };
 
   return (

@@ -45,7 +45,12 @@ function* loginUser(action) {
     console.log('Success');
     yield put(setToken(data.user.token));
     console.log('TOKEN PRESENt', data.user.token);
-    yield call(() => navigation.navigate('Home'));
+    yield call(() => navigation.navigate('MainTab', {
+      screen: 'Home',
+    }));
+    // navigation.navigate('MainTab', {
+    //   screen: 'Home',
+    // });
     yield AsyncStorage.setItem('token', data.user.token);
     yield AsyncStorage.setItem('userData', JSON.stringify(data.user));
     // Check if the token is stored in AsyncStorage

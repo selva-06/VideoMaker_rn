@@ -116,29 +116,34 @@
 
 // export default MenuComponent;
 
-
 /* eslint-disable prettier/prettier */
-import React, { useState } from 'react';
-import { TouchableOpacity, View, TextInput, Button, Modal } from 'react-native';
-import { Menu } from 'react-native-paper';
+import React, {useState} from 'react';
+import {TouchableOpacity, View, TextInput, Button, Modal} from 'react-native';
+import {Menu} from 'react-native-paper';
 import DocumentPicker from 'react-native-document-picker';
-import { useDispatch } from 'react-redux';
-import { uploadVideoRequest } from '../../store/actions/UploadActions';
-import { strings } from '../../util/Strings';
-import { menuStyles } from './styles';
+import {useDispatch} from 'react-redux';
+import {uploadVideoRequest} from '../../store/actions/UploadActions';
+import {strings} from '../../util/Strings';
+import {menuStyles} from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
+import VideoDetailsModal from '../NameDescriptionModal';
 
-
-const MenuComponent = ({ navigation }) => {
+const MenuComponent = ({navigation}) => {
   const dispatch = useDispatch();
   const [menuVisible, setMenuVisible] = useState(false);
   const [videoDescription, setVideoDescription] = useState('');
   const [videoUri, setVideoUri] = useState('');
   const [videoName, setVideoName] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [showSecondIcon, setShowSecondIcon] = useState(false);
 
-  const closeMenu = () => setMenuVisible(false);
-  const openMenu = () => setMenuVisible(true);
+  const closeMenu = () => {
+    setShowSecondIcon(!showSecondIcon);
+    setMenuVisible(false);}
+  const openMenu = () => {
+    setShowSecondIcon(!showSecondIcon);
+    setMenuVisible(true);
+  };
 
   const handleVideoUpload = async () => {
     try {
@@ -154,7 +159,6 @@ const MenuComponent = ({ navigation }) => {
       setVideoUri(result.uri); // Storing video URI
       setVideoName(result.name); // Setting the video name
       setVideoDescription(''); // Clear any previous description
-
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         console.log('User cancelled the picker');
@@ -189,8 +193,11 @@ const MenuComponent = ({ navigation }) => {
   };
 
   const navigateToCameraScreen = () => {
-    navigation.replace('Cameraa'); // Navigate to the Cameraa screen
-    closeMenu();
+    // navigation.navigate('MainTab', {
+    //   screen: 'Home',
+    // });
+    navigation.replace('Cameraa');
+        closeMenu();
   };
 
   return (
@@ -202,8 +209,17 @@ const MenuComponent = ({ navigation }) => {
           closeMenu();
         }}
         anchor={
-          <TouchableOpacity onPress={openMenu} style={styles.menuTO}>
-            <Icon name="add" size={32} color="#C3E82F" />
+          <TouchableOpacity onPress={openMenu} style={styles.menuTO} activeOpacity={5}>
+            {/* <Icon name="add" size={32} color="#C3E82F" />
+            {showSecondIcon && <Icon name="attach" size={32} color="black" />} */}
+
+{showSecondIcon ? (
+          <Icon name="add-circle" size={32} color="#C3E82F" />
+        ) : (
+          <Icon name="add-circle-outline" size={32} color="#C3E82F" />
+        )}
+
+            {/* <Icon name="attach" size={32} color="black" /> */}
           </TouchableOpacity>
         }
         style={styles.menuItems}>
@@ -221,30 +237,43 @@ const MenuComponent = ({ navigation }) => {
         visible={modalVisible}
         animationType="slide"
         onRequestClose={() => setModalVisible(false)}>
-        <View style={styles.modalContainer}>
-          <TextInput
-            placeholder="Enter Video Name"
-            value={videoName}
-            onChangeText={text => setVideoName(text)}
-            color={'black'}
-            editable={true} // Disable editing of the name
-            style={{ borderColor: videoName.trim() === '' ? 'red' : 'black', borderWidth: 1, padding: 10, backgroundColor:'lightgrey' }}
-
-          />
-          <TextInput
-            placeholder="Enter Video Description"
-            value={videoDescription}
-            placeholderTextColor={'black'}
-            color={'black'}
-            onChangeText={text => setVideoDescription(text)}
-            style={{ borderColor: videoName.trim() === '' ? 'red' : 'black', borderWidth: 1, padding: 10, backgroundColor:'lightgrey' }}
-
-          />
-          <Button title="Upload" onPress={uploadVideo} />
-          <Button title="Cancel" onPress={() => setModalVisible(false)} />
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            <TextInput
+              placeholder="Enter Video Name"
+              value={videoName}
+              onChangeText={text => setVideoName(text)}
+              color={'black'}
+              autoFocus={true}
+              editable={true} // Disable editing of the name
+              style={{
+                borderColor: videoName.trim() === '' ? 'red' : 'black',
+                borderWidth: 1,
+                padding: 10,
+                backgroundColor: 'lightgrey',
+              }}
+            />
+            <TextInput
+              placeholder="Enter Video Description"
+              value={videoDescription}
+              placeholderTextColor={'black'}
+              color={'black'}
+              onChangeText={text => setVideoDescription(text)}
+              style={{
+                borderColor: videoName.trim() === '' ? 'red' : 'black',
+                borderWidth: 1,
+                padding: 10,
+                backgroundColor: 'lightgrey',
+              }}
+            />
+            <View style={styles.modalButtonContainer}>
+              <Button title="Upload" onPress={uploadVideo} />
+              <Button title="Cancel" onPress={() => setModalVisible(false)} />
+            </View>
+          </View>
         </View>
       </Modal>
-    </>
+   </>
   );
 };
 
