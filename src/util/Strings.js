@@ -27,7 +27,7 @@ export const strings = {
     profileText: 'My Profile',
     nameText: 'Name:',
     defName: 'Guest',
-    mailText: 'Mobile:',
+    mailText: 'E-Mail:',
     defMail: 'XX@g.c',
     logoutbtn: 'Logout',
   },

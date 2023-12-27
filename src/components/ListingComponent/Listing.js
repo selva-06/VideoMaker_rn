@@ -8,12 +8,14 @@ import {
   Text,
   TouchableOpacity,
   RefreshControl,
+  ImageBackground,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchListData} from '../../store/actions/ListingActions';
 import UploadModal from '../ProgressLoaderComponent/ProgressLoader';
 import {listingstyles} from './styles';
 import {RFValue} from 'react-native-responsive-fontsize';
+import LinearGradient from 'react-native-linear-gradient';
 const Listing = ({navigation}) => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.list.listData); // Updated reducer reference
@@ -25,6 +27,7 @@ const Listing = ({navigation}) => {
   useEffect(() => {
     if (!uploading) {
       dispatch(fetchListData());
+      alert('dispatch');
     }
   }, [dispatch, uploading]);
   // useEffect(() => {
@@ -103,6 +106,16 @@ const Listing = ({navigation}) => {
                   margin: 5,
                   marginBottom: 10,
                   marginHorizontal: 10,
+                  marginTop: 10,
+                  borderRadius: 8,
+                  // shadowOffset: {width: 0, height: 2},
+                  elevation:10,
+                  shadowOpacity: 100,
+                  // shadowRadius:0,
+                  shadowColor: 'black',
+                  // borderColor:"black",
+
+                  
                 }}>
                 <Image
                   source={{
@@ -112,24 +125,97 @@ const Listing = ({navigation}) => {
                     height: imageSize,
                     width: imageSize,
                     borderRadius: 8,
+                    
+
                   }}
                   resizeMode="cover"
                   onError={error => console.log('Image load error:', error)}
                 />
-                {/* <Image
-                  source={require('../../assets/images/play.png')}
+                {/* <Text style={{ color: 'black', marginTop: 0, textAlign: 'center' }}>
+                {item.originalName}        </Text> */}
+                <View
                   style={{
                     position: 'absolute',
-                    width: 40,
-                    height: 40,
-                    top: 50,
-                    marginLeft: 50,
-                  }}
-                  resizeMode="contain"
-                /> */}
-                <Text style={{ color: 'black', marginTop: 0, textAlign: 'center' }}>
-                {item.originalName}        </Text>
+                    bottom: 0,
+                    width: '100%',
+                    height: '30%', 
+                  }}>
+                  <LinearGradient
+                    colors={['transparent', 'rgba(0,0,0,0.9)']} 
+                    style={{
+                      flex: 1,
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: 8,
+                    }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        marginTop: 20,
+                        fontSize: RFValue(12),
+                        fontFamily: 'Poppins-Medium',
+                        // fontStyle:'italic',
+                        // textAlign: 'left',
+                      }}>
+                      {item.originalName}
+                    </Text>
+                  </LinearGradient>
+                </View>
               </TouchableOpacity>
+//               <TouchableOpacity
+//   onPress={() => handleItemPress(item)}
+//   style={{
+//     width: imageSize,
+//     height: imageSize,
+//     margin: 5,
+//     marginBottom: 10,
+//     marginHorizontal: 10,
+//     marginTop: 10,
+//     borderRadius: 8, // Apply border radius to the TouchableOpacity
+//     borderWidth: 1,
+//     overflow: 'hidden', // Clip child components to the border radius
+//     elevation: 10,
+//     shadowColor: 'black',
+//     shadowRadius: 20,
+//     justifyContent: 'center',
+//     // alignItems: 'center', // Center content horizontally
+
+//   }}
+// >
+//   <ImageBackground
+//     source={{ uri: `http://34.234.122.64/${item.thumbnail}` }}
+//     style={{
+//       flex: 1,
+//       borderRadius: 8,
+//       justifyContent: 'flex-end', // Align the linear gradient to the bottom
+//     }}
+//     resizeMode="cover"
+//     imageStyle={{ borderRadius: 8 }} // Apply border radius to the image
+//   >
+//     <LinearGradient
+//       colors={['transparent', 'rgba(0,0,0,0.7)']} // Gradient colors and opacity
+//       style={{
+//         flex: 1,
+
+//         justifyContent: 'center',
+//                       alignItems: 'center',
+//                       borderRadius: 8,
+//     }}
+//     >
+// <Text
+//                       style={{
+//                         color: 'white',
+//                         marginTop: 20,
+//                         fontSize: RFValue(12),
+//                         fontFamily: 'Poppins-Medium',
+//                         paddingRight: 30,
+//                         // fontStyle:'italic',
+//                         // textAlign: 'center',
+//                       }}>        {item.originalName}
+//       </Text>
+//     </LinearGradient>
+//   </ImageBackground>
+// </TouchableOpacity>
             );
           }}
           // keyExtractor={item => item.id.toString()}

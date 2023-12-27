@@ -236,13 +236,15 @@ const MenuComponent = ({navigation}) => {
       <Modal
         visible={modalVisible}
         animationType="slide"
-        onRequestClose={() => setModalVisible(false)}>
+        onRequestClose={() => setModalVisible(false)}
+        transparent={true}>
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
             <TextInput
-              placeholder="Enter Video Name"
-              value={videoName}
+              placeholder="Video Name"
+              // value={videoName}
               onChangeText={text => setVideoName(text)}
+              placeholderTextColor={'grey'}
               color={'black'}
               autoFocus={true}
               editable={true} // Disable editing of the name
@@ -254,9 +256,9 @@ const MenuComponent = ({navigation}) => {
               }}
             />
             <TextInput
-              placeholder="Enter Video Description"
+              placeholder="Video Description"
               value={videoDescription}
-              placeholderTextColor={'black'}
+              placeholderTextColor={'grey'}
               color={'black'}
               onChangeText={text => setVideoDescription(text)}
               style={{
@@ -267,8 +269,8 @@ const MenuComponent = ({navigation}) => {
               }}
             />
             <View style={styles.modalButtonContainer}>
-              <Button title="Upload" onPress={uploadVideo} />
               <Button title="Cancel" onPress={() => setModalVisible(false)} />
+              <Button title="Upload" onPress={uploadVideo} />
             </View>
           </View>
         </View>

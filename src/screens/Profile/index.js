@@ -65,8 +65,8 @@ const Tab2 = ({navigation, data, dispatch}) => {
       <View style={styles.lineargradient}>
         <Text style={styles.userDetails}>{strings.profileScreen.mailText}</Text>
         <Text style={styles.userInformation}>
-          {userData && userData.mobile
-            ? userData.mobile
+          {userData && userData.email
+            ? userData.email
             : strings.profileScreen.defMail}
         </Text>
       </View>

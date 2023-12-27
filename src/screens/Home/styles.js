@@ -4,7 +4,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(195, 232, 47, 0.3)',
+    // backgroundColor: 'rgba(195, 232, 47, 0.3)',
+    backgroundColor: 'white',
     height: '100%',
   },
 });

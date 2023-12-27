@@ -191,7 +191,14 @@ const AppNavigator = () => {
       <Stack.Screen
         name="ModelVideoScreen"
         component={ModelVideoScreen}
-        options={{headerShown: false}}
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#444444',
+          },
+          headerTintColor: '#C3E82F',
+        }}
+      
       />
       <Stack.Screen
         name="VideoPlayerScreen"

@@ -382,6 +382,21 @@ function RecordedVideoScreen({route, navigation}) {
                 setModalVisible(false);
               }}
             /> */}
+            <View style ={{
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 20,
+  }}>
+            
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                setVideoName('');
+                setVideoDescription('');
+                setModalVisible(false);
+              }}>
+              <Text style={styles.buttonTextModal}>Close</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
               onPress={() => {
@@ -395,15 +410,7 @@ function RecordedVideoScreen({route, navigation}) {
               disabled={uploading}>
               <Text style={styles.buttonTextModal}>Upload</Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                setVideoName('');
-                setVideoDescription('');
-                setModalVisible(false);
-              }}>
-              <Text style={styles.buttonTextModal}>Close</Text>
-            </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>

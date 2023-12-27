@@ -3,11 +3,11 @@ import {Dimensions, StyleSheet} from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 export const menuStyles = StyleSheet.create({
   menuTO: {marginLeft: 0, marginBottom: 0, marginRight: 0, backgroundColor: '#444444', flex:1,justifyContent:'center'},
-  menuItems: {paddingBottom: 50, marginLeft: 80},
+  menuItems: {paddingBottom: 40, marginLeft: 80},
   //modal
   modalContainer: {
     width: '80%', // Adjust the width as needed
-    backgroundColor: 'grey',
+    backgroundColor: 'white',
     borderRadius: 10,
     padding: 20,
   },
@@ -41,10 +41,14 @@ export const menuStyles = StyleSheet.create({
   //   alignItems: 'center',
   // },
   modalBackground : {
-    backgroundColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // height: 50
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // height: '100%',
+    flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
 
   }
 

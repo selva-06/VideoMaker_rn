@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     marginTop: 20,
+    marginHorizontal: 20,
   },
   buttonrec: {
     backgroundColor: 'transparent',
