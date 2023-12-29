@@ -15,13 +15,17 @@ import {
 import DeleteModal from '../../components/DeleteModal';
 import {WebView} from 'react-native-webview';
 import RNFS from 'react-native-fs';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const ModelVideoScreen = ({navigation, route}) => {
   const {videoPath, thumbnailPath, originalName, threeDFilePath} = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   console.log('ROUTE_PARAMS', route.params);
   console.log('ThreeD', threeDFilePath);
+  const parts = threeDFilePath.split('/');
+  const fileName = parts[parts.length - 1];
 
+  console.log('fn', fileName);
   console.log('t', thumbnailPath);
   console.log('originalNameL', originalName);
   const handleButtonClick = () => {
@@ -40,35 +44,49 @@ const ModelVideoScreen = ({navigation, route}) => {
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [downloading, setDownloading] = useState(false);
   const [fileDestination, setFileDestination] = useState('');
-
-  useEffect(()=>{
-    console.log('useEffect')
+  const [file, setFile] = useState(false);
+  useEffect(() => {
+    console.log('useEffect');
     const checkFileExists = async () => {
+      if (!fileName || fileName.trim() === '') {
+        alert('no filepath');
+        console.log('no file path');
+        setFileDestination('No File');
+        setFile(false);
+        return;
+      }
       console.log('checking');
-      const downloadDest = RNFS.DocumentDirectoryPath + '/' + originalName + '.usdz';
+      const downloadDest = RNFS.DocumentDirectoryPath + '/' + fileName;
       const fileExists = await RNFS.exists(downloadDest);
-      if(fileExists){
-        setFileDestination(downloadDest);
+      if (fileExists) {
+        setFileDestination('file://' + downloadDest);
+        setFile(true);
         console.log('checked');
-      }else{
+      } else {
         console.log('no');
       }
     };
     checkFileExists();
-  },[originalName]);
+  }, [fileName, originalName]);
   const handleThumbNailClick = async () => {
+    if (!fileName || fileName.trim() === '') {
+      alert('no filepath');
+      console.log('no file path');
+      setFile(false);
+      return;
+    }
     console.log('clicked on thumb');
-    const downloadDest =
-      RNFS.DocumentDirectoryPath + '/' + originalName + '.usdz';
+    const downloadDest = RNFS.DocumentDirectoryPath + '/' + fileName;
 
     const fileExists = await RNFS.exists(downloadDest);
     console.log('File exists:', fileExists);
 
     if (fileExists) {
       setFileDestination(downloadDest);
+      setFile(true);
       alert('File already exists. Skipping download.');
       console.log('File already exists. Skipping download.');
-      navigation.navigate('WebView',{downloadDest: downloadDest});
+      navigation.navigate('WebView', {downloadDest: downloadDest});
       return;
     }
 
@@ -130,7 +148,7 @@ const ModelVideoScreen = ({navigation, route}) => {
               }}
               resizeMode="contain"
             />
-            {downloading && (
+            {/* {downloading && (
               <View>
                 <ActivityIndicator
                   size="large"
@@ -148,7 +166,7 @@ const ModelVideoScreen = ({navigation, route}) => {
                     color: 'white',
                   }}>{`${downloadProgress}%`}</Text>
               </View>
-            )}
+            )} */}
             {/* {fileDestination ? (
               <Text
               style={{
@@ -165,18 +183,61 @@ const ModelVideoScreen = ({navigation, route}) => {
         </View>
 
         <TouchableOpacity onPress={handleThumbNailClick}>
-          <Image
-            source={require('../../assets/images/b.png')}
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../../assets/images/b.png')}
+              style={{
+                width: Dimensions.get('window').width * 0.9,
+                height: Dimensions.get('window').height * 0.28,
+                borderRadius: 10,
+                borderWidth: 2,
+                marginVertical: 25,
+                alignSelf: 'center',
+                marginBottom: 10,
+                opacity: file ? 1 : 0.5,
+              }}
+              resizeMode="cover"
+            />
+            
+            {downloading && (
+          <View style={{ position: 'absolute',padding:10,top:'45%' }}>
+            <ActivityIndicator
+              size="800"
+              color="black"
+              style={{
+                alignSelf: 'center',
+                backgroundColor: 'transparent',
+                position: 'absolute',
+              marginLeft: 0,
+              width: Dimensions.get('window').width*0.14,
+              height:Dimensions.get('window').height*0.07,
+              // marginTop: '30%',
+              }}
+            />
+            <Text
+              style={{
+                alignSelf: 'center',
+                color: 'black',
+                paddingTop: 5,
+                backgroundColor:'transparent',
+                // paddingBottom:10,
+              }}>{`${downloadProgress}%`}</Text>
+          </View>
+        )}
+
+        {!downloading && !file && (
+          <Icon
+            name="download-outline"
+            size={50}
+            color="black"
             style={{
-              width: Dimensions.get('window').width * 0.9,
-              height: Dimensions.get('window').height * 0.28,
-              borderRadius: 10,
-              borderWidth: 2,
-              marginVertical: 25,
-              alignSelf: 'center',
-              marginBottom: 10,
+              position: 'absolute',
+              marginLeft: 0,
+              marginTop: '30%',
             }}
-            resizeMode="cover"></Image>
+          />
+        )}
+          </View>
         </TouchableOpacity>
 
         <Text
@@ -190,18 +251,18 @@ const ModelVideoScreen = ({navigation, route}) => {
           {originalName}
         </Text>
         {fileDestination ? (
-              <Text
-              style={{
-                color: 'black',
-                paddingLeft: 20,
-                fontSize: 18,
-                marginTop: 0,
-                fontWeight: '400',
-                fontStyle: 'italic',
-              }}>
-              File already exists at: {fileDestination}            
-              </Text>
-            ): null }
+          <Text
+            style={{
+              color: 'black',
+              paddingLeft: 20,
+              fontSize: 18,
+              marginTop: 0,
+              fontWeight: '400',
+              fontStyle: 'italic',
+            }}>
+            File already exists at: {fileDestination}
+          </Text>
+        ) : null}
         <Text
           style={{
             color: 'black',

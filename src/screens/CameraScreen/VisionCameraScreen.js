@@ -196,6 +196,7 @@ function Cameraa({navigation}) {
           onRecordingFinished: async video => {
             setIsRecording(false);
             setVideoSource('file://' + video.path);
+            console.log('video FIIIIIILLLEEEE'+ 'file://' +video.path);
             setShowRecordedVideo(true);
             console.log('Finished recording:', video, video.duration);
             clearTimeout(recordingTimeout); // Clear the automatic stop timeout on manual stop

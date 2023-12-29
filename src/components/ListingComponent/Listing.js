@@ -59,12 +59,26 @@ const Listing = ({navigation}) => {
   const imageSize = (windowWidth - 50) / 2;
   const styles = listingstyles;
   const handleItemPress = item => {
+    console.log(item.threeDFilePath);
+    if((item.threeDFilePath).trim() !==''){  //threeDFilePath.trim() !== ''
+      console.log("exists",item.threeDFilePath);
+
     navigation.navigate('ModelVideoScreen', {
       videoPath: item.videoPath,
       thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
       originalName: item.originalName,
       threeDFilePath: `http://34.234.122.64/${item.threeDFilePath}`
-    });
+    });}
+    else{
+      console.log("notexists",item.threeDFilePath);
+
+      navigation.navigate('ModelVideoScreen', {
+        videoPath: item.videoPath,
+        thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
+        originalName: item.originalName,
+        threeDFilePath: ``
+      });}
+    
   };
 
   return (

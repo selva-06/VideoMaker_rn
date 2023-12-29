@@ -1,6 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {navigate} from '../navigation/navFunctions';
+import { showSnackbar } from '../store/actions/UploadActions';
+
 const api = axios.create({
   baseURL: 'http://34.234.122.64/api/v1/',
   headers: {
@@ -26,13 +28,14 @@ api.interceptors.request.use(
     return Promise.reject(error);
   },
 );
-
 api.interceptors.response.use(
   response => {
     console.log('APIINTERCEPTORSRESPONSE', response.status);
     if (response.status === 200) {
       // navigate('Profile', {});
       alert('status code is 200');
+      // yield put(showSnackbar('Success listing','success'));//    yield put(showSnackbar('Uploaded Successfully', 'success'));
+
     } else {
       console.log('response-------------401', response);
       navigate('Profile', {});
@@ -79,10 +82,11 @@ api.interceptors.response.use(
     if (error.response && error.response.data) {
       console.log('rrrrrrrrrrrrrrrrrrr', error.response);
       alert('status code is 401');
-      return Promise.reject(error.response.data); //Promise.resolve
+      // return Promise.reject(error.response.data); 
+      return Promise.resolve();
     }
     console.log('E111111111111111111rror:', error);
-    return Promise.reject(error.message); //Promise.resolve
+    return Promise.reject(error.message); 
   },
 );
 
