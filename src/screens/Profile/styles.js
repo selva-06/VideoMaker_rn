@@ -45,9 +45,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
     // marginLeft: 4,
     marginRight: 20,
+    // color:"red"
   },
   userInformation: {
-    fontSize: RFValue(18),
+    fontSize: RFValue(15),
     color: '#444444',
     fontFamily: 'Poppins-Medium',
   },
@@ -72,8 +73,7 @@ const styles = StyleSheet.create({
     width: windowWidth * 0.8,
     height: windowHeight * 0.09,
     alignItems: 'center',
-    marginLeft: 70,
-    // justifyContent:"center"
+    marginLeft: 30,
   },
 });
 export default styles;

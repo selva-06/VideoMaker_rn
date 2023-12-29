@@ -10,7 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Tab2 = ({navigation, data, dispatch}) => {
   useEffect(() => {
     const handleBackDevice = () => {
-      // navigation.navigate('MainTab');
+      console.log("back")
       navigation.navigate('MainTab', {
         screen: 'Home',
       });
