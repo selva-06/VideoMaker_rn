@@ -3,6 +3,11 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const SET_TOKEN = 'SET_TOKEN';
 export const LOGOUT = 'LOGOUT';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS'; // Define LOGOUT_SUCCESS action type
+
+export const logoutSuccess = () => ({
+  type: LOGOUT_SUCCESS,
+});
 
 export const loginRequest = (username, password, navigation) => ({
   type: LOGIN_REQUEST,

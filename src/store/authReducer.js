@@ -1,6 +1,6 @@
 // src/reducers/authReducer.js
 
-import {SET_TOKEN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT} from './authActions';
+import {SET_TOKEN, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, LOGOUT_SUCCESS} from './authActions';
 
 const initialState = {
   data: null,
@@ -32,6 +32,13 @@ const authReducer = (state = initialState, action) => {
       return {
         ...initialState,
       };
+
+      case LOGOUT_SUCCESS:
+      // Reset state to initial values on successful logout
+      return {
+        ...initialState,
+      };
+
 
     default:
       return state;

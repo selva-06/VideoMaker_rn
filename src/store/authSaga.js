@@ -5,9 +5,10 @@ import {
   loginFailure,
   setToken,
   LOGOUT,
+  logout,
+  logoutSuccess,
 } from './authActions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import axios from 'axios';
 import {loginAPI} from '../api/ApiKit';
 import api from '../api/ApiKit';
@@ -72,7 +73,7 @@ function* logoutUser({navigation}) {
     yield AsyncStorage.removeItem('userData');
 
     // Dispatch action indicating successful logout
-    yield put({type: 'LOGOUT_SUCCESS'});
+    yield put(logoutSuccess());
     navigation.navigate('Login');
   } catch (error) {
     console.error('Error logging out:', error);

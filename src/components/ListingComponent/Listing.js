@@ -63,6 +63,7 @@ const Listing = ({navigation}) => {
       videoPath: item.videoPath,
       thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
       originalName: item.originalName,
+      threeDFilePath: `http://34.234.122.64/${item.threeDFilePath}`
     });
   };
 
@@ -95,6 +96,7 @@ const Listing = ({navigation}) => {
               console.log(
                 'Thumbnail URI:',
                 `http://34.234.122.64/${item.thumbnail}`,
+                `http://34.234.122.64/${item.threeDFilePath}`
               );
             }
             return (

@@ -3,11 +3,13 @@ import React, {useEffect} from 'react';
 import {View, BackHandler, Text} from 'react-native';
 import styles from './styles';
 import MenuComponent from '../../components/MenuComponent/MenuComponent';
-const AttachScreen = ({navigation}) => {
+import {WebView} from 'react-native-webview';
+
+const AttachScreen = ({navigation, route}) => {
   useEffect(() => {
     const handleBackDevice = () => {
       if (navigation.isFocused()) {
-        BackHandler.exitApp();
+        navigation.navigate('MainTab', {screen: 'Home'});
         return true;
       }
       return false;
@@ -18,11 +20,18 @@ const AttachScreen = ({navigation}) => {
     );
     return () => backHandler.remove();
   }, [navigation]);
+
+  const {downloadDest} = route.params;
+  console.log('download', downloadDest);
   return (
-    <View style={{flex:1,backgroundColor:'rgba(195, 232, 47, 0.3)',paddingLeft: 20}}>
-        <Text style={{color:'black', fontSize: 20}}> Attach or record videos :</Text>
-        <MenuComponent navigation={navigation} />
-    </View>
+    <WebView
+      source={{uri: 'https://ravimk001.github.io/usdz-web-viewer/'}}
+      // source={{uri: `file://${downloadDest}`}}
+
+      // allowFileAccess={true}
+
+      style={{flex: 1}}
+    />
   );
 };
 

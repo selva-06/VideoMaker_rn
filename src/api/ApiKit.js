@@ -79,10 +79,10 @@ api.interceptors.response.use(
     if (error.response && error.response.data) {
       console.log('rrrrrrrrrrrrrrrrrrr', error.response);
       alert('status code is 401');
-      return Promise.reject(error.response.data);
+      return Promise.reject(error.response.data); //Promise.resolve
     }
     console.log('E111111111111111111rror:', error);
-    return Promise.reject(error.message);
+    return Promise.reject(error.message); //Promise.resolve
   },
 );
 
