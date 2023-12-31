@@ -11,11 +11,13 @@ import {
   Dimensions,
   ScrollView,
   ActivityIndicator,
+  BackHandler,
 } from 'react-native';
 import DeleteModal from '../../components/DeleteModal';
 import {WebView} from 'react-native-webview';
 import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {Screen} from 'react-native-screens';
 
 const ModelVideoScreen = ({navigation, route}) => {
   const {videoPath, thumbnailPath, originalName, threeDFilePath} = route.params;
@@ -45,6 +47,21 @@ const ModelVideoScreen = ({navigation, route}) => {
   const [downloading, setDownloading] = useState(false);
   const [fileDestination, setFileDestination] = useState('');
   const [file, setFile] = useState(false);
+
+  useEffect(() => {
+    const handleBackDevice = () => {
+      if (navigation.isFocused()) {
+        navigation.replace('MainTab', {screen: 'Home'});
+        return true;
+      }
+      return false;
+    };
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackDevice,
+    );
+    return () => backHandler.remove();
+  }, [navigation]);
   useEffect(() => {
     console.log('useEffect');
     const checkFileExists = async () => {
@@ -86,7 +103,13 @@ const ModelVideoScreen = ({navigation, route}) => {
       setFile(true);
       alert('File already exists. Skipping download.');
       console.log('File already exists. Skipping download.');
-      navigation.navigate('WebView', {downloadDest: downloadDest});
+      navigation.navigate('WebView', {
+        downloadDest: downloadDest,
+        videoPath: videoPath,
+        thumbnailPath: thumbnailPath,
+        originalName: originalName,
+        threeDFilePath: threeDFilePath,
+      });
       return;
     }
 
@@ -113,6 +136,8 @@ const ModelVideoScreen = ({navigation, route}) => {
       ret.promise.then(res => {
         console.log('File downloaded to ', downloadDest);
         setDownloading(false);
+        setFileDestination(downloadDest);
+        setFile(true);
       });
     } catch (err) {
       console.log('Download Error', err);
@@ -148,37 +173,6 @@ const ModelVideoScreen = ({navigation, route}) => {
               }}
               resizeMode="contain"
             />
-            {/* {downloading && (
-              <View>
-                <ActivityIndicator
-                  size="large"
-                  color="white"
-                  style={{
-                    position: 'absolute',
-                    alignSelf: 'center',
-                    top: '40%',
-                    backgroundColor: 'black',
-                  }}
-                />
-                <Text
-                  style={{
-                    alignSelf: 'center',
-                    color: 'white',
-                  }}>{`${downloadProgress}%`}</Text>
-              </View>
-            )} */}
-            {/* {fileDestination ? (
-              <Text
-              style={{
-                color: 'black',
-                paddingLeft: 20,
-                fontSize: 20,
-                marginTop: 0,
-                fontWeight: 'bold',
-              }}>
-              File already exists at: {fileDestination}            
-              </Text>
-            ): null } */}
           </TouchableOpacity>
         </View>
 
@@ -198,45 +192,45 @@ const ModelVideoScreen = ({navigation, route}) => {
               }}
               resizeMode="cover"
             />
-            
-            {downloading && (
-          <View style={{ position: 'absolute',padding:10,top:'45%' }}>
-            <ActivityIndicator
-              size="800"
-              color="black"
-              style={{
-                alignSelf: 'center',
-                backgroundColor: 'transparent',
-                position: 'absolute',
-              marginLeft: 0,
-              width: Dimensions.get('window').width*0.14,
-              height:Dimensions.get('window').height*0.07,
-              // marginTop: '30%',
-              }}
-            />
-            <Text
-              style={{
-                alignSelf: 'center',
-                color: 'black',
-                paddingTop: 5,
-                backgroundColor:'transparent',
-                // paddingBottom:10,
-              }}>{`${downloadProgress}%`}</Text>
-          </View>
-        )}
 
-        {!downloading && !file && (
-          <Icon
-            name="download-outline"
-            size={50}
-            color="black"
-            style={{
-              position: 'absolute',
-              marginLeft: 0,
-              marginTop: '30%',
-            }}
-          />
-        )}
+            {downloading && (
+              <View style={{position: 'absolute', padding: 10, top: '45%'}}>
+                <ActivityIndicator
+                  size="800"
+                  color="black"
+                  style={{
+                    alignSelf: 'center',
+                    backgroundColor: 'transparent',
+                    position: 'absolute',
+                    marginLeft: 0,
+                    width: Dimensions.get('window').width * 0.14,
+                    height: Dimensions.get('window').height * 0.07,
+                    // marginTop: '30%',
+                  }}
+                />
+                <Text
+                  style={{
+                    alignSelf: 'center',
+                    color: 'black',
+                    paddingTop: 5,
+                    backgroundColor: 'transparent',
+                    // paddingBottom:10,
+                  }}>{`${downloadProgress}%`}</Text>
+              </View>
+            )}
+
+            {!downloading && !file && (
+              <Icon
+                name="download-outline"
+                size={50}
+                color="black"
+                style={{
+                  position: 'absolute',
+                  marginLeft: 0,
+                  marginTop: '30%',
+                }}
+              />
+            )}
           </View>
         </TouchableOpacity>
 

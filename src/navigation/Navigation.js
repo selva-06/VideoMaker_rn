@@ -16,10 +16,11 @@ import ModelVideoScreen from '../screens/ModelVideoScreen';
 import AttachScreen from '../screens/AttachScreen';
 import {Image} from 'react-native';
 import DeleteModal from '../components/DeleteModal';
-
+import {useRoute} from '@react-navigation/native';
+import HeaderLeft from '../components/BackArrow';
 // import Ionicons from 'react-native-vector-icons/Ionicons';
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator(); // Create the Tab Navigator
+const Tab = createBottomTabNavigator();
 const MainTabNavigator = () => (
   <Tab.Navigator
     screenOptions={({route}) => ({
@@ -34,8 +35,6 @@ const MainTabNavigator = () => (
           iconName = focused ? 'person' : 'person-outline';
           color = '#C3E82F';
         }
-        // } else if (route.name === 'Scan') {
-        //   iconName = focused ? 'add-circle' : 'add-circle-outline';
 
         // Return the vector icon component
         return <Icon name={iconName} size={size} color={color} />;
@@ -64,11 +63,6 @@ const MainTabNavigator = () => (
         },
         headerTintColor: 'white',
         headerLeft: () => null,
-        // headerRight: () => (
-        //   <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        //     <MenuComponent navigation={navigation} />
-        //   </View>
-        // ),
       })}
     />
 
@@ -84,17 +78,6 @@ const MainTabNavigator = () => (
         headerTintColor: 'white',
         headerLeft: () => null,
         tabBarButton: () => <MenuComponent navigation={navigation} />,
-        // tabBarIcon: ({ color, size }) => (
-        //  <Icon name="add" size={size} color={color} />
-
-        // ),
-        // tabBarButton: (navigation) => <MenuComponent navigation={navigation} />,
-
-        // headerRight: () => (
-        //   <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        //     <MenuComponent navigation={navigation} />
-        //</View>
-        //),
       })}
     />
     <Tab.Screen
@@ -108,11 +91,6 @@ const MainTabNavigator = () => (
         },
         headerTintColor: 'white',
         headerLeft: () => null,
-        // headerRight: () => (
-        //   <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        //     <MenuComponent navigation={navigation} />
-        //   </View>
-        // ),
       })}
     />
   </Tab.Navigator>
@@ -131,54 +109,6 @@ const AppNavigator = () => {
         component={LoginScreen}
         options={{headerShown: false}}
       />
-      {/* <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={({navigation}) => ({
-          title: 'Home',
-          headerStyle: {
-            backgroundColor: '#444444',
-          },
-          headerTintColor: '#C3E82F',
-          headerLeft: () => '',
-          headerRight: () => (
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <MenuComponent navigation={navigation} />
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Profile');
-                }}
-                style={{marginLeft: 10}}>
-                <Icon name="person" size={22} color="#C3E82F" />
-              </TouchableOpacity>
-            </View>
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="Profile"
-        component={Tab2}
-        options={({navigation}) => ({
-          title: 'Profile',
-          headerStyle: {
-            backgroundColor: '#444444',
-          },
-          // headerLeft: () => '',
-          headerTintColor: '#C3E82F',
-          headerRight: () => (
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <MenuComponent navigation={navigation} />
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Home');
-                }}
-                style={{marginLeft: 10}}>
-                <Icon name="home" size={22} color="#C3E82F" />
-              </TouchableOpacity>
-            </View>
-          ),
-        })}
-      /> */}
       <Stack.Screen
         name="MainTab"
         component={MainTabNavigator}
@@ -210,20 +140,13 @@ const AppNavigator = () => {
               onPress={() => {
                 navigation.navigate('MainTab', {screen: 'Home'});
               }}
-              style={{paddingRight:10}}>
-              <Icon name={'arrow-back'} size={26} color={'#C3E82F'}/>
-
+              style={{paddingRight: 10}}>
+              <Icon name={'arrow-back'} size={26} color={'#C3E82F'} />
             </TouchableOpacity>
           ),
           headerRight: () => (
             <View>
               <DeleteModal />
-              {/* <DeleteModal
-                modalVisible={modalVisible}
-                closeModal={closeModal}
-                handleDeleteBoth={handleDeleteBoth}
-                handleDeleteModal={handleDeleteModal}
-                handleDeleteVideo={handleDeleteVideo}></DeleteModal> */}
             </View>
           ),
         })}
@@ -234,9 +157,10 @@ const AppNavigator = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name='WebView'
+        name="WebView"
         component={AttachScreen}
-        options={({navigation}) => ({headerShown:true,
+        options={({navigation, route}) => ({
+          headerShown: true,
           headerStyle: {
             backgroundColor: '#444444',
           },
@@ -244,16 +168,10 @@ const AppNavigator = () => {
           headerTitleAlign: 'left',
           headerTintColor: 'white',
           headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('MainTab', {screen: 'Home'});
-              }}
-              style={{paddingRight:10}}>
-              <Icon name={'arrow-back'} size={26} color={'#C3E82F'}/>
-
-            </TouchableOpacity>
-          ),})}
-        />
+            <HeaderLeft navigation={navigation} route={route} />
+          ),
+        })}
+      />
     </Stack.Navigator>
   );
 };

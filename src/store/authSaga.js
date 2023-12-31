@@ -46,9 +46,11 @@ function* loginUser(action) {
     console.log('Success');
     yield put(setToken(data.user.token));
     console.log('TOKEN PRESENt', data.user.token);
-    yield call(() => navigation.navigate('MainTab', {
-      screen: 'Home',
-    }));
+    yield call(() =>
+      navigation.navigate('MainTab', {
+        screen: 'Home',
+      }),
+    );
     // navigation.navigate('MainTab', {
     //   screen: 'Home',
     // });

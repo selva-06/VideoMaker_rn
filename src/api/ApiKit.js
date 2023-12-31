@@ -25,6 +25,7 @@ api.interceptors.request.use(
     return config;
   },
   error => {
+    alert('Promise Rejected');
     return Promise.reject(error);
   },
 );
@@ -34,7 +35,6 @@ api.interceptors.response.use(
     if (response.status === 200) {
       // navigate('Profile', {});
       alert('status code is 200');
-      // yield put(showSnackbar('Success listing','success'));//    yield put(showSnackbar('Uploaded Successfully', 'success'));
 
     } else {
       console.log('response-------------401', response);
@@ -86,7 +86,7 @@ api.interceptors.response.use(
       return Promise.resolve();
     }
     console.log('E111111111111111111rror:', error);
-    return Promise.reject(error.message); 
+    return Promise.resolve(); 
   },
 );
 

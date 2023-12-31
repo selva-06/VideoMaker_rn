@@ -9,7 +9,7 @@ const LoadingScreen = ({navigation}) => {
       try {
         const token = await AsyncStorage.getItem('token');
         console.log('HIAPPLOAD', token);
-        const initialRoute = token ? 'MainTab' : 'Login';//        const initialRoute = token ? 'Home' : 'Login';
+        const initialRoute = token ? 'MainTab' : 'Login'; //        const initialRoute = token ? 'Home' : 'Login';
 
         navigation.navigate(initialRoute);
       } catch (error) {

@@ -35,7 +35,7 @@ const App = () => {
             paddingBottom: 0,
             backgroundColor: 'white',
           }}>
-          <StatusBar backgroundColor="transparent" barStyle="default" />
+          <StatusBar backgroundColor="#444444" />
           <NavigationContainer ref={navigationRef}>
             <AppNavigator />
           </NavigationContainer>

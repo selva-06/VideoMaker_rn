@@ -15,13 +15,13 @@ import {RFValue} from 'react-native-responsive-fontsize';
 const VideoPlayerScreen = ({route, navigation}) => {
   useEffect(() => {
     const handleBackDevice = () => {
-      navigation.replace('ModelVideoScreen',{
+      navigation.replace('ModelVideoScreen', {
         videoPath: videoPath,
         thumbnailPath: thumbnailPath,
         originalName: originalName,
         threeDFilePath: threeDFilePath,
       });
-       return true;
+      return true;
     };
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
@@ -29,9 +29,9 @@ const VideoPlayerScreen = ({route, navigation}) => {
     );
     return () => backHandler.remove();
   }, [navigation]);
-  const {videoPath,thumbnailPath,originalName,threeDFilePath} = route.params;
+  const {videoPath, thumbnailPath, originalName, threeDFilePath} = route.params;
   const [isLoading, setIsLoading] = useState(true);
-  console.log('ROUTE_PARAMS',route.params);
+  console.log('ROUTE_PARAMS', route.params);
   const handleLoadStart = () => {
     setIsLoading(true);
   };
@@ -40,12 +40,11 @@ const VideoPlayerScreen = ({route, navigation}) => {
     setIsLoading(false);
   };
   const navigateToHome = () => {
-    navigation.replace('ModelVideoScreen',{
+    navigation.replace('ModelVideoScreen', {
       videoPath: videoPath,
       thumbnailPath: thumbnailPath,
       originalName: originalName,
       threeDFilePath: threeDFilePath,
-
     });
   };
 

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { LOGOUT } from "../authActions";
+import {LOGOUT} from '../authActions';
 const initialState = {
   listData: [],
 };
@@ -11,10 +11,10 @@ const listReducer = (state = initialState, action) => {
         ...state,
         listData: action.payload,
       };
-      case LOGOUT:
+    case LOGOUT:
       return {
         ...state,
-        listData: null, // Reset listData to null on logout
+        listData: null,
       };
 
     default:

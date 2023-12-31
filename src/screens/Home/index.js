@@ -1,13 +1,12 @@
 // HomeScreen.js
-import React, { useEffect, useRef } from 'react';
-import { View, BackHandler, ToastAndroid } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import React, {useEffect, useRef} from 'react';
+import {View, BackHandler, ToastAndroid} from 'react-native';
+import {useFocusEffect} from '@react-navigation/native';
 import Listing from '../../components/ListingComponent/Listing';
 import SnackbarC from '../../components/SnackBarComponent/SnackBar';
 import styles from './styles';
 
-const HomeScreen = ({ navigation }) => {
-  
+const HomeScreen = ({navigation}) => {
   const handleBackButton = () => {
     if (navigation.isFocused()) {
       BackHandler.exitApp(); // Exit the app
@@ -23,7 +22,7 @@ const HomeScreen = ({ navigation }) => {
       return () => {
         BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
       };
-    }, [navigation])
+    }, [navigation]),
   );
 
   return (
@@ -35,4 +34,3 @@ const HomeScreen = ({ navigation }) => {
 };
 
 export default HomeScreen;
-

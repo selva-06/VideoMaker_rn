@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // HomeScreen.js
 import React, {useEffect} from 'react';
 import {View, BackHandler, Text} from 'react-native';
@@ -9,7 +10,12 @@ const AttachScreen = ({navigation, route}) => {
   useEffect(() => {
     const handleBackDevice = () => {
       if (navigation.isFocused()) {
-        navigation.navigate('MainTab', {screen: 'Home'});
+        navigation.replace('ModelVideoScreen', {
+          videoPath: videoPath,
+          thumbnailPath: thumbnailPath,
+          originalName: originalName,
+          threeDFilePath: threeDFilePath,
+        });
         return true;
       }
       return false;
@@ -21,8 +27,9 @@ const AttachScreen = ({navigation, route}) => {
     return () => backHandler.remove();
   }, [navigation]);
 
-  const {downloadDest} = route.params;
-  console.log('download', downloadDest);
+  const {downloadDest, originalName, thumbnailPath, videoPath, threeDFilePath} =
+    route.params;
+  console.log('download', route.params);
   return (
     <WebView
       source={{uri: 'https://ravimk001.github.io/usdz-web-viewer/'}}

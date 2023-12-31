@@ -30,17 +30,6 @@ const Listing = ({navigation}) => {
       alert('dispatch');
     }
   }, [dispatch, uploading]);
-  // useEffect(() => {
-  //   console.log('TDATA RESPONSE CODE_err---------------', data.error);
-
-  //   // Check for a 401 error in data (assuming 401 triggers logout)
-  //   if (data && !data.error) {
-  //     // Dispatch the logout action with navigation
-  //     console.log('tDATA IN LISTIN RESPONSE CODE,', data.response);
-  //     // dispatch(logout({navigation}));
-  //     // navigation.navigate('Login'); // Navigate to the login screen
-  //   }
-  // }, [data, dispatch, navigation]);
 
   const handleRefresh = () => {
     setRefreshing(true);
@@ -60,25 +49,26 @@ const Listing = ({navigation}) => {
   const styles = listingstyles;
   const handleItemPress = item => {
     console.log(item.threeDFilePath);
-    if((item.threeDFilePath).trim() !==''){  //threeDFilePath.trim() !== ''
-      console.log("exists",item.threeDFilePath);
-
-    navigation.navigate('ModelVideoScreen', {
-      videoPath: item.videoPath,
-      thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
-      originalName: item.originalName,
-      threeDFilePath: `http://34.234.122.64/${item.threeDFilePath}`
-    });}
-    else{
-      console.log("notexists",item.threeDFilePath);
+    if (item.threeDFilePath.trim() !== '') {
+      //threeDFilePath.trim() !== ''
+      console.log('exists', item.threeDFilePath);
 
       navigation.navigate('ModelVideoScreen', {
         videoPath: item.videoPath,
         thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
         originalName: item.originalName,
-        threeDFilePath: ``
-      });}
-    
+        threeDFilePath: `http://34.234.122.64/${item.threeDFilePath}`,
+      });
+    } else {
+      console.log('notexists', item.threeDFilePath);
+
+      navigation.navigate('ModelVideoScreen', {
+        videoPath: item.videoPath,
+        thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
+        originalName: item.originalName,
+        threeDFilePath: ``,
+      });
+    }
   };
 
   return (
@@ -110,7 +100,7 @@ const Listing = ({navigation}) => {
               console.log(
                 'Thumbnail URI:',
                 `http://34.234.122.64/${item.thumbnail}`,
-                `http://34.234.122.64/${item.threeDFilePath}`
+                `http://34.234.122.64/${item.threeDFilePath}`,
               );
             }
             return (
@@ -124,14 +114,9 @@ const Listing = ({navigation}) => {
                   marginHorizontal: 10,
                   marginTop: 10,
                   borderRadius: 8,
-                  // shadowOffset: {width: 0, height: 2},
-                  elevation:10,
+                  elevation: 10,
                   shadowOpacity: 100,
-                  // shadowRadius:0,
                   shadowColor: 'black',
-                  // borderColor:"black",
-
-                  
                 }}>
                 <Image
                   source={{
@@ -141,23 +126,20 @@ const Listing = ({navigation}) => {
                     height: imageSize,
                     width: imageSize,
                     borderRadius: 8,
-                    
-
                   }}
                   resizeMode="cover"
                   onError={error => console.log('Image load error:', error)}
                 />
-                {/* <Text style={{ color: 'black', marginTop: 0, textAlign: 'center' }}>
-                {item.originalName}        </Text> */}
+
                 <View
                   style={{
                     position: 'absolute',
                     bottom: 0,
                     width: '100%',
-                    height: '30%', 
+                    height: '30%',
                   }}>
                   <LinearGradient
-                    colors={['transparent', 'rgba(0,0,0,0.9)']} 
+                    colors={['transparent', 'rgba(0,0,0,0.9)']}
                     style={{
                       flex: 1,
                       justifyContent: 'center',
@@ -178,60 +160,60 @@ const Listing = ({navigation}) => {
                   </LinearGradient>
                 </View>
               </TouchableOpacity>
-//               <TouchableOpacity
-//   onPress={() => handleItemPress(item)}
-//   style={{
-//     width: imageSize,
-//     height: imageSize,
-//     margin: 5,
-//     marginBottom: 10,
-//     marginHorizontal: 10,
-//     marginTop: 10,
-//     borderRadius: 8, // Apply border radius to the TouchableOpacity
-//     borderWidth: 1,
-//     overflow: 'hidden', // Clip child components to the border radius
-//     elevation: 10,
-//     shadowColor: 'black',
-//     shadowRadius: 20,
-//     justifyContent: 'center',
-//     // alignItems: 'center', // Center content horizontally
+              //               <TouchableOpacity
+              //   onPress={() => handleItemPress(item)}
+              //   style={{
+              //     width: imageSize,
+              //     height: imageSize,
+              //     margin: 5,
+              //     marginBottom: 10,
+              //     marginHorizontal: 10,
+              //     marginTop: 10,
+              //     borderRadius: 8, // Apply border radius to the TouchableOpacity
+              //     borderWidth: 1,
+              //     overflow: 'hidden', // Clip child components to the border radius
+              //     elevation: 10,
+              //     shadowColor: 'black',
+              //     shadowRadius: 20,
+              //     justifyContent: 'center',
+              //     // alignItems: 'center', // Center content horizontally
 
-//   }}
-// >
-//   <ImageBackground
-//     source={{ uri: `http://34.234.122.64/${item.thumbnail}` }}
-//     style={{
-//       flex: 1,
-//       borderRadius: 8,
-//       justifyContent: 'flex-end', // Align the linear gradient to the bottom
-//     }}
-//     resizeMode="cover"
-//     imageStyle={{ borderRadius: 8 }} // Apply border radius to the image
-//   >
-//     <LinearGradient
-//       colors={['transparent', 'rgba(0,0,0,0.7)']} // Gradient colors and opacity
-//       style={{
-//         flex: 1,
+              //   }}
+              // >
+              //   <ImageBackground
+              //     source={{ uri: `http://34.234.122.64/${item.thumbnail}` }}
+              //     style={{
+              //       flex: 1,
+              //       borderRadius: 8,
+              //       justifyContent: 'flex-end', // Align the linear gradient to the bottom
+              //     }}
+              //     resizeMode="cover"
+              //     imageStyle={{ borderRadius: 8 }} // Apply border radius to the image
+              //   >
+              //     <LinearGradient
+              //       colors={['transparent', 'rgba(0,0,0,0.7)']} // Gradient colors and opacity
+              //       style={{
+              //         flex: 1,
 
-//         justifyContent: 'center',
-//                       alignItems: 'center',
-//                       borderRadius: 8,
-//     }}
-//     >
-// <Text
-//                       style={{
-//                         color: 'white',
-//                         marginTop: 20,
-//                         fontSize: RFValue(12),
-//                         fontFamily: 'Poppins-Medium',
-//                         paddingRight: 30,
-//                         // fontStyle:'italic',
-//                         // textAlign: 'center',
-//                       }}>        {item.originalName}
-//       </Text>
-//     </LinearGradient>
-//   </ImageBackground>
-// </TouchableOpacity>
+              //         justifyContent: 'center',
+              //                       alignItems: 'center',
+              //                       borderRadius: 8,
+              //     }}
+              //     >
+              // <Text
+              //                       style={{
+              //                         color: 'white',
+              //                         marginTop: 20,
+              //                         fontSize: RFValue(12),
+              //                         fontFamily: 'Poppins-Medium',
+              //                         paddingRight: 30,
+              //                         // fontStyle:'italic',
+              //                         // textAlign: 'center',
+              //                       }}>        {item.originalName}
+              //       </Text>
+              //     </LinearGradient>
+              //   </ImageBackground>
+              // </TouchableOpacity>
             );
           }}
           // keyExtractor={item => item.id.toString()}
