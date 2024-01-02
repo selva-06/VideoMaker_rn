@@ -271,16 +271,14 @@ function Cameraa({navigation}) {
   return (
     <View style={styles.container}>
       {selectedDevice !== null && (
-        <View style={styles.buttonContainer1}>
-          {selectedDevice !== null && (
             <Camera
               ref={camera}
               style={{
                 position: 'absolute',
                 left: 0,
                 right: 0,
-                top: '8%',
-                bottom: '17%',
+                top: '10%',
+                bottom: '20%',
               }}
               device={selectedDevice}
               isActive={true}
@@ -290,9 +288,10 @@ function Cameraa({navigation}) {
               torch={torch}
             />
           )}
-          <View style={styles.buttonContainer}>
-            <View style={styles.buttonContainer3}>
-              <TouchableOpacity style={styles.buttonrec} onPress={toggletorch}>
+          
+          
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity style={styles.iconspace} onPress={toggletorch}>
                 <Icon
                   name={torch === 'on' ? 'flash-off-outline' : 'flash-outline'}
                   size={30}
@@ -300,7 +299,7 @@ function Cameraa({navigation}) {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                style={[styles.buttonrec]}
+              style={styles.iconspacerec} 
                 onPress={toggleRecording}>
                 <Image
                   source={
@@ -313,12 +312,11 @@ function Cameraa({navigation}) {
               </TouchableOpacity>
               <View style={styles.bottombuttonContainer} />
             </View>
-          </View>
-        </View>
-      )}
-      <View style={styles.closeContainer}>
+
+
+          <View style={styles.closeContainer}>
         <TouchableOpacity
-          style={[styles.buttonrec]}
+          style={[styles.iconspace]}
           onPress={navigateToHomeScreen}>
           <Image
             source={require('../../assets/images/close.png')}
@@ -330,7 +328,6 @@ function Cameraa({navigation}) {
         ) : (
           <View />
         )}
-
         <View style={styles.topbuttonContainer} />
       </View>
 
