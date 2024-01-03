@@ -111,7 +111,7 @@ const MenuComponent = ({navigation}) => {
 
       <Modal
         visible={modalVisible}
-        animationType="slide"
+        animationType="fade"
         onRequestClose={() => setModalVisible(false)}
         transparent={true}>
         <View style={styles.modalBackground}>

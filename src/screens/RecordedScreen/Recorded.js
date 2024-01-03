@@ -104,7 +104,7 @@ function RecordedVideoScreen({route, navigation}) {
       <SnackBarC />
 
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -112,7 +112,7 @@ function RecordedVideoScreen({route, navigation}) {
         }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={{color: 'black'}}>Enter Video Details:</Text>
+            <Text style={{color: 'black',fontSize: 18, marginBottom:20}}>Enter Video Details:</Text>
             <TextInput
               style={styles.input}
               value={videoName}

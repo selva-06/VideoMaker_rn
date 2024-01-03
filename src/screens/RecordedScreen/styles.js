@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 10,
     color: 'black',
+    fontSize: 16,
     paddingHorizontal: 10,
     width: Dimensions.get('window').width*0.7,
   },
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonTextModal: {
-    color: 'green',
+    color: 'black',
     fontWeight: 'bold',
   },
 
