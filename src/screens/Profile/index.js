@@ -46,7 +46,7 @@ const Tab2 = ({navigation, data, dispatch}) => {
       <View style={styles.containerTop}>
         <View style={styles.profile}>
           <Image
-            source={require('../../assets/images/Avatar.png')}
+            source={require('../../assets/images/icon2.png')}
             style={styles.profileImage}
           />
           <Text style={styles.myProfileText}>

@@ -1,5 +1,7 @@
 /* eslint-disable prettier/prettier */
 import {StyleSheet, Dimensions} from 'react-native';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -22,10 +24,10 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
   },
-  button: {
+  buttonTick: {
     backgroundColor: 'rgba(195, 232, 47, 0.8)',
-    padding: 10,
-    borderRadius: 8,
+    padding: 9,
+    borderRadius: 10,
     marginTop: 20,
     marginHorizontal: 20,
   },
@@ -35,18 +37,14 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 20,
   },
-  buttonText: {
+  buttonTextCancel: {
     color: 'white',
-    fontWeight: 'bold',
+    fontSize: 12,
+    fontFamily: 'Poppins-Medium',
+    marginLeft:10,
   },
   //modal
-  centeredView: {
-    // flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 50,
-    
-  },
+  
   modalView: {
     margin: 20,
     backgroundColor: 'white',
@@ -62,15 +60,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  input: {
-    height:Dimensions.get('window').height*0.068,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginTop: 10,
-    color: 'black',
-    paddingHorizontal: 10,
-    width: Dimensions.get('window').width*0.7,
-  },
+  
   buttonModal: {
     backgroundColor: '#007AFF',
     borderRadius: 5,
@@ -82,6 +72,48 @@ const styles = StyleSheet.create({
   buttonTextModal: {
     color: 'green',
     fontWeight: 'bold',
+  },
+  modalBackground: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContainer: {
+    width: '83%',
+    backgroundColor: 'white',
+    borderRadius: 8,
+    padding: 25,
+
+  },
+  ModalTitleText:{
+    color:'#444444',
+    fontSize: 15,
+    textAlign: 'center',
+    marginBottom:20,
+    fontFamily: 'Poppins-Regular',
+
+  },
+  modalInputContainer: {
+    borderColor: "grey",
+    borderWidth: 1.8,
+    borderRadius: 17,
+    marginBottom: 10,
+    paddingLeft: 12,
+    height:windowHeight*0.075,
+
+  },
+  buttonContainer: {
+    backgroundColor: '#C3E82F',
+    padding: 8,
+    width: windowWidth * 0.27,
+    borderRadius: 15,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: '#444444',
+    fontSize: 12,
+    fontFamily: 'Poppins-Medium',
   },
 
 });

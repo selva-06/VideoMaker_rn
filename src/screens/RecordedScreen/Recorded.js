@@ -81,12 +81,12 @@ function RecordedVideoScreen({route, navigation}) {
         <TouchableOpacity
           style={styles.buttonrec}
           onPress={navigateToHomeScreen}>
-          <Text style={styles.buttonText}>
-            {strings.recordedScreen.cancelText}
+          <Text style={styles.buttonTextCancel}>
+            CANCEL
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button}
+          style={styles.buttonTick}
           onPress={() => {
             if (!videoName.trim() || !videoDescription.trim()) {
               setModalVisible(true);
@@ -110,59 +110,41 @@ function RecordedVideoScreen({route, navigation}) {
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={{color: 'black'}}>Enter Video Details:</Text>
+        <View style={styles.modalBackground}>
+        <View style={styles.modalContainer}>
+            <Text style={styles.ModalTitleText}>Enter Video Details:</Text>
             <TextInput
-              style={styles.input}
+              style={styles.modalInputContainer}
               value={videoName}
               onChangeText={text => setVideoName(text)}
               placeholder="Video Name"
               placeholderTextColor={'grey'}
             />
             <TextInput
-              style={styles.input}
+              style={styles.modalInputContainer}
               value={videoDescription}
               onChangeText={text => setVideoDescription(text)}
               placeholder="Video Description"
               placeholderTextColor={'grey'}
             />
-            {/* <Button
-              title="Save"
-              onPress={() => {
-                if (!videoName.trim() || !videoDescription.trim()) {
-                  alert('Please enter both video name and description.');
-                  setModalVisible(true);
-                } else {
-                  uploadVideo();
-                }
-              }}
-            />
-            <Button
-              title="Close"
-              onPress={() => {
-                setVideoName('');
-                setVideoDescription('');
-                setModalVisible(false);
-              }}
-            /> */}
             <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-around',
                 marginTop: 20,
+               
               }}>
               <TouchableOpacity
-                style={styles.button}
+                style={styles.buttonContainer}
                 onPress={() => {
                   setVideoName('');
                   setVideoDescription('');
                   setModalVisible(false);
                 }}>
-                <Text style={styles.buttonTextModal}>Close</Text>
+                <Text style={styles.buttonText}>Close</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                style={styles.button}
+                style={styles.buttonContainer}
                 onPress={() => {
                   if (!videoName.trim() || !videoDescription.trim()) {
                     alert('Please enter both video name and description.');
@@ -172,7 +154,7 @@ function RecordedVideoScreen({route, navigation}) {
                   }
                 }}
                 disabled={uploading}>
-                <Text style={styles.buttonTextModal}>Upload</Text>
+                <Text style={styles.buttonText}>Upload</Text>
               </TouchableOpacity>
             </View>
           </View>

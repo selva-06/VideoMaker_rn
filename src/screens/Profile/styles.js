@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.75,
   },
   profileImage: {
-    height: windowHeight * 0.2,
-    width: windowWidth * 0.4,
+    height: windowHeight * 0.16,
+    width: windowWidth * 0.3,
   },
   myProfileText: {
     fontSize: RFValue(20),

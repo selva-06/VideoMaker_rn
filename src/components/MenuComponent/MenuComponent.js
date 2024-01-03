@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
-import {TouchableOpacity, View, TextInput, Button, Modal} from 'react-native';
+import {TouchableOpacity, View, TextInput, Button, Modal,Text} from 'react-native';
 import {Menu} from 'react-native-paper';
 import DocumentPicker from 'react-native-document-picker';
 import {useDispatch} from 'react-redux';
@@ -116,20 +116,15 @@ const MenuComponent = ({navigation}) => {
         transparent={true}>
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
+          <Text style={styles.ModalTitleText}>Enter Video Details:</Text>
             <TextInput
               placeholder="Video Name"
-              // value={videoName}
               onChangeText={text => setVideoName(text)}
               placeholderTextColor={'grey'}
               color={'black'}
               autoFocus={true}
               editable={true}
-              style={{
-                borderColor: videoName.trim() === '' ? 'red' : 'black',
-                borderWidth: 1,
-                padding: 10,
-                backgroundColor: 'lightgrey',
-              }}
+              style={menuStyles.modalInputContainer}
             />
             <TextInput
               placeholder="Video Description"
@@ -137,16 +132,21 @@ const MenuComponent = ({navigation}) => {
               placeholderTextColor={'grey'}
               color={'black'}
               onChangeText={text => setVideoDescription(text)}
-              style={{
-                borderColor: videoName.trim() === '' ? 'red' : 'black',
-                borderWidth: 1,
-                padding: 10,
-                backgroundColor: 'lightgrey',
-              }}
+              style={menuStyles.modalInputContainer}
             />
             <View style={styles.modalButtonContainer}>
-              <Button title="Cancel" onPress={() => setModalVisible(false)} />
-              <Button title="Upload" onPress={uploadVideo} />
+
+              <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={() => setModalVisible(false)} >
+        <Text style={styles.buttonText}>Cancel</Text>
+      </TouchableOpacity>
+
+              <TouchableOpacity
+        style={styles.buttonContainer}
+        onPress={uploadVideo}>
+        <Text style={styles.buttonText}>Upload</Text>
+      </TouchableOpacity>
             </View>
           </View>
         </View>
