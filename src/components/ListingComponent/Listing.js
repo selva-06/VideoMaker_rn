@@ -74,7 +74,7 @@ const Listing = ({navigation}) => {
   return (
     <View style={styles.container}>
       <UploadModal />
-      {(data && data.length === 0) || data === null ? (
+      {/* {(data && data.length === 0) || data === null ? (
         <View>
           <Text
             style={{
@@ -90,7 +90,7 @@ const Listing = ({navigation}) => {
             <Text style={{color: 'black'}}>Refresh Data</Text>
           </TouchableOpacity>
         </View>
-      ) : (
+      ) : ( */}
         <FlatList
           data={data}
           numColumns={2}
@@ -224,8 +224,11 @@ const Listing = ({navigation}) => {
               color={'black'}
             />
           }
+          ListEmptyComponent={<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'red' }}>
+          <Text style={{color: 'black'}}>No data available kindly refresh</Text>
+        </View>}
         />
-      )}
+      {/* )} */}
     </View>
   );
 };

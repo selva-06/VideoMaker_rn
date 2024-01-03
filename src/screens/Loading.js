@@ -24,7 +24,7 @@ const LoadingScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <ActivityIndicator size="large" color="#0000ff" />
-      <Image source={require('../assets/images/hand.png')} style={{width:100,height:100}}></Image>
+      <Image source={require('../assets/images/hand.png')} style={{width:250,height:250}}></Image>
       <Text style={styles.text}>VideoMaker</Text>
     </View>
   );
@@ -33,7 +33,7 @@ const LoadingScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: '#444444',
     justifyContent: 'center',
     alignItems: 'center',
     height: Dimensions.get('window').height,
