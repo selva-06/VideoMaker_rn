@@ -17,7 +17,7 @@ const UploadModal = () => {
           {uploading ? (
             <>
               <ActivityIndicator animating={true} color={'red'} />
-              <Text style={modalStyles.progressText}>{uploadProgress}%</Text>
+              {/* <Text style={modalStyles.progressText}>{uploadProgress}%</Text> */}
             </>
           ) : (
             <Text style={modalStyles.errorText}>

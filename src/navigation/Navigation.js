@@ -30,10 +30,11 @@ const MainTabNavigator = () => (
         // Set the appropriate icon based on the route name
         if (route.name === 'Home') {
           iconName = focused ? 'home' : 'home-outline';
-          color = '#C3E82F';
+          // color = '#C3E82F';
+          color = focused ? '#C3E82F' : 'white';
         } else if (route.name === 'Profile') {
           iconName = focused ? 'person' : 'person-outline';
-          color = '#C3E82F';
+          color = focused ? '#C3E82F' : 'white';
         }
 
         // Return the vector icon component

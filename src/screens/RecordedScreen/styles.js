@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonTextModal: {
-    color: 'green',
+    color: 'black',
     fontWeight: 'bold',
   },
   modalBackground: {

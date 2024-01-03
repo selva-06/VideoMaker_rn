@@ -94,7 +94,7 @@ const MenuComponent = ({navigation}) => {
             {showSecondIcon ? (
               <Icon name="add-circle" size={32} color="#C3E82F" />
             ) : (
-              <Icon name="add-circle-outline" size={32} color="#C3E82F" />
+              <Icon name="add-circle-outline" size={32} color="white" />
             )}
           </TouchableOpacity>
         }
@@ -111,7 +111,7 @@ const MenuComponent = ({navigation}) => {
 
       <Modal
         visible={modalVisible}
-        animationType="slide"
+        animationType="fade"
         onRequestClose={() => setModalVisible(false)}
         transparent={true}>
         <View style={styles.modalBackground}>

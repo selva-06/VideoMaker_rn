@@ -104,7 +104,7 @@ function RecordedVideoScreen({route, navigation}) {
       <SnackBarC />
 
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
