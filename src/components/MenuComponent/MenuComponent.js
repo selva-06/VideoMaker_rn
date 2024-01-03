@@ -89,8 +89,8 @@ const MenuComponent = ({navigation}) => {
         anchor={
           <TouchableOpacity
             onPress={openMenu}
-            style={styles.menuTO}
-            activeOpacity={5}>
+            style={styles.menutouch}
+            activeOpacity={1}>
             {showSecondIcon ? (
               <Icon name="add-circle" size={32} color="#C3E82F" />
             ) : (
