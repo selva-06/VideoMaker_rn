@@ -224,8 +224,19 @@ const Listing = ({navigation}) => {
               color={'black'}
             />
           }
-          ListEmptyComponent={<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor:'red' }}>
-          <Text style={{color: 'black'}}>No data available kindly refresh</Text>
+          ListEmptyComponent={<View style={styles.noInternet}>
+          {/* <Text style={{color: 'black'}}>No data available kindly refresh</Text> */}
+          <Image
+            source={require('../../assets/images/cloud2.png')}
+            style={styles.imageStyle}
+          />
+          <Text style={styles.whops}>Whoops!</Text>
+          <Text style={styles.whopsDescription}>Slow or no internet connection.</Text>
+          <Text style={styles.whopsDescription}>Please check your internet settings.</Text>
+          <View style={styles.pullDownContainer} >
+          <Text style={styles.pullDown}>Pull down to refresh</Text>
+          </View>
+          
         </View>}
         />
       {/* )} */}
