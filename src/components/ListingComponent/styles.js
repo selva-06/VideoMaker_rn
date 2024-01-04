@@ -20,10 +20,9 @@ export const listingstyles = StyleSheet.create({
   menuItems: {marginTop: 30},
 
   noInternet: {
-    flex: 1,
-    justifyContent: 'center',
+    
     alignItems: 'center',
-    marginTop:120,
+     marginTop:"50%",
 
   },
   imageStyle:{
@@ -40,9 +39,10 @@ export const listingstyles = StyleSheet.create({
   whopsDescription:{
     fontFamily:"Poppins-Regular",
     fontSize:15,
+    color:"grey",
   },
   pullDown:{
-    fontFamily:"Poppins-Bold",
+    fontFamily:"Poppins-Regular",
     fontSize:13,
     color:"white",
     

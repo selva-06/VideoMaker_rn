@@ -26,11 +26,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // marginTop:160,
-    height: windowHeight * 0.75,
+    height: windowHeight * 0.76,
   },
   profileImage: {
-    height: windowHeight * 0.16,
-    width: windowWidth * 0.3,
+    height: windowHeight * 0.18,
+    width: windowWidth * 0.34,
+    resizeMode: 'contain',
   },
   myProfileText: {
     fontSize: RFValue(20),
@@ -51,6 +52,8 @@ const styles = StyleSheet.create({
     fontSize: RFValue(15),
     color: '#444444',
     fontFamily: 'Poppins-Medium',
+    flexShrink: 1 
+   
   },
   buttonContainer: {
     backgroundColor: '#444444',
@@ -74,6 +77,7 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.09,
     alignItems: 'center',
     marginLeft: 30,
+    
   },
 });
 export default styles;
