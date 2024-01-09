@@ -36,11 +36,12 @@ const styles = StyleSheet.create({
     marginTop: windowHeight * 0.07,
   },
   errorContainer: {height: windowHeight * 0.0289},
+  errorContainerLogin: {height: windowHeight * 0.0589},
   password: {
     position: 'absolute',
     // right: "6%",
     // top: '16%',
-    height: windowHeight * 0.13,
+    height: windowHeight * 0.16,
     right: windowWidth * 0.06,
   },
   eyepassword: {paddingHorizontal: 15},
@@ -72,6 +73,8 @@ const styles = StyleSheet.create({
   },
   error: {
     color: 'red',
+    textAlign: 'center',
+    
   },
   wosignin: {
     color: '#444444',

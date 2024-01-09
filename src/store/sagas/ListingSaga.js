@@ -63,7 +63,7 @@ function* fetchListData() {
       if (isCreatedAtPresent) {
         // If 'createdAt' is present for all items, proceed with sorting
         const sortedData = response.data.slice().sort((a, b) => {
-          return new Date(b.createdAt) - new Date(a.createdAt);
+          return new Date(a.createdAt) - new Date(b.createdAt);
         });
 
         console.log('Sorted Data:', sortedData); // Log sorted data for verification
