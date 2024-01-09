@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 12,
     height:windowHeight*0.07,
+    color:'black',
 
   },
   buttonContainer: {

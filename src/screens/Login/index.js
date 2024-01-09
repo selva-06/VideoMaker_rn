@@ -120,7 +120,7 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
             {strings.loginScreen.button.loginbtn}
           </Text>
         </TouchableOpacity>
-        <View style={styles.errorContainer}>
+        <View style={styles.errorContainerLogin}>
           {error && <Text style={styles.error}>{error}</Text>}
         </View>
         <TouchableOpacity onPress={withoutsignin}>

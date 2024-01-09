@@ -27,7 +27,7 @@ function* loginUser(action) {
           },
         );
         console.log('response.data', response.data);
-        if (response.status === 200 && response.data.user.success) {
+        if (response.status === 200 && response.data.user && response.data.user.success) {
           return response.data;
         }
 
@@ -73,7 +73,6 @@ function* logoutUser({navigation}) {
     // Remove token and user data from AsyncStorage
     yield AsyncStorage.removeItem('token');
     yield AsyncStorage.removeItem('userData');
-
     // Dispatch action indicating successful logout
     yield put(logoutSuccess());
     navigation.navigate('Login');
