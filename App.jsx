@@ -9,22 +9,7 @@ import AppNavigator from './src/navigation/Navigation';
 import {navigationRef} from './src/navigation/navFunctions';
 
 const App = () => {
-  // useEffect(() => {
-  //   const checkToken = async () => {
-  //     try {
-  //       const token = await AsyncStorage.getItem('token');
-  //       console.log('HIAPP', token);
-  //       const initialRoute = token ? 'Home' : 'Login';
-  //       navigationRef.current?.navigate(initialRoute);
-  //     } catch (error) {
-  //       console.error('Error retrieving token:', error);
-  //       navigationRef.current?.navigate('Login');
-  //     }
-  //   };
-
-  //   checkToken();
-  // }, []);
-
+  
   return (
     <PaperProvider>
       <Provider store={store}>
