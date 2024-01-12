@@ -32,7 +32,7 @@ const AttachScreen = ({navigation, route}) => {
   console.log('download', route.params);
   return (
     <WebView
-      source={{uri: 'https://ravimk001.github.io/usdz-web-viewer/'}}
+      source={{uri: 'https://raviusdz.netlify.app/'}}
       // source={{uri: `file://${downloadDest}`}}
 
       // allowFileAccess={true}

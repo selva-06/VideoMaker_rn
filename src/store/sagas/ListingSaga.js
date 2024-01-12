@@ -34,12 +34,12 @@ function* fetchListData() {
             alert(response.data.message || 'Failed to fetch uploaded files');
           }
         } else {
-          alert('romerr1or');
+          // alert('romerr1or');
         }
       } catch (error) {
         if (error.response && error.response.status === 401) {
           console.log('Unauthorized access - error code 401,,,selva');
-          alert('Unauthorized access - error code 401 in list');
+          // alert('Unauthorized access - error code 401 in list');
           // Perform actions for unauthorized access,(logout or redirect to login)
           // throw new Error('Unauthorized access - error code 401 in list');
         } else if (error.response) {
@@ -85,7 +85,7 @@ function* fetchListData() {
       // yield put({type: 'LOGOUT_SUCCESS'});
       // navigation.navigate('Login');
     } else {
-      alert(error.message);
+      // alert(error.message);
 
       console.log('eroor mam', error);
     }

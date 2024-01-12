@@ -27,7 +27,7 @@ const Listing = ({navigation}) => {
   useEffect(() => {
     if (!uploading) {
       dispatch(fetchListData());
-      alert('dispatch');
+      // alert('dispatch');
     }
   }, [dispatch, uploading]);
 
@@ -55,6 +55,7 @@ const Listing = ({navigation}) => {
 
       navigation.navigate('ModelVideoScreen', {
         videoPath: item.videoPath,
+        itemID: item._id,
         thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
         originalName: item.originalName,
         threeDFilePath: `http://34.234.122.64/${item.threeDFilePath}`,
@@ -64,6 +65,7 @@ const Listing = ({navigation}) => {
 
       navigation.navigate('ModelVideoScreen', {
         videoPath: item.videoPath,
+        itemID: item._id,
         thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
         originalName: item.originalName,
         threeDFilePath: ``,

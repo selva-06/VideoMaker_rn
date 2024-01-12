@@ -18,9 +18,11 @@ import {WebView} from 'react-native-webview';
 import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Screen} from 'react-native-screens';
+import { showSnackbar } from '../../store/actions/UploadActions';
+import api from '../../api/ApiKit';
 
 const ModelVideoScreen = ({navigation, route}) => {
-  const {videoPath, thumbnailPath, originalName, threeDFilePath} = route.params;
+  const {videoPath, thumbnailPath, originalName, threeDFilePath, itemID} = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   console.log('ROUTE_PARAMS', route.params);
   console.log('ThreeD', threeDFilePath);
@@ -144,11 +146,51 @@ const ModelVideoScreen = ({navigation, route}) => {
       setDownloading(false);
     }
   };
+  const handleDelete = async (type) => {
+    try {
+      console.log('Request Body:', { id: itemID, type: type }); // Log request body
+
+      const response = await api.post('assets/delete-file', {
+        id: itemID,
+        type: type,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log('Response:', response);
+
+      if (response && response.status === 200) {
+        showSnackbar('Item deleted successfully', 'success');
+        alert('deleted'); // Navigate back after successful delete
+      } else {
+        console.log('r',response);
+        showSnackbar('Failed to delete item', 'error');
+      }
+    } catch (error) {
+      console.error('Error deleting item:', error);
+      showSnackbar('Failed to delete item', 'error');
+    }
+  };
+
 
   return (
     <ScrollView>
       <View style={{flex: 1, backgroundColor: 'white', paddingBottom: 20}}>
         <View style={{backgroundColor: 'white', alignItems: 'center'}}>
+        <TouchableOpacity onPress={() => handleDelete(0)}>
+          {/* Delete entire item */}
+          <Text style={{color:'black'}}>Delete Entire Item</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleDelete(1)}>
+          {/* Delete modal */}
+          <Text style={{color:'black'}}>Delete Modal</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => handleDelete(2)}>
+          {/* Delete video */}
+          <Text style={{color:'black'}}>Delete Video</Text>
+        </TouchableOpacity>
+
           <TouchableOpacity onPress={handleButtonClick}>
             <Image
               source={{uri: thumbnailPath}}
@@ -179,7 +221,7 @@ const ModelVideoScreen = ({navigation, route}) => {
         <TouchableOpacity onPress={handleThumbNailClick}>
           <View style={{alignItems: 'center'}}>
             <Image
-              source={require('../../assets/images/b.png')}
+              source={require('../../assets/images/green-leaves.jpg')}
               style={{
                 width: Dimensions.get('window').width * 0.9,
                 height: Dimensions.get('window').height * 0.28,
