@@ -33,10 +33,9 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.18,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: windowHeight * 0.07,
+    marginTop: windowHeight * 0.01,
   },
-  errorContainer: {height: windowHeight * 0.0289},
-  errorContainerLogin: {height: windowHeight * 0.0589},
+  errorContainer: {height: windowHeight * 0.028},
   password: {
     position: 'absolute',
     // right: "6%",
@@ -81,6 +80,11 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontSize: RFValue(14),
     marginTop: windowHeight * 0.02,
+  },
+  passwordContainer:{
+    width: windowWidth * 0.88,
+    height: windowHeight * 0.18,
+
   },
 });
 export default styles;
