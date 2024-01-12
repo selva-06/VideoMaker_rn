@@ -20,6 +20,7 @@ const VideoPlayerScreen = ({route, navigation}) => {
         thumbnailPath: thumbnailPath,
         originalName: originalName,
         threeDFilePath: threeDFilePath,
+        itemID: itemID,
       });
       return true;
     };
@@ -29,7 +30,7 @@ const VideoPlayerScreen = ({route, navigation}) => {
     );
     return () => backHandler.remove();
   }, [navigation]);
-  const {videoPath, thumbnailPath, originalName, threeDFilePath} = route.params;
+  const {videoPath, thumbnailPath, originalName, threeDFilePath, itemID} = route.params;
   const [isLoading, setIsLoading] = useState(true);
   console.log('ROUTE_PARAMS', route.params);
   const handleLoadStart = () => {
@@ -45,6 +46,7 @@ const VideoPlayerScreen = ({route, navigation}) => {
       thumbnailPath: thumbnailPath,
       originalName: originalName,
       threeDFilePath: threeDFilePath,
+      itemID: itemID,
     });
   };
 

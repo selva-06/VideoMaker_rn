@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const HeaderLeft = ({ navigation, route }) => {
-  const { videoPath, thumbnailPath, originalName, threeDFilePath } = route.params;
+  const { videoPath, thumbnailPath, originalName, threeDFilePath, itemID } = route.params;
 console.log('rrrvideopath',route.params);
   return (
     <TouchableOpacity
@@ -14,6 +14,7 @@ console.log('rrrvideopath',route.params);
           thumbnailPath,
           originalName,
           threeDFilePath,
+          itemID,
         });
       }}
       style={{ paddingRight:10}}
