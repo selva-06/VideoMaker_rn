@@ -7,15 +7,18 @@ import watchFetchListData from '../sagas/ListingSaga';
 import listReducer from './ListingReducer';
 import {watchUploadVideo} from '../sagas/UploadSaga';
 import UploadReducer from './UploadReducer';
+import { watchDeleteItem } from '../sagas/DeleteSaga';
+import deleteReducer from './DeleteReducer';
 
 function* rootSaga() {
-  yield all([authSaga(), watchFetchListData(), watchUploadVideo()]);
+  yield all([authSaga(), watchFetchListData(), watchUploadVideo(),watchDeleteItem()]);
 }
 
 const rootReducer = combineReducers({
   auth: authReducer,
   list: listReducer,
-  upload: UploadReducer, // Add the new reducer
+  upload: UploadReducer,
+  delete: deleteReducer,
 });
 
 export {rootSaga};

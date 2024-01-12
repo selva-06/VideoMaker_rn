@@ -13,14 +13,20 @@ import {
   ActivityIndicator,
   BackHandler,
 } from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import DeleteModal from '../../components/DeleteModal';
 import {WebView} from 'react-native-webview';
 import RNFS from 'react-native-fs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Screen} from 'react-native-screens';
+import {showSnackbar} from '../../store/actions/UploadActions';
+import api from '../../api/ApiKit';
+import {deleteItemRequest} from '../../store/actions/DeleteActions';
+import SnackBarC from '../../components/SnackBarComponent/SnackBar';
 
 const ModelVideoScreen = ({navigation, route}) => {
-  const {videoPath, thumbnailPath, originalName, threeDFilePath} = route.params;
+  const {videoPath, thumbnailPath, originalName, threeDFilePath, itemID} =
+    route.params;
   const [modalVisible, setModalVisible] = useState(false);
   console.log('ROUTE_PARAMS', route.params);
   console.log('ThreeD', threeDFilePath);
@@ -36,6 +42,7 @@ const ModelVideoScreen = ({navigation, route}) => {
       thumbnailPath: thumbnailPath,
       originalName: originalName,
       threeDFilePath: threeDFilePath,
+      itemID: itemID,
     });
   };
 
@@ -47,6 +54,7 @@ const ModelVideoScreen = ({navigation, route}) => {
   const [downloading, setDownloading] = useState(false);
   const [fileDestination, setFileDestination] = useState('');
   const [file, setFile] = useState(false);
+  const {loading, success} = useSelector(state => state.delete);
 
   useEffect(() => {
     const handleBackDevice = () => {
@@ -109,6 +117,7 @@ const ModelVideoScreen = ({navigation, route}) => {
         thumbnailPath: thumbnailPath,
         originalName: originalName,
         threeDFilePath: threeDFilePath,
+        itemID: itemID,
       });
       return;
     }
@@ -145,164 +154,215 @@ const ModelVideoScreen = ({navigation, route}) => {
     }
   };
 
+  const dispatch = useDispatch();
+  const handleDelete = async type => {
+    // try {
+    //   console.log('Request Body:', { id: itemID, type: type }); // Log request body
+
+    //   const response = await api.post('assets/delete-file', {
+    //     id: itemID,
+    //     type: type,
+    //   }, {
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //   });
+    //   console.log('Response:', response);
+    try {
+      console.log('Request Body:', {id: itemID, type: type});
+      dispatch(deleteItemRequest(itemID, type)); // Correct payload structure
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
+
+    //   if (response && response.status === 200) {
+    //     showSnackbar('Item deleted successfully', 'success');
+    //     alert('deleted'); // Navigate back after successful delete
+    //   } else {
+    //     console.log('r',response);
+    //     showSnackbar('Failed to delete item', 'error');
+    //   }
+    // } catch (error) {
+    //   console.error('Error deleting item:', error);
+    //   showSnackbar('Failed to delete item', 'error');
+    // }
+  };
+
   return (
-    <ScrollView>
-      <View style={{flex: 1, backgroundColor: 'white', paddingBottom: 20}}>
-        <View style={{backgroundColor: 'white', alignItems: 'center'}}>
-          <TouchableOpacity onPress={handleButtonClick}>
-            <Image
-              source={{uri: thumbnailPath}}
-              style={{
-                width: Dimensions.get('window').width * 0.9,
-                height: Dimensions.get('window').height * 0.28,
-                borderRadius: 10,
-                borderWidth: 2,
-                marginVertical: 25,
-                marginBottom: 10,
-              }}
-              resizeMode="cover"
-            />
-            <Image
-              source={require('../../assets/images/play.png')}
-              style={{
-                position: 'absolute',
-                width: '100%',
-                height: '20%',
-                top: '45%',
-                alignSelf: 'center',
-              }}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity onPress={handleThumbNailClick}>
-          <View style={{alignItems: 'center'}}>
-            <Image
-              source={require('../../assets/images/b.png')}
-              style={{
-                width: Dimensions.get('window').width * 0.9,
-                height: Dimensions.get('window').height * 0.28,
-                borderRadius: 10,
-                borderWidth: 2,
-                marginVertical: 25,
-                alignSelf: 'center',
-                marginBottom: 10,
-                opacity: file ? 1 : 0.5,
-              }}
-              resizeMode="cover"
-            />
-
-            {downloading && (
-              <View style={{position: 'absolute', padding: 10, top: '45%'}}>
-                <ActivityIndicator
-                  size="800"
-                  color="black"
-                  style={{
-                    alignSelf: 'center',
-                    backgroundColor: 'transparent',
-                    position: 'absolute',
-                    marginLeft: 0,
-                    width: Dimensions.get('window').width * 0.14,
-                    height: Dimensions.get('window').height * 0.07,
-                    // marginTop: '30%',
-                  }}
-                />
-                <Text
-                  style={{
-                    alignSelf: 'center',
-                    color: 'black',
-                    paddingTop: 5,
-                    backgroundColor: 'transparent',
-                    // paddingBottom:10,
-                  }}>{`${downloadProgress}%`}</Text>
+    <>
+      <ScrollView>
+        <View style={{flex: 1, backgroundColor: 'white', paddingBottom: 20}}>
+          <View style={{backgroundColor: 'white', alignItems: 'center'}}>
+            <TouchableOpacity onPress={() => handleDelete(0)}>
+              <Text style={{color: 'black'}}>Delete Entire Item</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleDelete(1)}>
+              <Text style={{color: 'black'}}>Delete Modal</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleDelete(2)}>
+              <Text style={{color: 'black'}}>Delete Video</Text>
+            </TouchableOpacity>
+            {loading && (
+              <View style={{marginTop: 20, backgroundColor: 'green'}}>
+                <ActivityIndicator size="large" color="red" />
               </View>
             )}
 
-            {!downloading && !file && (
-              <Icon
-                name="download-outline"
-                size={50}
-                color="black"
+            <TouchableOpacity onPress={handleButtonClick}>
+              <Image
+                source={{uri: thumbnailPath}}
+                style={{
+                  width: Dimensions.get('window').width * 0.9,
+                  height: Dimensions.get('window').height * 0.28,
+                  borderRadius: 10,
+                  borderWidth: 2,
+                  marginVertical: 25,
+                  marginBottom: 10,
+                }}
+                resizeMode="cover"
+              />
+              <Image
+                source={require('../../assets/images/play.png')}
                 style={{
                   position: 'absolute',
-                  marginLeft: 0,
-                  marginTop: '30%',
+                  width: '100%',
+                  height: '20%',
+                  top: '45%',
+                  alignSelf: 'center',
                 }}
+                resizeMode="contain"
               />
-            )}
+            </TouchableOpacity>
           </View>
-        </TouchableOpacity>
 
-        <Text
-          style={{
-            color: 'black',
-            paddingLeft: 20,
-            fontSize: 20,
-            marginTop: 0,
-            fontWeight: 'bold',
-          }}>
-          {originalName}
-        </Text>
-        {fileDestination ? (
+          <TouchableOpacity onPress={handleThumbNailClick}>
+            <View style={{alignItems: 'center'}}>
+              <Image
+                source={require('../../assets/images/green-leaves.jpg')}
+                style={{
+                  width: Dimensions.get('window').width * 0.9,
+                  height: Dimensions.get('window').height * 0.28,
+                  borderRadius: 10,
+                  borderWidth: 2,
+                  marginVertical: 25,
+                  alignSelf: 'center',
+                  marginBottom: 10,
+                  opacity: file ? 1 : 0.5,
+                }}
+                resizeMode="cover"
+              />
+
+              {downloading && (
+                <View style={{position: 'absolute', padding: 10, top: '45%'}}>
+                  <ActivityIndicator
+                    size="800"
+                    color="black"
+                    style={{
+                      alignSelf: 'center',
+                      backgroundColor: 'transparent',
+                      position: 'absolute',
+                      marginLeft: 0,
+                      width: Dimensions.get('window').width * 0.14,
+                      height: Dimensions.get('window').height * 0.07,
+                      // marginTop: '30%',
+                    }}
+                  />
+                  <Text
+                    style={{
+                      alignSelf: 'center',
+                      color: 'black',
+                      paddingTop: 5,
+                      backgroundColor: 'transparent',
+                      // paddingBottom:10,
+                    }}>{`${downloadProgress}%`}</Text>
+                </View>
+              )}
+
+              {!downloading && !file && (
+                <Icon
+                  name="download-outline"
+                  size={50}
+                  color="black"
+                  style={{
+                    position: 'absolute',
+                    marginLeft: 0,
+                    marginTop: '30%',
+                  }}
+                />
+              )}
+            </View>
+          </TouchableOpacity>
           <Text
             style={{
               color: 'black',
               paddingLeft: 20,
-              fontSize: 18,
+              fontSize: 20,
               marginTop: 0,
-              fontWeight: '400',
-              fontStyle: 'italic',
+              fontWeight: 'bold',
             }}>
-            File already exists at: {fileDestination}
+            {originalName}
           </Text>
-        ) : null}
-        <Text
-          style={{
-            color: 'black',
-            paddingLeft: 20,
-            fontSize: 14,
-            marginTop: 10,
-          }}>
-          By clicking the first item user can view the video captured to convert
-          it into a 3D model. By clicking the second item user can view the 3D
-          model converted according to the video.
-        </Text>
-        <Text
-          style={{
-            color: 'black',
-            paddingLeft: 20,
-            fontSize: 14,
-            marginTop: 10,
-          }}>
-          By clicking the first item user can view the video captured to convert
-          it into a 3D model. By clicking the second item user can view the 3D
-          model converted according to the video.
-        </Text>
-        <Text
-          style={{
-            color: 'black',
-            paddingLeft: 20,
-            fontSize: 14,
-            marginTop: 10,
-          }}>
-          By clicking the first item user can view the video captured to convert
-          it into a 3D model. By clicking the second item user can view the 3D
-          model converted according to the video.
-        </Text>
-        <Text
-          style={{
-            color: 'black',
-            paddingLeft: 20,
-            fontSize: 14,
-            marginTop: 10,
-          }}>
-          By clicking the first item user can view the video captured to convert
-          it into a 3D model. By clicking the second item user can view the 3D
-          model converted according to the video.
-        </Text>
-      </View>
-    </ScrollView>
+          {fileDestination ? (
+            <Text
+              style={{
+                color: 'black',
+                paddingLeft: 20,
+                fontSize: 18,
+                marginTop: 0,
+                fontWeight: '400',
+                fontStyle: 'italic',
+              }}>
+              File already exists at: {fileDestination}
+            </Text>
+          ) : null}
+          <Text
+            style={{
+              color: 'black',
+              paddingLeft: 20,
+              fontSize: 14,
+              marginTop: 10,
+            }}>
+            By clicking the first item user can view the video captured to
+            convert it into a 3D model. By clicking the second item user can
+            view the 3D model converted according to the video.
+          </Text>
+          <Text
+            style={{
+              color: 'black',
+              paddingLeft: 20,
+              fontSize: 14,
+              marginTop: 10,
+            }}>
+            By clicking the first item user can view the video captured to
+            convert it into a 3D model. By clicking the second item user can
+            view the 3D model converted according to the video.
+          </Text>
+          <Text
+            style={{
+              color: 'black',
+              paddingLeft: 20,
+              fontSize: 14,
+              marginTop: 10,
+            }}>
+            By clicking the first item user can view the video captured to
+            convert it into a 3D model. By clicking the second item user can
+            view the 3D model converted according to the video.
+          </Text>
+          <Text
+            style={{
+              color: 'black',
+              paddingLeft: 20,
+              fontSize: 14,
+              marginTop: 10,
+            }}>
+            By clicking the first item user can view the video captured to
+            convert it into a 3D model. By clicking the second item user can
+            view the 3D model converted according to the video.
+          </Text>
+        </View>
+      </ScrollView>
+      <SnackBarC />
+    </>
   );
 };
 

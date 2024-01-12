@@ -15,6 +15,7 @@ const AttachScreen = ({navigation, route}) => {
           thumbnailPath: thumbnailPath,
           originalName: originalName,
           threeDFilePath: threeDFilePath,
+          itemID: itemID,
         });
         return true;
       }
@@ -27,12 +28,12 @@ const AttachScreen = ({navigation, route}) => {
     return () => backHandler.remove();
   }, [navigation]);
 
-  const {downloadDest, originalName, thumbnailPath, videoPath, threeDFilePath} =
+  const {downloadDest, originalName, thumbnailPath, videoPath, threeDFilePath, itemID} =
     route.params;
   console.log('download', route.params);
   return (
     <WebView
-      source={{uri: 'https://ravimk001.github.io/usdz-web-viewer/'}}
+      source={{uri: 'https://raviusdz.netlify.app/'}}
       // source={{uri: `file://${downloadDest}`}}
 
       // allowFileAccess={true}

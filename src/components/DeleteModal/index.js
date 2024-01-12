@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   View,
   TouchableOpacity,
@@ -6,15 +7,43 @@ import {
   Text,
   Modal,
   Dimensions,
+  ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { deleteItemRequest } from '../../store/actions/DeleteActions';
 
-const DeleteModal = () => {
+const DeleteModal = ({route}) => {
   const [modalVisible, setModalVisible] = useState(false);
+ console.log(route.params);
+ const {itemID} = route.params;
+
+ const dispatch = useDispatch();
+ const { loading, success } = useSelector(state => state.delete);
+
 
   const handleDeleteClick = () => {
     setModalVisible(true);
+    console.log(itemID);
   };
+
+  const handleDelete = async (type) => {
+    try{
+      console.log("RequestBody",  itemID, type);
+      dispatch(deleteItemRequest(itemID,type));
+      // if(type === 0){
+      // alert('Item deleted successfully');}
+      // else if(type === 1){
+      //   alert('Video deleted successfully');
+      // }else if (type=== 2){
+      //   alert('Model deleted successfully');
+      // }
+      setModalVisible(false);
+    }
+    catch(error){
+      console.error('error deleting item',error);
+      alert(error);
+    }
+  } 
 
   const handleDeleteVideo = () => {
     alert('Video deleted successfully');
@@ -86,7 +115,7 @@ const DeleteModal = () => {
                 width: Dimensions.get('window').width * 0.82,
                 height: 1,
               }}></View>
-            <TouchableOpacity onPress={handleDeleteVideo} style={{padding: 8}}>
+            <TouchableOpacity onPress={() => handleDelete(1)} style={{padding: 8}}>
               <Text
                 style={{
                   color: 'red',
@@ -104,7 +133,7 @@ const DeleteModal = () => {
                 height: 1,
               }}></View>
 
-            <TouchableOpacity onPress={handleDeleteModal} style={{padding: 8}}>
+            <TouchableOpacity onPress={() => handleDelete(2)} style={{padding: 8}}>
               <Text
                 style={{
                   color: 'red',
@@ -122,7 +151,7 @@ const DeleteModal = () => {
                 height: 1,
               }}></View>
 
-            <TouchableOpacity onPress={handleDeleteBoth} style={{padding: 8}}>
+            <TouchableOpacity onPress={() => handleDelete(0)}style={{padding: 8}}>
               <Text
                 style={{
                   color: 'red',
@@ -130,7 +159,7 @@ const DeleteModal = () => {
                   fontWeight: 'bold',
                   padding: 5,
                 }}>
-                Delete Both Model & Video
+                Delete Entire Item
               </Text>
             </TouchableOpacity>
             <View
@@ -153,6 +182,11 @@ const DeleteModal = () => {
           </View>
         </View>
       </Modal>
+      {/* {loading && (
+        <View style={{ marginTop: 20 }}>
+          <ActivityIndicator size="large" color="red" />
+        </View>
+      )} */}
     </>
   );
 };

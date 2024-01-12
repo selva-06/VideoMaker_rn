@@ -25,7 +25,7 @@ api.interceptors.request.use(
     return config;
   },
   error => {
-    alert('Promise Rejected');
+    // alert('Promise Rejected');
     return Promise.reject(error);
   },
 );
@@ -34,12 +34,12 @@ api.interceptors.response.use(
     console.log('APIINTERCEPTORSRESPONSE', response.status);
     if (response.status === 200) {
       // navigate('Profile', {});
-      alert('status code is 200');
+      // alert('status code is 200');
 
     } else {
       console.log('response-------------401', response);
       navigate('Profile', {});
-      alert('status code is 401');
+      // alert('status code is 401');
       console.log('response-------------401', response);
     }
 
@@ -47,7 +47,7 @@ api.interceptors.response.use(
   },
   error => {
     if (error.response && error.response.status === 401) {
-      alert('status code is 401');
+      // alert('status code is 401');
       console.log('response-------------401', error.response);
       // navigate('Profile', {});
       console.log('aSYNC', AsyncStorage.getItem('token'));
@@ -69,7 +69,7 @@ api.interceptors.response.use(
         .then(userData => {
           if (userData === null) {
             console.log('UserData has been removed from AsyncStorage');
-            alert('UserData has been removed from AsyncStorage');
+            // alert('UserData has been removed from AsyncStorage');
           } else {
             console.log('UserData still exists in AsyncStorage:', userData);
           }
@@ -81,7 +81,7 @@ api.interceptors.response.use(
     }
     if (error.response && error.response.data) {
       console.log('rrrrrrrrrrrrrrrrrrr', error.response);
-      alert('status code is 401');
+      // alert('status code is 401');
       // return Promise.reject(error.response.data); 
       return Promise.resolve();
     }

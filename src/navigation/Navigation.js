@@ -128,7 +128,7 @@ const AppNavigator = () => {
       <Stack.Screen
         name="ModelVideoScreen"
         component={ModelVideoScreen}
-        options={({navigation}) => ({
+        options={({navigation, route}) => ({
           headerShown: true,
           headerStyle: {
             backgroundColor: '#444444',
@@ -147,7 +147,7 @@ const AppNavigator = () => {
           ),
           headerRight: () => (
             <View>
-              <DeleteModal />
+              <DeleteModal route={route}/>
             </View>
           ),
         })}
