@@ -16,6 +16,7 @@ const AttachScreen = ({navigation, route}) => {
           originalName: originalName,
           threeDFilePath: threeDFilePath,
           itemID: itemID,
+          itemDescription: itemDescription,
         });
         return true;
       }
@@ -28,7 +29,7 @@ const AttachScreen = ({navigation, route}) => {
     return () => backHandler.remove();
   }, [navigation]);
 
-  const {downloadDest, originalName, thumbnailPath, videoPath, threeDFilePath, itemID} =
+  const {downloadDest, originalName, thumbnailPath, videoPath, threeDFilePath, itemID, itemDescription} =
     route.params;
   console.log('download', route.params);
   return (

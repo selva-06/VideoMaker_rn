@@ -16,6 +16,8 @@ import UploadModal from '../ProgressLoaderComponent/ProgressLoader';
 import {listingstyles} from './styles';
 import {RFValue} from 'react-native-responsive-fontsize';
 import LinearGradient from 'react-native-linear-gradient';
+import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
+
 const Listing = ({navigation}) => {
   const dispatch = useDispatch();
   const data = useSelector(state => state.list.listData); // Updated reducer reference
@@ -30,6 +32,15 @@ const Listing = ({navigation}) => {
       // alert('dispatch');
     }
   }, [dispatch, uploading]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (!uploading) {
+        dispatch(fetchListData());
+      }
+    }, [dispatch, uploading])
+  );
+
 
   const handleRefresh = () => {
     setRefreshing(true);
@@ -59,6 +70,7 @@ const Listing = ({navigation}) => {
         thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
         originalName: item.originalName,
         threeDFilePath: `http://34.234.122.64/${item.threeDFilePath}`,
+        itemDescription: item.description,
       });
     } else {
       console.log('notexists', item.threeDFilePath);
@@ -69,6 +81,7 @@ const Listing = ({navigation}) => {
         thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
         originalName: item.originalName,
         threeDFilePath: ``,
+        itemDescription: item.description,
       });
     }
   };
