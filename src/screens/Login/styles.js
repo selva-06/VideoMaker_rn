@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   password: {
     position: 'absolute',
     // right: "6%",
-    // top: '16%',
+    top: '25%',
     height: windowHeight * 0.16,
     right: windowWidth * 0.06,
   },

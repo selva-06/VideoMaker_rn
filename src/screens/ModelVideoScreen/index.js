@@ -25,7 +25,7 @@ import {deleteItemRequest} from '../../store/actions/DeleteActions';
 import SnackBarC from '../../components/SnackBarComponent/SnackBar';
 
 const ModelVideoScreen = ({navigation, route}) => {
-  const {videoPath, thumbnailPath, originalName, threeDFilePath, itemID} =
+  const {videoPath, thumbnailPath, originalName, threeDFilePath, itemID, itemDescription} =
     route.params;
   const [modalVisible, setModalVisible] = useState(false);
   console.log('ROUTE_PARAMS', route.params);
@@ -43,6 +43,7 @@ const ModelVideoScreen = ({navigation, route}) => {
       originalName: originalName,
       threeDFilePath: threeDFilePath,
       itemID: itemID,
+      itemDescription: itemDescription,
     });
   };
 
@@ -190,10 +191,10 @@ const ModelVideoScreen = ({navigation, route}) => {
 
   return (
     <>
-      <ScrollView>
+      <ScrollView style={{backgroundColor:'white'}}>
         <View style={{flex: 1, backgroundColor: 'white', paddingBottom: 20}}>
           <View style={{backgroundColor: 'white', alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => handleDelete(0)}>
+            {/* <TouchableOpacity onPress={() => handleDelete(0)}>
               <Text style={{color: 'black'}}>Delete Entire Item</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleDelete(1)}>
@@ -201,13 +202,13 @@ const ModelVideoScreen = ({navigation, route}) => {
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleDelete(2)}>
               <Text style={{color: 'black'}}>Delete Video</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {loading && (
               <View style={{marginTop: 20, backgroundColor: 'green'}}>
                 <ActivityIndicator size="large" color="red" />
               </View>
             )}
-
+{videoPath && (
             <TouchableOpacity onPress={handleButtonClick}>
               <Image
                 source={{uri: thumbnailPath}}
@@ -233,12 +234,13 @@ const ModelVideoScreen = ({navigation, route}) => {
                 resizeMode="contain"
               />
             </TouchableOpacity>
+  )}
           </View>
-
+{threeDFilePath && (
           <TouchableOpacity onPress={handleThumbNailClick}>
             <View style={{alignItems: 'center'}}>
               <Image
-                source={require('../../assets/images/green-leaves.jpg')}
+                source={require('../../assets/images/3dmodel.png')}
                 style={{
                   width: Dimensions.get('window').width * 0.9,
                   height: Dimensions.get('window').height * 0.28,
@@ -292,6 +294,7 @@ const ModelVideoScreen = ({navigation, route}) => {
               )}
             </View>
           </TouchableOpacity>
+)}
           <Text
             style={{
               color: 'black',
@@ -322,42 +325,7 @@ const ModelVideoScreen = ({navigation, route}) => {
               fontSize: 14,
               marginTop: 10,
             }}>
-            By clicking the first item user can view the video captured to
-            convert it into a 3D model. By clicking the second item user can
-            view the 3D model converted according to the video.
-          </Text>
-          <Text
-            style={{
-              color: 'black',
-              paddingLeft: 20,
-              fontSize: 14,
-              marginTop: 10,
-            }}>
-            By clicking the first item user can view the video captured to
-            convert it into a 3D model. By clicking the second item user can
-            view the 3D model converted according to the video.
-          </Text>
-          <Text
-            style={{
-              color: 'black',
-              paddingLeft: 20,
-              fontSize: 14,
-              marginTop: 10,
-            }}>
-            By clicking the first item user can view the video captured to
-            convert it into a 3D model. By clicking the second item user can
-            view the 3D model converted according to the video.
-          </Text>
-          <Text
-            style={{
-              color: 'black',
-              paddingLeft: 20,
-              fontSize: 14,
-              marginTop: 10,
-            }}>
-            By clicking the first item user can view the video captured to
-            convert it into a 3D model. By clicking the second item user can
-            view the 3D model converted according to the video.
+            {itemDescription ? itemDescription : 'DESCRIPTION'}
           </Text>
         </View>
       </ScrollView>

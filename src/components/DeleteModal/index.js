@@ -11,11 +11,23 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { deleteItemRequest } from '../../store/actions/DeleteActions';
+import RNFS from 'react-native-fs';
 
 const DeleteModal = ({route}) => {
   const [modalVisible, setModalVisible] = useState(false);
  console.log(route.params);
- const {itemID} = route.params;
+ const {itemID, threeDFilePath} = route.params;
+ const parts = threeDFilePath.split('/');
+  const fileName = parts[parts.length - 1];
+
+  console.log('fn', fileName);
+
+  const downloadDest = RNFS.DocumentDirectoryPath + '/' + fileName;
+
+    // const fileExists = RNFS.exists(downloadDest);
+    // console.log('ex!!!!!!',fileExists);
+    console.log('File 1111111:', downloadDest);
+
 
  const dispatch = useDispatch();
  const { loading, success } = useSelector(state => state.delete);
@@ -30,6 +42,20 @@ const DeleteModal = ({route}) => {
     try{
       console.log("RequestBody",  itemID, type);
       dispatch(deleteItemRequest(itemID,type));
+      if(type === 1){
+        alert('Item deleted successfully');
+      console.log("CCCCCCCCCCCCCCCCCCCCCC");
+      const fileExists = await RNFS.exists(downloadDest);
+      console.log('iiiiiiiiiiiiiiiiiiii',fileExists);
+      if (fileExists) {
+        await RNFS.unlink(downloadDest);
+        console.log('wuunnnnnnnnn',fileExists);
+        console.log("CALLLED");
+        console.log('File deleted successfully');
+      } else {
+        console.log('File not found for deletion');
+      }
+    }
       // if(type === 0){
       // alert('Item deleted successfully');}
       // else if(type === 1){
