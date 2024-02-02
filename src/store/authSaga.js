@@ -15,7 +15,7 @@ import api from '../api/ApiKit';
 function* loginUser(action) {
   try {
     const loginAPI = async (username, password) => {
-      console.log('LOGINAPI triggered');
+      // console.log('LOGINAPI triggered');
       try {
         const response = await api.post(
           'auth/login',
@@ -26,7 +26,7 @@ function* loginUser(action) {
             },
           },
         );
-        console.log('response.data', response.data);
+        // console.log('response.data', response.data);
         if (response.status === 200 && response.data.user && response.data.user.success) {
           return response.data;
         }
@@ -40,27 +40,19 @@ function* loginUser(action) {
     const {username, password, navigation} = action.payload;
 
     const data = yield call(loginAPI, username, password);
-    console.log('FAILEDATA', data);
-    console.log('Success');
     yield put(loginSuccess(data));
-    console.log('Success');
     yield put(setToken(data.user.token));
-    console.log('TOKEN PRESENt', data.user.token);
     yield call(() =>
       navigation.navigate('MainTab', {
         screen: 'Home',
       }),
     );
-    // navigation.navigate('MainTab', {
-    //   screen: 'Home',
-    // });
+   
     yield AsyncStorage.setItem('token', data.user.token);
     yield AsyncStorage.setItem('userData', JSON.stringify(data.user));
     // Check if the token is stored in AsyncStorage
     const storedToken = yield AsyncStorage.getItem('token');
     const storedUser = yield AsyncStorage.getItem('userData');
-    console.log('STored info:', storedUser);
-    console.log('Stored token:', storedToken);
   } catch (error) {
     console.log('Fail');
     yield put(loginFailure(error.message));
