@@ -21,6 +21,8 @@ api.interceptors.request.use(
       }
     } catch (error) {
       console.log('API FETCH ERROR', error);
+      return Promise.reject(error);
+
     }
     return config;
   },
@@ -86,7 +88,7 @@ api.interceptors.response.use(
       return Promise.resolve();
     }
     console.log('E111111111111111111rror:', error);
-    return Promise.resolve(); 
+    return Promise.reject(error); 
   },
 );
 

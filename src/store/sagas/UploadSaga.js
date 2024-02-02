@@ -7,7 +7,6 @@ import {
   showSnackbar,
   hideSnackbar,
 } from '../actions/UploadActions';
-import {uploadFile} from '../../api/ApiKit';
 import store from '../Store';
 import api from '../../api/ApiKit';
 function* uploadVideo(action) {

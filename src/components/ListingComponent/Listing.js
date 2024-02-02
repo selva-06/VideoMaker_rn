@@ -67,7 +67,7 @@ const Listing = ({navigation}) => {
       navigation.navigate('ModelVideoScreen', {
         videoPath: item.videoPath,
         itemID: item._id,
-        thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
+        thumbnailPath: `http://34.234.122.64/${item.videoThumbnail}`,
         originalName: item.originalName,
         threeDFilePath: `http://34.234.122.64/${item.threeDFilePath}`,
         itemDescription: item.description,
@@ -78,7 +78,7 @@ const Listing = ({navigation}) => {
       navigation.navigate('ModelVideoScreen', {
         videoPath: item.videoPath,
         itemID: item._id,
-        thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
+        thumbnailPath: `http://34.234.122.64/${item.videoThumbnail}`,
         originalName: item.originalName,
         threeDFilePath: ``,
         itemDescription: item.description,
@@ -114,7 +114,7 @@ const Listing = ({navigation}) => {
             if (item && item.thumbnail) {
               console.log(
                 'Thumbnail URI:',
-                `http://34.234.122.64/${item.thumbnail}`,
+                `http://34.234.122.64/${item.videoThumbnail}`,
                 `http://34.234.122.64/${item.threeDFilePath}`,
               );
             }
@@ -135,7 +135,7 @@ const Listing = ({navigation}) => {
                 }}>
                 <Image
                   source={{
-                    uri: `http://34.234.122.64/${item.thumbnail}`,
+                    uri: `http://34.234.122.64/${item.videoThumbnail}`,
                   }}
                   style={{
                     height: imageSize,
