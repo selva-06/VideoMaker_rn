@@ -175,60 +175,7 @@ const Listing = ({navigation}) => {
                   </LinearGradient>
                 </View>
               </TouchableOpacity>
-              //               <TouchableOpacity
-              //   onPress={() => handleItemPress(item)}
-              //   style={{
-              //     width: imageSize,
-              //     height: imageSize,
-              //     margin: 5,
-              //     marginBottom: 10,
-              //     marginHorizontal: 10,
-              //     marginTop: 10,
-              //     borderRadius: 8, // Apply border radius to the TouchableOpacity
-              //     borderWidth: 1,
-              //     overflow: 'hidden', // Clip child components to the border radius
-              //     elevation: 10,
-              //     shadowColor: 'black',
-              //     shadowRadius: 20,
-              //     justifyContent: 'center',
-              //     // alignItems: 'center', // Center content horizontally
-
-              //   }}
-              // >
-              //   <ImageBackground
-              //     source={{ uri: `http://34.234.122.64/${item.thumbnail}` }}
-              //     style={{
-              //       flex: 1,
-              //       borderRadius: 8,
-              //       justifyContent: 'flex-end', // Align the linear gradient to the bottom
-              //     }}
-              //     resizeMode="cover"
-              //     imageStyle={{ borderRadius: 8 }} // Apply border radius to the image
-              //   >
-              //     <LinearGradient
-              //       colors={['transparent', 'rgba(0,0,0,0.7)']} // Gradient colors and opacity
-              //       style={{
-              //         flex: 1,
-
-              //         justifyContent: 'center',
-              //                       alignItems: 'center',
-              //                       borderRadius: 8,
-              //     }}
-              //     >
-              // <Text
-              //                       style={{
-              //                         color: 'white',
-              //                         marginTop: 20,
-              //                         fontSize: RFValue(12),
-              //                         fontFamily: 'Poppins-Medium',
-              //                         paddingRight: 30,
-              //                         // fontStyle:'italic',
-              //                         // textAlign: 'center',
-              //                       }}>        {item.originalName}
-              //       </Text>
-              //     </LinearGradient>
-              //   </ImageBackground>
-              // </TouchableOpacity>
+            
             );
           }}
           // keyExtractor={item => item.id.toString()}

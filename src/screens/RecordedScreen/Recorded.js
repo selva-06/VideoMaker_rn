@@ -150,7 +150,10 @@ function RecordedVideoScreen({route, navigation}) {
                     alert('Please enter both video name and description.');
                     setModalVisible(true);
                   } else {
+                    // setModalVisible(false);
                     uploadVideo();
+                    
+
                   }
                 }}
                 disabled={uploading}>
