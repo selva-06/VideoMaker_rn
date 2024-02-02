@@ -13,6 +13,7 @@ function* uploadVideo(action) {
   try {
     const uploadFile = async (payload, onUploadProgress) => {
       const config = {
+        timeout: 2000,
         headers: {
           platform: 'react',
         },
@@ -25,7 +26,14 @@ function* uploadVideo(action) {
         console.log('Upload successful! Response:', response.data);
         return response;
       } catch (error) {
-        console.error('Upload failed. Error:', error);
+        console.error('Upload failed. Error:', error.response);
+        if (error.code === 'ECONNABORTED') {
+          console.log('POST Request timed out');
+          alert('Timed Out');
+        } else {
+          console.error('POST Request Error:', error.response);
+        }
+      
         throw error;
       }
     };
@@ -72,3 +80,5 @@ function onUploadProgress(progressEvent) {
 export function* watchUploadVideo() {
   yield takeLatest(UPLOAD_VIDEO_REQUEST, uploadVideo);
 }
+
+

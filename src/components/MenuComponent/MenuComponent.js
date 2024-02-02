@@ -1,3 +1,5 @@
+
+
 /* eslint-disable prettier/prettier */
 import React, {useState} from 'react';
 import {TouchableOpacity, View, TextInput, Button, Modal,Text} from 'react-native';
@@ -8,7 +10,6 @@ import {uploadVideoRequest} from '../../store/actions/UploadActions';
 import {strings} from '../../util/Strings';
 import {menuStyles} from './styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import VideoDetailsModal from '../NameDescriptionModal';
 
 const MenuComponent = ({navigation}) => {
   const dispatch = useDispatch();
@@ -51,7 +52,9 @@ const MenuComponent = ({navigation}) => {
     closeMenu();
   };
 
-  const uploadVideo = () => {
+  const uploadVideo = async () => {
+    try {
+
     if (!videoName.trim() || !videoDescription.trim()) {
       console.log('Please enter both video name and description.');
       alert('Please enter both video name and description.');
@@ -67,10 +70,15 @@ const MenuComponent = ({navigation}) => {
     formData.append('name', videoName);
     formData.append('description', videoDescription);
 
-    dispatch(uploadVideoRequest(formData));
+    await dispatch(uploadVideoRequest(formData));
     setModalVisible(false);
     setVideoDescription('');
     setVideoName('');
+  }
+  catch(error){
+    console.error('Error uploading video:', error);
+
+  }
   };
 
   const navigateToCameraScreen = () => {

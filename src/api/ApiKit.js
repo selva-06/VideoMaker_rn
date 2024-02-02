@@ -8,6 +8,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'multipart/form-data',
   },
+  timeout: 1500,
 });
 
 api.interceptors.request.use(
@@ -28,7 +29,13 @@ api.interceptors.request.use(
   },
   error => {
     // alert('Promise Rejected');
+    if (error.code === 'ECONNABORTED') {
+      console.log('Request timed out111111');
+      // Handle timeout error, show timeout message and retry logic
+      alert('Timed Out');
+    }
     return Promise.reject(error);
+
   },
 );
 api.interceptors.response.use(
@@ -48,6 +55,12 @@ api.interceptors.response.use(
     return response;
   },
   error => {
+    if (error.code === 'ECONNABORTED') {
+      console.log('Request timed out');
+      // Handle timeout error, show timeout message and retry logic
+      alert('Timed Out');
+    }
+
     if (error.response && error.response.status === 401) {
       // alert('status code is 401');
       console.log('response-------------401', error.response);
