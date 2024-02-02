@@ -19,7 +19,7 @@ const DeleteModal = ({route}) => {
  const {itemID, threeDFilePath} = route.params;
  const parts = threeDFilePath.split('/');
   const fileName = parts[parts.length - 1];
-
+  
   console.log('fn', fileName);
 
   const downloadDest = RNFS.DocumentDirectoryPath + '/' + fileName;
@@ -38,53 +38,73 @@ const DeleteModal = ({route}) => {
     console.log(itemID);
   };
 
+  // const handleDelete = async (type) => {
+  //   try{
+  //     console.log("RequestBody",  itemID, type);
+  //     dispatch(deleteItemRequest(itemID,type));
+  //     if(type === 2){
+  //       // alert('Item deleted successfully');
+  //     alert("CCCCCCCCCCCCCCCCCCCCCC");
+  //     const fileExists = await RNFS.exists(downloadDest);
+  //     alert('iiiiiiiiiiiiiiiiiiii',downloadDest);
+  //     if (fileExists && !fileName.trim()) {
+  //       await RNFS.unlink(downloadDest);
+  //       console.log('wuunnnnnnnnn',fileExists);
+  //       console.log("CALLLED");
+  //       console.log('File deleted successfully');
+  //     } else {
+  //       alert('File not found for deletion');
+  //     }
+  //   }
+  //     // if(type === 0){
+  //     // alert('Item deleted successfully');}
+  //     // else if(type === 1){
+  //     //   alert('Video deleted successfully');
+  //     // }else if (type=== 2){
+  //     //   alert('Model deleted successfully');
+  //     // }
+  //     setModalVisible(false);
+  //   }
+  //   catch(error){
+  //     console.error('error deleting item',error);
+  //     alert(error);
+  //   }
+  // } 
+
   const handleDelete = async (type) => {
-    try{
-      console.log("RequestBody",  itemID, type);
-      dispatch(deleteItemRequest(itemID,type));
-      if(type === 1){
-        alert('Item deleted successfully');
-      console.log("CCCCCCCCCCCCCCCCCCCCCC");
-      const fileExists = await RNFS.exists(downloadDest);
-      console.log('iiiiiiiiiiiiiiiiiiii',fileExists);
-      if (fileExists) {
-        await RNFS.unlink(downloadDest);
-        console.log('wuunnnnnnnnn',fileExists);
-        console.log("CALLLED");
-        console.log('File deleted successfully');
-      } else {
-        console.log('File not found for deletion');
+    try {
+      console.log("RequestBody", itemID, type);
+      dispatch(deleteItemRequest(itemID, type));
+      if (!downloadDest.trim()) {
+      if (type === 2) {
+        alert("CCCCCCCCCCCCCCCCCCCCCC");
+  
+        if (!downloadDest.trim()) {
+          alert('Destination is empty. Cannot delete cache.');
+        } else {
+          const fileExists = await RNFS.exists(downloadDest);
+          alert('iiiiiiiiiiiiiiiiiiii', downloadDest);
+  
+          if (fileExists) {
+            await RNFS.unlink(downloadDest);
+            console.log('wuunnnnnnnnn', fileExists);
+            console.log("CALLLED");
+            console.log('File deleted successfully');
+          } else {
+            alert('File not found for deletion');
+          }
+        }
       }
-    }
-      // if(type === 0){
-      // alert('Item deleted successfully');}
-      // else if(type === 1){
-      //   alert('Video deleted successfully');
-      // }else if (type=== 2){
-      //   alert('Model deleted successfully');
-      // }
+    }else{alert('dsjfsdhi')};
       setModalVisible(false);
-    }
-    catch(error){
-      console.error('error deleting item',error);
+    } catch (error) {
+      console.error('error deleting item', error);
       alert(error);
     }
-  } 
+  }
+  
 
-  const handleDeleteVideo = () => {
-    alert('Video deleted successfully');
-    setModalVisible(false);
-  };
 
-  const handleDeleteModal = () => {
-    alert('Modal deleted successfully');
-    setModalVisible(false);
-  };
-
-  const handleDeleteBoth = () => {
-    alert('Both Video & modal are deleted successfully');
-    setModalVisible(false);
-  };
 
   const closeModal = () => {
     setModalVisible(false);

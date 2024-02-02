@@ -62,11 +62,12 @@ function RecordedVideoScreen({route, navigation}) {
     formData.append('description', videoDescription);
 
     dispatch(uploadVideoRequest(formData));
-    navigation.replace('MainTab');
+    setModalVisible(false);
+    navigation.navigate('MainTab',{screen: 'Home'});
   };
 
   const navigateToHomeScreen = () => {
-    navigation.replace('MainTab');
+    navigation.navigate('MainTab',{screen: 'Home'});
   };
 
   return (
@@ -94,7 +95,8 @@ function RecordedVideoScreen({route, navigation}) {
               uploadVideo();
             }
           }}
-          disabled={uploading}>
+          // disabled={uploading}
+          >
           <Image
             source={require('../../assets/images/uploadTick.png')}
             style={styles.imageStyleClose}

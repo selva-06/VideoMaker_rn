@@ -8,7 +8,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'multipart/form-data',
   },
-  timeout: 1500,
+  timeout: 20000000,
 });
 
 api.interceptors.request.use(

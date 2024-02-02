@@ -13,7 +13,7 @@ function* uploadVideo(action) {
   try {
     const uploadFile = async (payload, onUploadProgress) => {
       const config = {
-        timeout: 2000,
+        timeout: 200000,
         headers: {
           platform: 'react',
         },

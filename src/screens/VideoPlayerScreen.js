@@ -41,7 +41,7 @@ const VideoPlayerScreen = ({route, navigation}) => {
     setIsLoading(false);
   };
   const navigateToHome = () => {
-    navigation.replace('ModelVideoScreen', {
+    navigation.navigate('ModelVideoScreen', {
       videoPath: videoPath,
       thumbnailPath: thumbnailPath,
       originalName: originalName,
@@ -95,7 +95,7 @@ const VideoPlayerScreen = ({route, navigation}) => {
       <TouchableOpacity
         style={{
           position: 'absolute',
-          top: '2%',
+          top: '20%',
           left: '7%',
           backgroundColor: 'rgba(195, 232, 47,0.7)',
           padding: 10,

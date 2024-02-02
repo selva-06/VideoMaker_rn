@@ -136,6 +136,10 @@ function Cameraa({ navigation }) {
     }
     console.log(torch);
   };
+
+  const fileUriPrefix = Platform.OS === 'android' ? 'file://' : '';
+
+
   const switchCamera = () => {
     if (devices.length > 1 && selectedDevice) {
       const currentIndex = devices.findIndex(
@@ -195,7 +199,7 @@ function Cameraa({ navigation }) {
           },
           onRecordingFinished: async video => {
             setIsRecording(false);
-            setVideoSource('file://' + video.path);
+            setVideoSource(fileUriPrefix + video.path);
             console.log('video FIIIIIILLLEEEE' + 'file://' + video.path);
             setShowRecordedVideo(true);
             console.log('Finished recording:', video, video.duration);
@@ -203,7 +207,7 @@ function Cameraa({ navigation }) {
             const videoDuration = video.duration; // Assuming video.duration gives the duration
             if (videoDuration < 10) {
               try {
-                await deleteVideo('file://' + video.path);
+                await deleteVideo(fileUriPrefix+ video.path);
                 console.log(
                   'Video deleted as duration was less than 10 seconds',
                 );
@@ -216,13 +220,13 @@ function Cameraa({ navigation }) {
               } catch (error) {
                 console.error('Error deleting video:', error);
                 navigation.replace('Recorded', {
-                  videoSource: 'file://' + video.path,
+                  videoSource: fileUriPrefix + video.path,
                   videoDuration: videoDuration, // Pass video duration as a parameter
                 });
               }
             } else {
               navigation.replace('Recorded', {
-                videoSource: 'file://' + video.path,
+                videoSource: fileUriPrefix + video.path,
                 videoDuration: videoDuration, // Pass video duration as a parameter
               }); // Proceed with original function if video duration is not less than 10 seconds
             }
@@ -317,7 +321,7 @@ function Cameraa({ navigation }) {
       <View style={styles.closeContainer}>
         <TouchableOpacity
           style={[styles.iconspace]}
-          onPress={() => navigation.goBack()}>
+          onPress={navigateToHomeScreen}>
           <Image
             source={require('../../assets/images/close.png')}
             style={styles.imageStyleClose}
