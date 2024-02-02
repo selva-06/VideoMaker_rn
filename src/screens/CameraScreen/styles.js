@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {StyleSheet, Dimensions} from 'react-native';
+import {StyleSheet, Dimensions, Platform} from 'react-native';
 let {height, width} = Dimensions.get('window');
 console.log("SCRENNNNNNN-11-", height,width);
 const styles = StyleSheet.create({
@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         // padding:0,
         // margin:0,
         // position: 'absolute',
-        // borderWidth: 1
+        // borderWidth: 1,
+
 
       },
       bottombuttonContainer: {width: width * 0.2},
@@ -51,6 +52,7 @@ const styles = StyleSheet.create({
       imageStyleClose: {
         width: 25,
         height: 25,
+        marginTop: 20
       },
 
       buttonText: {

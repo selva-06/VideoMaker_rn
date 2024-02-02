@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   StyleSheet,
@@ -17,12 +17,12 @@ import {
   useCameraDevices,
   useCameraFormat,
 } from 'react-native-vision-camera';
-import {PERMISSIONS, request} from 'react-native-permissions';
+import { PERMISSIONS, request } from 'react-native-permissions';
 import Video from 'react-native-video';
 import axios from 'axios';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
-import {RFValue} from 'react-native-responsive-fontsize';
+import { RFValue } from 'react-native-responsive-fontsize';
 import RNFS from 'react-native-fs'; // Import react-native-fs
 async function requestPermissions() {
   try {
@@ -62,7 +62,7 @@ async function requestPermissions() {
   }
 }
 
-function Cameraa({navigation}) {
+function Cameraa({ navigation }) {
   const camera = useRef(null);
   const devices = useCameraDevices();
   // const backCameras = devices.filter(device => device.position === 'back');
@@ -100,12 +100,12 @@ function Cameraa({navigation}) {
     );
 
     return () => backHandler.remove(); // Cleanup the event listener on unmount
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigation, isRecording]);
 
   useEffect(() => {
     console.log('Devices:', devices);
-  console.log('Selected Device:', selectedDevice);
+    console.log('Selected Device:', selectedDevice);
     async function setup() {
       await requestPermissions();
       if (devices && devices.length > 0) {
@@ -118,7 +118,7 @@ function Cameraa({navigation}) {
     setShowModal(true);
   }, [devices]);
   const format = useCameraFormat(selectedDevice, [
-    {videoResolution: {width: 1280, height: 720}, pixelFormat: 'native'},
+    { videoResolution: { width: 1280, height: 720 }, pixelFormat: 'native' },
   ]);
   // const format = useCameraFormat(selectedDevice, [   { videoResolution: { width: 1920, height: 1080 }, pixelFormat: 'native' },  { videoResolution: { width: 1280, height: 720 }, pixelFormat: 'native' },   { videoResolution: { width: 640, height: 480 }, pixelFormat: 'native' }, ]);
   const closeModal = () => {
@@ -196,7 +196,7 @@ function Cameraa({navigation}) {
           onRecordingFinished: async video => {
             setIsRecording(false);
             setVideoSource('file://' + video.path);
-            console.log('video FIIIIIILLLEEEE'+ 'file://' +video.path);
+            console.log('video FIIIIIILLLEEEE' + 'file://' + video.path);
             setShowRecordedVideo(true);
             console.log('Finished recording:', video, video.duration);
             clearTimeout(recordingTimeout); // Clear the automatic stop timeout on manual stop
@@ -271,53 +271,53 @@ function Cameraa({navigation}) {
   return (
     <View style={styles.container}>
       {selectedDevice !== null && (
-            <Camera
-              ref={camera}
-              style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                top: '10%',
-                bottom: '20%',
-              }}
-              device={selectedDevice}
-              isActive={true}
-              video={true}
-              format={format}
-              enableZoomGesture={true}
-              torch={torch}
-            />
-          )}
-          
-          
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.iconspace} onPress={toggletorch}>
-                <Icon
-                  name={torch === 'on' ? 'flash-off-outline' : 'flash-outline'}
-                  size={30}
-                  color="white"
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-              style={styles.iconspacerec} 
-                onPress={toggleRecording}>
-                <Image
-                  source={
-                    isRecording
-                      ? require('../../assets/images/recordstop.png')
-                      : require('../../assets/images/record.png')
-                  }
-                  style={styles.imageStyle}
-                />
-              </TouchableOpacity>
-              <View style={styles.bottombuttonContainer} />
-            </View>
+        <Camera
+          ref={camera}
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: '10%',
+            bottom: '20%',
+          }}
+          device={selectedDevice}
+          isActive={true}
+          video={true}
+          format={format}
+          enableZoomGesture={true}
+          torch={torch}
+        />
+      )}
 
 
-          <View style={styles.closeContainer}>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.iconspace} onPress={toggletorch}>
+          <Icon
+            name={torch === 'on' ? 'flash-off-outline' : 'flash-outline'}
+            size={30}
+            color="white"
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.iconspacerec}
+          onPress={toggleRecording}>
+          <Image
+            source={
+              isRecording
+                ? require('../../assets/images/recordstop.png')
+                : require('../../assets/images/record.png')
+            }
+            style={styles.imageStyle}
+          />
+        </TouchableOpacity>
+        <View style={styles.bottombuttonContainer} />
+      </View>
+
+
+      <View style={styles.closeContainer}>
         <TouchableOpacity
           style={[styles.iconspace]}
-          onPress={navigateToHomeScreen}>
+          onPress={() => navigation.goBack()}>
           <Image
             source={require('../../assets/images/close.png')}
             style={styles.imageStyleClose}
@@ -364,9 +364,8 @@ function Cameraa({navigation}) {
 const formatTime = seconds => {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = seconds % 60;
-  const formattedTime = `${minutes < 10 ? '0' : ''}${minutes}:${
-    remainingSeconds < 10 ? '0' : ''
-  }${remainingSeconds}`;
+  const formattedTime = `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''
+    }${remainingSeconds}`;
   return formattedTime;
 };
 

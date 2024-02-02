@@ -67,7 +67,7 @@ const Listing = ({navigation}) => {
       navigation.navigate('ModelVideoScreen', {
         videoPath: item.videoPath,
         itemID: item._id,
-        thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
+        thumbnailPath: `http://34.234.122.64/${item.videoThumbnail}`,
         originalName: item.originalName,
         threeDFilePath: `http://34.234.122.64/${item.threeDFilePath}`,
         itemDescription: item.description,
@@ -78,7 +78,7 @@ const Listing = ({navigation}) => {
       navigation.navigate('ModelVideoScreen', {
         videoPath: item.videoPath,
         itemID: item._id,
-        thumbnailPath: `http://34.234.122.64/${item.thumbnail}`,
+        thumbnailPath: `http://34.234.122.64/${item.videoThumbnail}`,
         originalName: item.originalName,
         threeDFilePath: ``,
         itemDescription: item.description,
@@ -88,7 +88,7 @@ const Listing = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <UploadModal />
+      {/* <UploadModal /> */}
       {/* {(data && data.length === 0) || data === null ? (
         <View>
           <Text
@@ -114,7 +114,7 @@ const Listing = ({navigation}) => {
             if (item && item.thumbnail) {
               console.log(
                 'Thumbnail URI:',
-                `http://34.234.122.64/${item.thumbnail}`,
+                `http://34.234.122.64/${item.videoThumbnail}`,
                 `http://34.234.122.64/${item.threeDFilePath}`,
               );
             }
@@ -135,7 +135,7 @@ const Listing = ({navigation}) => {
                 }}>
                 <Image
                   source={{
-                    uri: `http://34.234.122.64/${item.thumbnail}`,
+                    uri: `http://34.234.122.64/${item.videoThumbnail}`,
                   }}
                   style={{
                     height: imageSize,
@@ -175,60 +175,7 @@ const Listing = ({navigation}) => {
                   </LinearGradient>
                 </View>
               </TouchableOpacity>
-              //               <TouchableOpacity
-              //   onPress={() => handleItemPress(item)}
-              //   style={{
-              //     width: imageSize,
-              //     height: imageSize,
-              //     margin: 5,
-              //     marginBottom: 10,
-              //     marginHorizontal: 10,
-              //     marginTop: 10,
-              //     borderRadius: 8, // Apply border radius to the TouchableOpacity
-              //     borderWidth: 1,
-              //     overflow: 'hidden', // Clip child components to the border radius
-              //     elevation: 10,
-              //     shadowColor: 'black',
-              //     shadowRadius: 20,
-              //     justifyContent: 'center',
-              //     // alignItems: 'center', // Center content horizontally
-
-              //   }}
-              // >
-              //   <ImageBackground
-              //     source={{ uri: `http://34.234.122.64/${item.thumbnail}` }}
-              //     style={{
-              //       flex: 1,
-              //       borderRadius: 8,
-              //       justifyContent: 'flex-end', // Align the linear gradient to the bottom
-              //     }}
-              //     resizeMode="cover"
-              //     imageStyle={{ borderRadius: 8 }} // Apply border radius to the image
-              //   >
-              //     <LinearGradient
-              //       colors={['transparent', 'rgba(0,0,0,0.7)']} // Gradient colors and opacity
-              //       style={{
-              //         flex: 1,
-
-              //         justifyContent: 'center',
-              //                       alignItems: 'center',
-              //                       borderRadius: 8,
-              //     }}
-              //     >
-              // <Text
-              //                       style={{
-              //                         color: 'white',
-              //                         marginTop: 20,
-              //                         fontSize: RFValue(12),
-              //                         fontFamily: 'Poppins-Medium',
-              //                         paddingRight: 30,
-              //                         // fontStyle:'italic',
-              //                         // textAlign: 'center',
-              //                       }}>        {item.originalName}
-              //       </Text>
-              //     </LinearGradient>
-              //   </ImageBackground>
-              // </TouchableOpacity>
+            
             );
           }}
           // keyExtractor={item => item.id.toString()}

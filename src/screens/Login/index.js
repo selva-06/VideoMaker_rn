@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {
   View,
   TextInput,
-  Button,
   Text,
   TouchableOpacity,
   BackHandler,
@@ -13,6 +12,8 @@ import {loginRequest} from '../../store/authActions';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './styles';
 import {strings} from '../../util/Strings';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
 
 const LoginScreen = ({loginRequest, error, navigation}) => {
   useEffect(() => {
@@ -64,8 +65,8 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.container1}>
+    <SafeAreaProvider style={styles.container}>
+      <View style={styles.container1}> 
         <Text style={styles.welcomeText}>
           {strings.loginScreen.welcomeMessage}
         </Text>
@@ -128,8 +129,9 @@ const LoginScreen = ({loginRequest, error, navigation}) => {
             {strings.loginScreen.button.wosignin}
           </Text>
         </TouchableOpacity>
-      </View>
-    </View>
+        </View>
+    </SafeAreaProvider >
+    
   );
 };
 

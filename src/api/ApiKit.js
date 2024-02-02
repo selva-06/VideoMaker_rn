@@ -46,7 +46,8 @@ api.interceptors.response.use(
     return response;
   },
   error => {
-    if (error.response && error.response.status === 401) {
+
+    if (error?.response && error?.response?.status === 401) {
       // alert('status code is 401');
       console.log('response-------------401', error.response);
       // navigate('Profile', {});
@@ -85,7 +86,7 @@ api.interceptors.response.use(
       // return Promise.reject(error.response.data); 
       return Promise.resolve();
     }
-    console.log('E111111111111111111rror:', error);
+    console.log('E111111111111111111rror:', error.message);
     return Promise.resolve(); 
   },
 );

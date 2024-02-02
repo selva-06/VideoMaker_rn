@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(195, 232, 47, 0.4)',
-    paddingBottom: 80,
-  },
+
+   },
   container1: {
     width: windowWidth * 0.9,
     marginBottom: windowHeight * 0.14,

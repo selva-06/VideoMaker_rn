@@ -44,6 +44,7 @@ const MainTabNavigator = () => (
         borderTopWidth: 0,
         borderTopColor: 'transparent', // Reset border color
         elevation: 0,
+        backgroundColor: '#444444',
       },
 
       tabBarShowLabel: false,
